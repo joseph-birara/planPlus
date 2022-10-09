@@ -14,14 +14,17 @@ export class Register extends Component {
         }
     }
 
-    handlRegistration = () => {
-    axios.post(`${constants}/auth/login`, {
+    handlRegistration = (e) => {
+    e.preventDefault();
+    
+    axios.post(`${constants}/auth/register`, {
     email: this.state.email,
     password: this.state.password
   })
-      .then(response => {
+        .then(response => {
+          console.log(response)
         if (response.data.email === this.state.email) {
-       this.props.onRoutChange('home')
+       this.props.onRoutChange('Home')
           
         }
       })
@@ -103,7 +106,7 @@ export class Register extends Component {
                     Already have an account?
                                 <p
                                     className="text-blue-600 hover:underline"
-                                    onClick={() => onRoutChange('Register')}>
+                                    onClick={() => onRoutChange('signin')}>
                               Log in
                           </p>
                     
