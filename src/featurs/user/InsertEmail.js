@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 
-import { useEffect,useRef } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {selectCurrentUsers} from './userSlice';
 import {EmailForCode} from './UserActions';
+import { Link, useNavigate,} from 'react-router-dom';
 
 
 function InsertEmail() {
@@ -13,11 +13,13 @@ function InsertEmail() {
     const [email, setEmail] = useState();
     const dispatch = useDispatch();
     const { success } = useSelector(selectCurrentUsers);
+    const navigate = useNavigate();
     const handleSubmit =(e)=>{
         e.preventDefault();
         
        if(email ){
-        dispatch(EmailForCode({email}))
+           dispatch(EmailForCode({ email }))
+           navigate('/entercode')
        }
         
     }
@@ -28,18 +30,18 @@ function InsertEmail() {
     }, [])    
    
   return (
-      <div className='flex flex-col m-12 '>
-          <img  src={TooDoo_logo} alt='logo' className='mr-1/3 h-1/3 w-1/3' />
-          <h1 className='text-center'>
+      <div className='flex flex-col m-12 items-center gap-2'>
+          <img  src={TooDoo_logo} alt='logo' className='m-10 h-15 w-1/6' />
+          <h1 className='text-center text-4xl'>
               TooDoo
           </h1>
-          <h3 className='mr-5 mt-10'>
+          <h3 className='mt-10 text-2xl'>
               Forgot password?
           </h3>
-          <p className='m-5'>
+          <p className='m-3 w-60'>
               A password reset code will be sent to your email.
           </p>
-          <form className="mb-4 flex flex-col gap-4">
+          <form className="m-1 flex flex-col gap-4 text-center items-center">
         
           
                   <input
@@ -51,14 +53,14 @@ function InsertEmail() {
                   name="email"
                   id="email"
                   placeholder="Your email "
-                      className="w-1/3 px-3 py-2 bg-[#F9F2ED] placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                      className="w-60 px-3 py-2 bg-[#F9F2ED]"
                   />
                 <button
                   // onClick={this.onSubmitSignin}
                   
-                //   disabled = {!this.state.password ||!this.state.email }
-                //   onClick={this.handleSubmit}
-                  type="button" className="w-1/5 px-3 py-4 text-white bg-[#3AB0FF] rounded-md hover:bg-indigo-600 focus:outline-none duration-100 ease-in-out">
+                  disabled = {!email }
+                 onClick={handleSubmit}
+                  type="button" className="w-40 h-10 text-white bg-[#3AB0FF] rounded-md text-center">
                   Send code</button>
         
              

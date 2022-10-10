@@ -78,7 +78,7 @@ export const SendCode = createAsyncThunk(
     }
   }
 );
-export const NewPassword = createAsyncThunk(
+export const ResetNewPassword = createAsyncThunk(
   "user/Login",
   async ({  password }, { rejectWithValue }) => {
     try {

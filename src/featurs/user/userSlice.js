@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     RegisterUser,
     Login,
-    NewPassword,
+    ResetNewPassword,
     EmailForCode,
     SendCode
 
@@ -99,11 +99,11 @@ const UserSlice = createSlice({
             state.error = payload
         },
         //sending new password to reset user password
-        [ NewPassword.pending]:(state) =>{
+        [ ResetNewPassword.pending]:(state) =>{
             state.loading = true;
             state.error = null
         },
-        [NewPassword.fulfilled]:(state,{payload}) =>{
+        [ResetNewPassword.fulfilled]:(state,{payload}) =>{
             
             const{resetPassword} = payload;
             state.resetPassword={resetPassword};
@@ -112,7 +112,7 @@ const UserSlice = createSlice({
             state.success = true //registered
             console.log("succes login",state.userInfo);
         },
-        [NewPassword.rejected]:(state,{payload}) =>{
+        [ResetNewPassword.rejected]:(state,{payload}) =>{
             state.loading = false;
             state.error = payload
         }
