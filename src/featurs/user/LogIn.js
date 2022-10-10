@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
-import constants from '../constant'
+import constants from '../../constant'
+import { Link } from 'react-router-dom'
 // import { useSelector, useDispatch } from "react-redux";
 // import {
 //   passInput,
@@ -55,6 +56,7 @@ class LogIn extends React.Component {
         <div className="mb-6">
           <label htmlFor="email" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">Email Address</label>
                 <input
+                  required
                   value={this.state.email}
                  onChange={(e) => this.setState({ email:e.target.value})}
                   type="email"
@@ -69,11 +71,12 @@ class LogIn extends React.Component {
                     htmlFor="password"
                     className="text-sm text-gray-600 dark:text-gray-400">
                     Password</label>
-                  <a href="#!"
+                  <p 
                     className="text-sm text-gray-400 focus:outline-none focus:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-300">
-                    Forgot password?</a>
+                    Forgot password? <Link to ='/newemail'/></p>
           </div>
                 <input
+                  required
                   value={this.password}
                   onChange={(e) =>this.setState({password:e.target.value})}
                   type="password"
@@ -85,6 +88,8 @@ class LogIn extends React.Component {
         <div className="mb-6">
                 <button
                   // onClick={this.onSubmitSignin}
+                  
+                  disabled = {!this.state.password ||!this.state.email }
                   onClick={this.handleSubmit}
                   type="button" className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none duration-100 ease-in-out">
                   Sign in</button>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import constants from '../constant'
+import constants from '../../constant'
 
 export class Register extends Component {
 
@@ -8,7 +8,8 @@ export class Register extends Component {
         super(props)
         this.state = {
              email: '',
-            password: '',
+          password: '',
+            comnfirmPassword:''
            
 
         }
@@ -77,6 +78,7 @@ export class Register extends Component {
                       className="block">Password
                     </label>
                     <input
+                      onChange={e =>this.setState({password:e.target.value})}
                       type="password"
                       placeholder="Password"
                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"/>
@@ -85,7 +87,7 @@ export class Register extends Component {
                                 <label
                                     className="block">Confirm Password</label>
                                 <input
-                                    onChange={e =>this.setState({password:e.target.value})}
+                                    onChange={e =>this.setState({comnfirmPassword:e.target.value})}
                                     type="password"
                                     placeholder="Password"
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"/>
@@ -95,11 +97,13 @@ export class Register extends Component {
                   </span>
                   <div
                     className="flex">
-                                <button
-                                    onClick={ this.handlRegistration}
-                                    className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
-                                    Register
-                                </button>
+                    <button
+                        disabled = {!this.state.email || !this.state.password ||!this.state.password}
+                        onClick={ this.handlRegistration}
+                        className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
+                        Register
+                                    
+                    </button>
                  </div>
                             <div
                                 className="mt-6 text-grey-dark">

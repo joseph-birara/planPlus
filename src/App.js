@@ -1,9 +1,20 @@
 
-import LogIn from './featurs/LogIn';
-import store from './app/store'
-import Register from './featurs/Register';
+import LogIn from './featurs/user/LogIn';
+
+import Register from './featurs/user/Register';
 import React from 'react';
-import Home from './featurs/Home';
+import Home from './featurs/user/Home';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import InsertEmail from './featurs/user/InsertEmail';
+import Resend from './featurs/user/ResendCode'
+import EnterCode from './featurs/user/EnterCode'
+import NewPassword from './featurs/user/NewPassword'
+
  
 
 class App extends React.Component {
@@ -34,21 +45,19 @@ class App extends React.Component {
     
   
   return (
-    <div className='min-h-screen bg-gradient-to-l from-indigo-400 via-purple-500 to-pink-300'>
-      <div className='bg-gradient-to-l from-green-400 to-blue-500' >
-        {/* <Navigation logedIn={this.state.logedIn} onRoutChange={this.onRoutChange} />
-      
-        <Logo /> */}
+    <div className=''>
+      <div className='' >
+        
         
       </div>
 
-      {this.state.route === 'signin' ?
+      {/* {this.state.route === 'signin' ?
         <LogIn onRoutChange={this.onRoutChange} /> :
         
         (
           this.state.route === 'Register' ?
             <Register
-              // loadUser={this.loadUser}
+             
               onRoutChange={this.onRoutChange} /> :
             <div>
               
@@ -57,8 +66,21 @@ class App extends React.Component {
 
          
       
-      </div>)}
-    
+            </div>)} */}
+      
+      <BrowserRouter>
+        <Routes>
+           <Route path='/' element={<Home />} />
+          <Route path="/resend" element={<Resend/>} />
+
+          <Route path="/entercode" element={<EnterCode/>} />
+          <Route path="/newpassword" element={<NewPassword />} />
+          <Route path="/newemail" element={<InsertEmail />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/register" element={<Register/>} />
+
+        </Routes>
+      </BrowserRouter>
       
     </div>
   );
