@@ -9,4 +9,13 @@
     .btn{
         @apply m-4 w-40 h-10 text-white bg-[#3AB0FF] rounded-xl text-center
     }
+    .iconbg{
+        @apply bg-[#F9F2ED] rounded-xl h-10 p-1
+    }
+    .homeLogo{
+        @apply w-14 m-8 lg:m-12 lg:w-32
+    }
+    .addTask{
+        @apply text-white bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-8 lg:right-12 lg:bottom-12
+    }
 }

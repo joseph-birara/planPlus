@@ -2,6 +2,7 @@
 import PinInput from 'react-pin-input';
 import React, {useCallback, useState ,useEffect,useRef} from 'react';
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
+import LeftArraw from '../../Assets/IconCollection/LeftArraw';
 
 
 import { useDispatch, useSelector } from "react-redux";
@@ -9,17 +10,22 @@ import {selectCurrentUsers} from './userSlice';
 import { SendCode } from './UserActions';
 import { EmailForCode } from './UserActions';
 import ProgressBar from './progressBar';
+import { Link } from 'react-router-dom';
 
 
 
 
 function EnterCode() {
   const [optCode, setoptCode] = useState('')
+  const userref = useRef();
   const [timer, setTimer] = useState(10); 
   const dispatch = useDispatch()
-  const { email } = useSelector(selectCurrentUsers);
+  const { emailForReset } = useSelector(selectCurrentUsers);
   
-const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
+  const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
+useEffect(() => {
+        userref.current.focus();
+    }, []) 
 
 useEffect(() => {
   timer > 0 && setTimeout(timeOutCallback, 1000);
@@ -33,24 +39,41 @@ useEffect(() => {
 
 const resetTimer = function () {
   if (!timer) {
-    dispatch(EmailForCode({ email }))
     setTimer(60);
+    dispatch(EmailForCode({ emailForReset }))
+    
     
    
   }
 };
+  
+
    
   let wid = 0
   return (
+    <div>
 
-    <div className='flex flex-1 flex-col  w-2/3 gap-2 justify-center m-12 text-center inset-40 items-center mt-60 mr-60'>
-      <div className='text-bold '>
+      <div className='bg-[#F9F2ED] flex justify-between w-full h-12'>
+        <div className='ml-8 mt-2 '>
+          
+    <Link to='/insertemail'><LeftArraw />
+    </Link>
+        </div> 
+        {
+          emailForReset
+        }
+        
+    </div>
+
+    <div className='flex flex-col mt-60 items-center gap-4'>
+      <div className='text-bold text-2xl '>
         Enter code below
 
       </div>
       
       <div>
-        <PinInput 
+          <PinInput 
+            ref ={userref}
   length={4} 
   initialValue=""
   
@@ -61,8 +84,8 @@ const resetTimer = function () {
   }} 
   type="numeric" 
   inputMode="number"
-  style={{padding: '10px'}}  
-  inputStyle={{borderColor: 'red'}}
+  style={{padding: '10px',}}  
+  inputStyle={{ borderColor: 'black', borderRadius: '10px',background:'#F9F2ED' }}
   inputFocusStyle={{borderColor: 'blue'}}
           
           onComplete={(value, index) => {
@@ -76,9 +99,9 @@ const resetTimer = function () {
 
  <ProgressBar progressPercentage={ (100/60) * (60 - timer) }/>
       </div>
-      <div>
-        {timer > wid ? timer: <span>Didnt get code? <span className='text-blue-500' onClick ={resetTimer}> resend </span></span>}
-         scs
+      <div className=' right-0 mr-0'>
+          {timer > wid ? <span className='ml-40'>{`${timer} secs`}</span>  : <span>Didnt get code? <span className='text-blue-500 hover:cursor-pointer' onClick={resetTimer}> Resend  </span> <span className='ml-5'>0 secs</span>  </span>}
+         
       </div>
       <div>
         <button
@@ -93,7 +116,8 @@ const resetTimer = function () {
       > Send code</button>
       </div> 
         
-    </div>
+      </div>
+      </div>
   )
 }
 

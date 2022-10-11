@@ -6,8 +6,8 @@ import {selectCurrentUsers} from './userSlice';
 import {Login} from './UserActions';
 import { Link, useNavigate, } from 'react-router-dom';
 
-import Icons from './Icons';
-import IconsVisiblel from './IconsVisiblel';
+import Icons from '../../Assets/IconCollection/Icons';
+import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 
 function LogIn() {
   const userref = useRef();

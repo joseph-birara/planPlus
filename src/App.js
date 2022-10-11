@@ -15,6 +15,7 @@ import InsertEmail from './featurs/user/InsertEmail';
 import EnterCode from './featurs/user/EnterCode'
 import NewPassword from './featurs/user/NewPassword'
 import LoadingPage from './featurs/LoadingPage';
+import HomePage from './featurs/tasks/HomePage';
 
  
 
@@ -71,12 +72,12 @@ class App extends React.Component {
       
       <BrowserRouter>
         <Routes>
-           <Route path='/' element={<Home />} />
+           <Route path='/' element={<HomePage />} />
           
 
           <Route path="/entercode" element={<EnterCode/>} />
           <Route path="/newpassword" element={<NewPassword />} />
-          <Route path="/newemail" element={<InsertEmail />} />
+          <Route path="/insertemail" element={<InsertEmail />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/loading" element={<LoadingPage/>} />
