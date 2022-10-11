@@ -63,14 +63,14 @@ function NewPassword() {
                   name="email"
                   id="email"
                   placeholder="confirm password "
-                      className="w-60 px-3 py-2 bg-[#F9F2ED]"
+                      className="inputBox"
                   />
                 <button
                   // onClick={this.onSubmitSignin}
                   
                   disabled = {!password || !confirmPassword}
                  onClick={handleSubmit}
-                  type="button" className=" m-4 w-40 h-10 text-white bg-[#3AB0FF] rounded-md text-center">
+                  type="button" className=" btn">
                   Save</button>
         
              

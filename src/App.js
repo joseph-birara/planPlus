@@ -11,9 +11,10 @@ import {
 } from "react-router-dom";
 
 import InsertEmail from './featurs/user/InsertEmail';
-import Resend from './featurs/user/ResendCode'
+
 import EnterCode from './featurs/user/EnterCode'
 import NewPassword from './featurs/user/NewPassword'
+import LoadingPage from './featurs/LoadingPage';
 
  
 
@@ -71,13 +72,14 @@ class App extends React.Component {
       <BrowserRouter>
         <Routes>
            <Route path='/' element={<Home />} />
-          <Route path="/resend" element={<Resend/>} />
+          
 
           <Route path="/entercode" element={<EnterCode/>} />
           <Route path="/newpassword" element={<NewPassword />} />
           <Route path="/newemail" element={<InsertEmail />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/register" element={<Register/>} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/loading" element={<LoadingPage/>} />
 
         </Routes>
       </BrowserRouter>

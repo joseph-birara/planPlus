@@ -1,126 +1,111 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import constants from '../../constant'
+import React, { useState,useEffect,useRef } from 'react';
+import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 
-export class Register extends Component {
+import { useDispatch, useSelector } from "react-redux";
+import {selectCurrentUsers} from './userSlice';
+import {RegisterUser} from './UserActions';
+import { Link, useNavigate, } from 'react-router-dom';
+import Icons from './Icons';
+import IconsVisiblel from './IconsVisiblel';
 
-    constructor(props) {
-        super(props)
-        this.state = {
-             email: '',
-          password: '',
-            comnfirmPassword:''
-           
-
-        }
-    }
-
-    handlRegistration = (e) => {
-    e.preventDefault();
+function Register() {
+  const userref = useRef();
+  const errorref = useRef();
+  const [password, setpassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+  const [email, setemail] = useState('');
+  const [showAndHide, setshowAndHide] = useState(false);
+  const dispatch = useDispatch();
+  const { success } = useSelector(selectCurrentUsers);
+  const navigate = useNavigate();
+  const handleSubmit =(e)=>{
+        e.preventDefault();
+        
+       if(password && email ){
+           dispatch(RegisterUser({ password,email }))
+           navigate('/')
+       }
+        
+  }
+  
     
-    axios.post(`${constants}/auth/register`, {
-    email: this.state.email,
-    password: this.state.password
-  })
-        .then(response => {
-          console.log(response)
-        if (response.data.email === this.state.email) {
-       this.props.onRoutChange('Home')
+
+    useEffect(() => {
+        userref.current.focus();
+    }, []) 
+
+  return (
+    <div className='flex flex-col m-12 items-center gap-2'>
+          <img  src={TooDoo_logo} alt='logo' className='m-10 h-14' />
+          <h1 className='text-center text-4xl'>
+              TooDoo
+          </h1>
+          <h3 className='mt-10 text-1xl lg:text-2xl'>
+             Create an account with us
+          </h3>
+         
+          <form className="m-2 flex flex-col gap-5 text-center items-center">
+        
           
-        }
-      })
-    
-  .catch(function (error) {
-    console.log(error.response.data.err);
-  });
-  }
-  render() {
-    
-      const {onRoutChange} = this.props
-    
-        return (
-        <div
-            className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div
-              className="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3">
-              <h3
-                className="text-2xl font-bold text-center">Join us
-              </h3>
-              <form
-                action="">
-                <div
-                  className="mt-4">
-                <div>
-                    <label
-                      className="block"
-                      htmlFor="Name">Name
-                    </label>
-                                <input
-                                    onChange={e =>this.setState({name:e.target.value})}
-                                    type="text"
-                                    placeholder="Name"
-                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"/>
-                </div>
-                  <div
-                    className="mt-4">
-                    <label
-                      className="block"
-                      htmlFor="email">Email
-                    </label>
-                                <input
-                                    onChange={e =>this.setState({email:e.target.value})}
-                                    type="text"
-                                    placeholder="Email"
-                                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"/>
-                </div>
-                <div className="mt-4">
-                    <label
-                      className="block">Password
-                    </label>
-                    <input
-                      onChange={e =>this.setState({password:e.target.value})}
-                      type="password"
-                      placeholder="Password"
-                      className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"/>
-                </div>
-                <div className="mt-4">
-                                <label
-                                    className="block">Confirm Password</label>
-                                <input
-                                    onChange={e =>this.setState({comnfirmPassword:e.target.value})}
-                                    type="password"
-                                    placeholder="Password"
-                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"/>
-                </div>
-                  <span
-                    className="text-xs text-red-400">Password must be same!
-                  </span>
-                  <div
-                    className="flex">
-                    <button
-                        disabled = {!this.state.email || !this.state.password ||!this.state.password}
-                        onClick={ this.handlRegistration}
-                        className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
-                        Register
-                                    
-                    </button>
-                 </div>
-                            <div
-                                className="mt-6 text-grey-dark">
-                    Already have an account?
-                                <p
-                                    className="text-blue-600 hover:underline"
-                                    onClick={() => onRoutChange('signin')}>
-                              Log in
-                          </p>
-                    
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-    )
-  }
+                  <input
+                  ref = {userref}
+                  required
+                  value={email}
+                 onChange={e => setemail(e.target.value)}
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Your email "
+                      className="inputBox"
+        />
+        <div className='relative'> 
+          <input
+                
+                  required
+                  value={password}
+                 onChange={e => setpassword(e.target.value)}
+                  type={showAndHide ===false? "password":"text"}
+                  name="password"
+                  id="password"
+                  placeholder=" password "
+            className="inputBox"
+            
+          />
+          <div onClick={() => {
+            setshowAndHide(!showAndHide)
+            console.log(showAndHide)
+          }}>
+{ showAndHide ?<IconsVisiblel/>:<Icons />}
+          </div>
+          
+          
+          </div>
+
+        <input
+                
+                  required
+                  value={confirmPassword}
+                 onChange={e => setconfirmPassword(e.target.value)}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="confirm password "
+                      className="inputBox"
+                  />
+        <p className='text-center w-60 lg:w-80'> <input type="checkbox" class=" checked:bg-red-300 w-8 h-5" /> By sigining up, you agree to our <span className='text-[#3AB0FF]'><Link to ='/register'>Privacy policy </Link> </span>and <span className='text-[#3AB0FF]'><Link to ='/register'>terms of service </Link> </span></p>
+                <button
+                  // onClick={this.onSubmitSignin}
+                  
+                  disabled = {!email || !password}
+                 onClick={handleSubmit}
+                  type="button" className=" btn">
+                  Sign up</button>
+        
+             
+      </form>
+      <p> Already have an account? <span className='text-[#3AB0FF]'><Link to ='/login'>Log in</Link></span></p>
+      </div>
+  )
 }
 
 export default Register

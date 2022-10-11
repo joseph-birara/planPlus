@@ -53,14 +53,14 @@ function InsertEmail() {
                   name="email"
                   id="email"
                   placeholder="Your email "
-                      className="w-60 px-3 py-2 bg-[#F9F2ED]"
+                      className="inputBox"
                   />
                 <button
                   // onClick={this.onSubmitSignin}
                   
                   disabled = {!email }
                  onClick={handleSubmit}
-                  type="button" className="w-40 h-10 text-white bg-[#3AB0FF] rounded-md text-center">
+                  type="button" className="btn">
                   Send code</button>
         
              

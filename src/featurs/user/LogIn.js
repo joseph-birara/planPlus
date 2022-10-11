@@ -3,22 +3,26 @@ import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 
 import { useDispatch, useSelector } from "react-redux";
 import {selectCurrentUsers} from './userSlice';
-import {EmailForCode,ResetNewPassword,Login} from './UserActions';
-import { Link, useNavigate,} from 'react-router-dom';
+import {Login} from './UserActions';
+import { Link, useNavigate, } from 'react-router-dom';
+
+import Icons from './Icons';
+import IconsVisiblel from './IconsVisiblel';
 
 function LogIn() {
   const userref = useRef();
   const errorref = useRef();
   const [password, setpassword] = useState();
-  const [confirmPassword, setconfirmPassword] = useState();
+  const [email, setemail] = useState();
   const dispatch = useDispatch();
   const { success } = useSelector(selectCurrentUsers);
-  const navigate = useNavigate();
+const navigate = useNavigate();
+const [showAndHide, setshowAndHide] = useState(false);
   const handleSubmit =(e)=>{
         e.preventDefault();
         
-       if(password && confirmPassword ){
-           dispatch(Login({ password }))
+       if(password && email ){
+           dispatch(Login({ password,email }))
            navigate('/')
        }
         
@@ -31,7 +35,7 @@ function LogIn() {
 
   return (
     <div className='flex flex-col m-12 items-center gap-2'>
-          <img  src={TooDoo_logo} alt='logo' className='m-10 h-15 w-1/6' />
+          <img  src={TooDoo_logo} alt='logo' className='m-10 h-14' />
           <h1 className='text-center text-4xl'>
               TooDoo
           </h1>
@@ -46,31 +50,42 @@ function LogIn() {
                  ref = {userref}
                   required
                   value={password}
-                 onChange={e => setpassword(e.target.value)}
-                  type="password"
+                 onChange={e => setemail(e.target.value)}
+                  type="email"
                   name="email"
                   id="email"
-                  placeholder="New password "
-                      className="w-60 px-3 py-2 bg-[#F9F2ED]"
+                  placeholder="Your email "
+                      className="inputBox"
         />
-         <input
+         <div className='relative'> 
+          <input
                 
                   required
-                  value={confirmPassword}
-                 onChange={e => setconfirmPassword(e.target.value)}
-                  type="password"
-                  name="email"
-                  id="email"
-                  placeholder="confirm password "
-                      className="w-60 px-3 py-2 bg-[#F9F2ED]"
-        />
-        <p> Forget password? <span className='text-[#3AB0FF]'><Link to ='/register'>Reset</Link></span></p>
+                  value={password}
+                 onChange={e => setpassword(e.target.value)}
+                  type={showAndHide ===false? "password":"text"}
+                  name="password"
+                  id="password"
+                  placeholder=" password "
+            className="inputBox"
+            
+          />
+          <div onClick={() => {
+            setshowAndHide(!showAndHide)
+            console.log(showAndHide)
+          }}>
+{ showAndHide ?<IconsVisiblel/>:<Icons />}
+          </div>
+          
+          
+          </div>
+        <p> Forget password? <span className='text-[#3AB0FF]'><Link to ='/newemail'>Reset</Link></span></p>
                 <button
                   // onClick={this.onSubmitSignin}
                   
-                  disabled = {!password || !confirmPassword}
+                  disabled = {!email || !password}
                  onClick={handleSubmit}
-                  type="button" className=" m-4 w-40 h-10 text-white bg-[#3AB0FF] rounded-md text-center">
+                  type="button" className=" btn">
                   Log in</button>
         
              

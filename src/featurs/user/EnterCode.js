@@ -89,7 +89,7 @@ const resetTimer = function () {
                 //hover:bg-indigo-600 focus:outline-none duration-100 ease-in-out   disabled = {!this.state.password ||!this.state.email }
                 //   onClick={this.handleSubmit}
         type="button"
-        className="w-40 h-10 text-white bg-[#3AB0FF] rounded-md text-center  "
+        className="btn "
       > Send code</button>
       </div> 
         
