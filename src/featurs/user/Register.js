@@ -16,14 +16,22 @@ function Register() {
   const [email, setemail] = useState('');
   const [showAndHide, setshowAndHide] = useState(false);
   const dispatch = useDispatch();
-  const { success } = useSelector(selectCurrentUsers);
+  const { success,error,loading } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
   const handleSubmit =(e)=>{
         e.preventDefault();
         
        if(password && email ){
-           dispatch(RegisterUser({ password,email }))
-           navigate('/')
+         dispatch(RegisterUser({ password, email }))
+        //  if (success && !loading) {
+           
+        //   //  navigate('/')
+        //  }
+        //  else {
+        //    console.log(error)
+        //  }
+
+           
        }
         
   }
@@ -92,7 +100,7 @@ function Register() {
                   placeholder="confirm password "
                       className="inputBox"
                   />
-        <p className='text-center w-60 lg:w-80'> <input type="checkbox" class=" checked:bg-red-300 w-8 h-5" /> By sigining up, you agree to our <span className='text-[#3AB0FF]'><Link to ='/register'>Privacy policy </Link> </span>and <span className='text-[#3AB0FF]'><Link to ='/register'>terms of service </Link> </span></p>
+        <p className='text-center w-60 lg:w-80'> <input type="checkbox" className=" checked:bg-red-300 w-8 h-5" /> By sigining up, you agree to our <span className='text-[#3AB0FF]'><Link to ='/register'>Privacy policy </Link> </span>and <span className='text-[#3AB0FF]'><Link to ='/register'>terms of service </Link> </span></p>
                 <button
                   // onClick={this.onSubmitSignin}
                   

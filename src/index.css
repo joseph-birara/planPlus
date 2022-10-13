@@ -10,7 +10,7 @@
         @apply m-4 w-40 h-10 text-white bg-[#3AB0FF] rounded-xl text-center
     }
     .iconbg{
-        @apply bg-[#F9F2ED] rounded-xl h-10 p-1
+        @apply bg-[#F9F2ED] rounded-xl h-10 p-1 lg:h-14
     }
     .homeLogo{
         @apply w-14 m-8 lg:m-12 lg:w-32

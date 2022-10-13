@@ -11,10 +11,10 @@ export const RegisterUser = createAsyncThunk(
       console.log(resp.data);
       return resp.data;
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
+      if (error.response && error.response.data.err) {
+        return rejectWithValue (error.response.data.err);
       } else {
-        return rejectWithValue(error.message);
+        return rejectWithValue(error.err);
       }
     }
   }

@@ -35,7 +35,7 @@ const UserSlice = createSlice({
             state.userToken={Token}
             state.loading = false;
             state.success = true;
-            console.log("succes signup",state.userInfo);
+            console.log("succes signup",state.userInfo,state.success);
                 
         },
         [RegisterUser.rejected]:(state,{payload})=>{
