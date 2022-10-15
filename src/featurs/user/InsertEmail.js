@@ -4,16 +4,23 @@ import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 import { useDispatch, useSelector } from "react-redux";
 import {selectCurrentUsers} from './userSlice';
 import {EmailForCode} from './UserActions';
-import { Link, useNavigate,} from 'react-router-dom';
+import { Link, useNavigate, } from 'react-router-dom';
+import validEmail from '../../GlobalVariabls/EmailValidation';
 
 
 function InsertEmail() {
+      const [error, setError] = useState(null);
     const userref = useRef();
     const errorref = useRef();
     const [email, setEmail] = useState();
     const dispatch = useDispatch();
     const { success } = useSelector(selectCurrentUsers);
     const navigate = useNavigate();
+
+    const validateEmail = (email) => {
+    const re = validEmail
+    return re.test(String(email).toLowerCase());
+  };
     const handleSubmit =(e)=>{
         e.preventDefault();
         

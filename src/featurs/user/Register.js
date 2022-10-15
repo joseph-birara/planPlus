@@ -7,8 +7,10 @@ import {RegisterUser} from './UserActions';
 import { Link, useNavigate, } from 'react-router-dom';
 import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
+import validEmail from '../../GlobalVariabls/EmailValidation';
 
 function Register() {
+  const [error, setError] = useState(null);
   const userref = useRef();
   const errorref = useRef();
   const [password, setpassword] = useState('');
@@ -16,24 +18,35 @@ function Register() {
   const [email, setemail] = useState('');
   const [showAndHide, setshowAndHide] = useState(false);
   const dispatch = useDispatch();
-  const { success,error,loading } = useSelector(selectCurrentUsers);
+  const { success,loading } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
-  const handleSubmit =(e)=>{
-        e.preventDefault();
-        
-       if(password && email ){
-         dispatch(RegisterUser({ password, email }))
-        //  if (success && !loading) {
-           
-        //   //  navigate('/')
-        //  }
-        //  else {
-        //    console.log(error)
-        //  }
 
-           
-       }
+  const validateEmail = (email) => {
+    const re =validEmail
+      
+    return re.test(String(email).toLowerCase());
+  };
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateEmail(email)) {
+      setError('Invalid Email');
+    }
+    if (password.length < 8) {
+      setError('Password must be at least 8 chars long');
+    }
+    if (password !== confirmPassword) {
+      setError('pass word does not match')
+    }
+    if (!error) {
         
+      if (password && email) {
+        dispatch(RegisterUser({ password, email }))
+                  
+      }
+        
+    }
   }
   
     
@@ -50,7 +63,13 @@ function Register() {
           </h1>
           <h3 className='mt-10 text-1xl lg:text-2xl'>
              Create an account with us
-          </h3>
+      </h3>
+      {
+        error ? <div className='errorMessag'>
+         { error}
+        </div> :
+          ''
+      }
          
           <form className="m-2 flex flex-col gap-5 text-center items-center">
         
@@ -64,7 +83,8 @@ function Register() {
                   name="email"
                   id="email"
                   placeholder="Your email "
-                      className="inputBox"
+          className="inputBox"
+          onClick={(e) =>setError('')}
         />
         <div className='relative'> 
           <input
@@ -77,6 +97,7 @@ function Register() {
                   id="password"
                   placeholder=" password "
             className="inputBox"
+            onClick={(e) =>setError('')}
             
           />
           <div onClick={() => {
@@ -98,7 +119,8 @@ function Register() {
                   name="password"
                   id="password"
                   placeholder="confirm password "
-                      className="inputBox"
+          className="inputBox"
+          onClick={(e) =>setError('')}
                   />
         <p className='text-center w-60 lg:w-80'> <input type="checkbox" className=" checked:bg-red-300 w-8 h-5" /> By sigining up, you agree to our <span className='text-[#3AB0FF]'><Link to ='/register'>Privacy policy </Link> </span>and <span className='text-[#3AB0FF]'><Link to ='/register'>terms of service </Link> </span></p>
                 <button

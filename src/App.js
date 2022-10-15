@@ -16,6 +16,9 @@ import EnterCode from './featurs/user/EnterCode'
 import NewPassword from './featurs/user/NewPassword'
 import LoadingPage from './featurs/LoadingPage';
 import HomePage from './featurs/tasks/HomePage';
+import Task from './featurs/tasks/Task';
+import SubTask from './featurs/tasks/SubTask';
+
 
  
 
@@ -80,7 +83,10 @@ class App extends React.Component {
           <Route path="/insertemail" element={<InsertEmail />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/loading" element={<LoadingPage/>} />
+          <Route path="/loading" element={<LoadingPage />} />
+          <Route path="/task" element={<Task />} />
+           <Route path="/subtask" element={<SubTask />} />
+          
 
         </Routes>
       </BrowserRouter>

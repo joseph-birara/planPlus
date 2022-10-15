@@ -8,23 +8,39 @@ import { Link, useNavigate, } from 'react-router-dom';
 
 import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
+import validEmail from '../../GlobalVariabls/EmailValidation';
+
 
 function LogIn() {
+  const [error, setError] = useState(null);
   const userref = useRef();
   const errorref = useRef();
-  const [password, setpassword] = useState();
+  const [password, setpassword] = useState('');
   const [email, setemail] = useState();
   const dispatch = useDispatch();
   const { success } = useSelector(selectCurrentUsers);
 const navigate = useNavigate();
-const [showAndHide, setshowAndHide] = useState(false);
+  const [showAndHide, setshowAndHide] = useState(false);
+  const validateEmail = (email) => {
+    const re =validEmail
+    return re.test(String(email).toLowerCase());
+  };
   const handleSubmit =(e)=>{
-        e.preventDefault();
+    e.preventDefault();
+    if (!validateEmail(email)) {
+      setError('Invalid Email');
+    }
+    if (password.length < 8) {
+      setError('Password must be at least 8 chars long');
+    }
+    if (!error) {
+      
+     
+      if (password && email) {
+        dispatch(Login({ password, email }))
         
-       if(password && email ){
-           dispatch(Login({ password,email }))
-           navigate('/')
-       }
+      }
+    }
         
     }
     
@@ -35,13 +51,20 @@ const [showAndHide, setshowAndHide] = useState(false);
 
   return (
     <div className='flex flex-col m-12 items-center gap-2'>
+      
           <img  src={TooDoo_logo} alt='logo' className='m-10 h-14' />
           <h1 className='text-center text-4xl'>
               TooDoo
           </h1>
           <h3 className='mt-10 text-1xl'>
               Log in to continue
-          </h3>
+      </h3>
+      {
+        error ? <div className='errorMessag'>
+         { error}
+        </div> :
+          ''
+      }
          
           <form className="m-2 flex flex-col gap-4 text-center items-center">
         
@@ -49,13 +72,14 @@ const [showAndHide, setshowAndHide] = useState(false);
                   <input
                  ref = {userref}
                   required
-                  value={password}
+                  value={email}
                  onChange={e => setemail(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
                   placeholder="Your email "
-                      className="inputBox"
+          className="inputBox"
+          onClick={(e) =>setError('')}
         />
          <div className='relative'> 
           <input
@@ -68,6 +92,7 @@ const [showAndHide, setshowAndHide] = useState(false);
                   id="password"
                   placeholder=" password "
             className="inputBox"
+            onClick={(e) =>setError('')}
             
           />
           <div onClick={() => {

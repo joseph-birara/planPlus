@@ -8,8 +8,9 @@ import { Link, useNavigate, } from 'react-router-dom';
 import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 
-function NewPassword() {
 
+function NewPassword() {
+    const [error, setError] = useState(null);
   const userref = useRef();
   const errorref = useRef();
   const [password, setpassword] = useState();
@@ -18,15 +19,23 @@ function NewPassword() {
     const { success } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
   const [showAndHide, setshowAndHide] = useState(false);
-    const handleSubmit =(e)=>{
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password.length < 8) {
+      setError('Password must be at least 8 chars long');
+    }
+    if (password !== confirmPassword) {
+      setError('pass word does not match')
+    }
+    if (!error) {
         
-       if(password && confirmPassword ){
-           dispatch(ResetNewPassword({ password }))
-           navigate('/login')
-       }
+      if (password && confirmPassword) {
+        dispatch(ResetNewPassword({ password }))
+        navigate('/login')
+      }
         
     }
+  }
     
 
     useEffect(() => {
@@ -41,12 +50,19 @@ function NewPassword() {
           </h1>
           <h3 className='mt-10 text-1xl'>
               Create new password
-          </h3>
+      </h3>
+      {
+        error ? <div className='errorMessag'>
+         { error}
+        </div> :
+          ''
+      }
          
           <form className="m-2 flex flex-col gap-4 text-center items-center">
         
-          <div className='relative'>
-                  <input
+        <div
+          className='relative'>
+           <input
                  ref = {userref}
                   required
                   value={password}
@@ -55,7 +71,8 @@ function NewPassword() {
                   name="email"
                   id="email"
                   placeholder="New password "
-                      className="inputBox"
+                  className="inputBox"
+                  onClick={(e) =>setError('')}
         />
         <div onClick={() => {
             setshowAndHide(!showAndHide)
@@ -73,7 +90,8 @@ function NewPassword() {
                   name="email"
                   id="email"
                   placeholder="confirm password "
-                      className="inputBox"
+          className="inputBox"
+          onClick={(e) =>setError('')}
                   />
                 <button
                   // onClick={this.onSubmitSignin}

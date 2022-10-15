@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import constants from "../../constant";
+import constants from "../../GlobalVariabls/constant";
 
 export const RegisterUser = createAsyncThunk(
   "user/RegisterUser",
