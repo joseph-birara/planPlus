@@ -1,60 +1,85 @@
 import React, { useState } from 'react'
 import { MdCheckBoxOutlineBlank } from 'react-icons/md'
 import { AiOutlineArrowDown } from 'react-icons/ai'
-import { AiFillStar,AiOutlineStar} from 'react-icons/ai'
+import { AiFillStar,AiOutlineStar,AiFillCheckSquare} from 'react-icons/ai'
 import { BiUpArrowAlt } from 'react-icons/bi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import EditDeleteCancel from './EditDeleteCancel'
 import SubTask from './SubTask'
-function Task() {
+import { RiCheckboxBlankFill} from 'react-icons/ri'
+
+
+
+function Task(props) {
     const [upArrow, setupArrow] = useState(false)
     const [edit, setedit] = useState(false)
-    const [rating ,setrating] = useState(false)
+    const [priority, setpriority] = useState(false)
+    const [shortDescription, setshortDescription] = useState(true)
+    const stars = [1, 2, 3, 4, 5]
+    
     return (
-      <div className='container'>
+        <div className='container'>
+            
             
       
       <div className='task'>
           <div className='flex flex-col justify-between '>
               
-              <div className='doneUndone'>
-              <MdCheckBoxOutlineBlank />
-          </div>
-              <div onClick={() => setupArrow(!upArrow)} className='taskSubtask'>
+                    <div
+                        className='doneUndone'>    <input
+                            type="checkbox" value="" className="checkBox" />
+                    </div>
+                <div
+                    onClick={() => setupArrow(!upArrow)
+                    }
+                    className='taskSubtask'>
                   
                   {upArrow?<BiUpArrowAlt/>:
                       <AiOutlineArrowDown /> 
                       
                   }
-          </div>
+                    </div>
+          
           </div> 
           <div className='taskBody'>
               <div className='titelAndDescription'>
               <div className='title'>
-                  hello
+                            {
+                                props.task.title
+                  }
               </div>
-              <div className='description'>
-                 -- describ this Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae sit natus 
+              <div className='description' onClick={()=>setshortDescription(!shortDescription)}>
+                 {
+                     shortDescription? ( props.task.note.length>100 ? props.task.note.slice(0,100) +'....':props.task.note):props.task.note
+                  }
               </div>
               
               
               </div>
               <div className='starTime'>
-                    <div className='star'>
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiOutlineStar />
-                        <AiOutlineStar/>
+                        <div className='star'>
+                            {
+                                stars.map((item, index) => 
+                                    props.task.priority>index?<AiFillStar />:<AiOutlineStar/>
+                                )
+                            }
+                        
+                        
                   </div>
                   <div className='duration'>
-                      30 mixins
+                            {
+                                props.task.duration
+                      }
                   </div>
                   < div className='begin'>
-                      0ct 3
+                            {
+                                props.task.dateTime
+                      }
                   </div>
                   <div className='catagory'>
-                      education
+                            {
+                                props.task.catagory
+                      }
                   </div>
               </div>
               
@@ -74,7 +99,9 @@ function Task() {
          
             </div>
             {
-              upArrow? <SubTask /> :''
+                upArrow ? props.task.sub.map((x,i) => 
+                    <SubTask subTask={x} key ={i} />
+                )  :''
                       
                       
                    

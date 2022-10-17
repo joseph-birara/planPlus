@@ -10,7 +10,8 @@ import {selectCurrentUsers} from './userSlice';
 import { SendCode } from './UserActions';
 import { EmailForCode } from './UserActions';
 import ProgressBar from './progressBar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Timer from './Timer';
 
 
 
@@ -18,14 +19,19 @@ import { Link } from 'react-router-dom';
 function EnterCode() {
   const [optCode, setoptCode] = useState('')
   const userref = useRef();
-  const [timer, setTimer] = useState(10); 
+  const [timer, setTimer] = useState(60); 
   const dispatch = useDispatch()
   const { emailForReset } = useSelector(selectCurrentUsers);
+  const navigate = useNavigate();
+  const [flag, setfalg]=useState(false)
   
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
 useEffect(() => {
         userref.current.focus();
-    }, []) 
+}, [flag]) 
+  // useEffect(() => {
+  //       userref.current.focus();
+  //   }, [])
 
 useEffect(() => {
   timer > 0 && setTimeout(timeOutCallback, 1000);
@@ -34,11 +40,15 @@ useEffect(() => {
   console.log(timer);
   const handleSubmit = (e) => {
     e.preventDefault()
+    
     dispatch(SendCode(optCode))
+    navigate('/newpassword')
   }
 
 const resetTimer = function () {
   if (!timer) {
+    setoptCode('')
+    setfalg(!flag)
     setTimer(60);
     dispatch(EmailForCode({ emailForReset }))
     
@@ -53,25 +63,28 @@ const resetTimer = function () {
   return (
     <div>
 
-      <div className='bg-[#F9F2ED] flex justify-between w-full h-12'>
-        <div className='ml-8 mt-2 '>
+      <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between'>
+        <div className='ml-6 mt-2 '>
           
     <Link to='/insertemail'><LeftArraw />
     </Link>
         </div> 
-        {
-          emailForReset
-        }
+        <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
+          coding@gmail.com
+        </div>
+        <div>
+
+        </div>
         
     </div>
 
-    <div className='flex flex-col mt-60 items-center gap-4'>
-      <div className='text-bold text-2xl '>
+    <div className='flex flex-col mt-40 items-center gap-4 text-sm'>
+      <div className='text-bold text-xl font-semibold mb-12 w-72 text-center'>
         Enter code below
 
       </div>
       
-      <div>
+      <div className='w-72 text-center -mb-2'>
           <PinInput 
             ref ={userref}
   length={4} 
@@ -84,9 +97,9 @@ const resetTimer = function () {
   }} 
   type="numeric" 
   inputMode="number"
-  style={{padding: '10px',}}  
-  inputStyle={{ borderColor: 'black', borderRadius: '10px',background:'#F9F2ED' }}
-  inputFocusStyle={{borderColor: 'blue'}}
+  style={{padding: '1px',}}  
+  inputStyle={{borderColor:'#F9F2ED', borderRadius: '10px',background:'#F9F2ED' ,height:'50px',width:'37px',margin:'12px'}}
+  inputFocusStyle={{borderColor: '#C9B6A9'}}
           
           onComplete={(value, index) => {
     setoptCode( value)
@@ -95,25 +108,46 @@ const resetTimer = function () {
   regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       />
       </div> 
-      <div className='text-center right-6 '>
+      <div className='text-center'>
 
  <ProgressBar progressPercentage={ (100/60) * (60 - timer) }/>
       </div>
-      <div className=' right-0 mr-0'>
-          {timer > wid ? <span className='ml-40'>{`${timer} secs`}</span>  : <span>Didnt get code? <span className='text-blue-500 hover:cursor-pointer' onClick={resetTimer}> Resend  </span> <span className='ml-5'>0 secs</span>  </span>}
+        <div className='text-center mt-0'>
+          <div className='relative'>
+            {
+            timer > wid ? <Timer timeAndSec={ `${timer}sec`} /> : <span
+                className='-mt-3'>
+                <span>
+Didn't get code?
+              <span className='text-start'>
+
+                </span>
+            <span
+              className='text-[#3AB0FF] hover:cursor-pointer font-bold'
+              onClick={resetTimer}> Resend
+            </span>
+                </span>
+              
+            <span className='ml-10'>0sec
+            </span>
+          </span>
+          }
+
+          </div>
+          
          
       </div>
       <div>
         <button
         disabled={optCode.length !== 4}
-        onSubmit ={handleSubmit}
+        onClick ={handleSubmit}
                   // onClick={this.onSubmitSignin}
                   
                 //hover:bg-indigo-600 focus:outline-none duration-100 ease-in-out   disabled = {!this.state.password ||!this.state.email }
                 //   onClick={this.handleSubmit}
         type="button"
-        className="btn "
-      > Send code</button>
+        className="btn font-bold "
+      > Submit</button>
       </div> 
         
       </div>

@@ -43,12 +43,12 @@ function NewPassword() {
     }, []) 
 
   return (
-    <div className='flex flex-col m-12 items-center gap-2'>
-          <img  src={TooDoo_logo} alt='logo' className='m-10 h-14' />
-          <h1 className='text-center text-4xl'>
+    <div className='flex flex-col m-16 items-center gap-2'>
+          <img  src={TooDoo_logo} alt='logo' className='mt-16 h-12 mb-8' />
+          <h1 className='text-center text-2xl font-black'>
               TooDoo
           </h1>
-          <h3 className='mt-10 text-1xl'>
+          <h3 className='mt-10 text-1xl mb-4 font-medium'>
               Create new password
       </h3>
       {
@@ -98,7 +98,7 @@ function NewPassword() {
                   
                   disabled = {!password || !confirmPassword}
                  onClick={handleSubmit}
-                  type="button" className=" btn">
+                  type="button" className=" btn mt-10">
                   Save</button>
         
              

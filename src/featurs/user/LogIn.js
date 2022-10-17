@@ -50,13 +50,13 @@ const navigate = useNavigate();
     }, []) 
 
   return (
-    <div className='flex flex-col m-12 items-center gap-2'>
+    <div className='flex flex-col m-12 items-center gap-1 mt-20'>
       
-          <img  src={TooDoo_logo} alt='logo' className='m-10 h-14' />
-          <h1 className='text-center text-4xl'>
+          <img  src={TooDoo_logo} alt='logo' className='m-8 h-12' />
+          <h1 className='text-center text-2xl font-black'>
               TooDoo
           </h1>
-          <h3 className='mt-10 text-1xl'>
+          <h3 className='mt-14 text-lg  font-medium'>
               Log in to continue
       </h3>
       {
@@ -66,7 +66,7 @@ const navigate = useNavigate();
           ''
       }
          
-          <form className="m-2 flex flex-col gap-4 text-center items-center">
+          <form className="m-2 mt-8 flex flex-col gap-3 text-center items-center">
         
           
                   <input
@@ -90,7 +90,7 @@ const navigate = useNavigate();
                   type={showAndHide ===false? "password":"text"}
                   name="password"
                   id="password"
-                  placeholder=" password "
+                  placeholder=" Password "
             className="inputBox"
             onClick={(e) =>setError('')}
             
@@ -104,18 +104,19 @@ const navigate = useNavigate();
           
           
           </div>
-        <p> Forget password? <span className='text-[#3AB0FF]'><Link to ='/newemail'>Reset</Link></span></p>
-                <button
+        <p className='text-right ml-24 justify-end text-sm lg:ml-36'> Forget password? <span className='text-[#3AB0FF]'><Link to ='/insertemail'> Reset</Link></span></p>
+        <button
+          
                   // onClick={this.onSubmitSignin}
                   
-                  disabled = {!email || !password}
+                  disabled = {!email || password.length<8}
                  onClick={handleSubmit}
-                  type="button" className=" btn">
+                  type="button" className=" btn mt-10">
                   Log in</button>
         
              
       </form>
-      <p> New to TooDoo? <span className='text-[#3AB0FF]'><Link to ='/register'>Register</Link></span></p>
+      <p className='text-sm -mt-2'> New to TooDoo? <span className='text-[#3AB0FF]'><Link to ='/register'>Register</Link></span></p>
       </div>
   )
 }

@@ -5,8 +5,10 @@ import { AiFillStar,AiOutlineStar} from 'react-icons/ai'
 import { BiUpArrowAlt } from 'react-icons/bi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import EditDeleteCancel from './EditDeleteCancel'
-function SubTask() {
+function SubTask(props) {
     const [edit, setedit] = useState(false)
+    const subStars = [1, 2, 3, 4, 5]
+    const [subShortDescription, setsubShortDescription] = useState(true)
     return (
       
       
@@ -21,27 +23,35 @@ function SubTask() {
           <div className='taskBody'>
               <div className='titelAndDescription'>
               <div className='title'>
-                  hello
+                 {
+                    props.subTask.title
+                  }
               </div>
-              <div className='description'>
-                 -- describ this Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae sit natus 
+              <div className='description' onClick={()=>setsubShortDescription(!subShortDescription)}>
+                {
+                     subShortDescription? ( props.subTask.note.length>100? props.subTask.note.slice(0,100) +'....':props.subTask.note):props.subTask.note
+                  }
               </div>
               
               
               </div>
               <div className='starTime max'>
                     <div className='star'>
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiOutlineStar />
-                        <AiOutlineStar/>
+                        {
+                                subStars.map((item, index) => 
+                                    props.subTask.priority>index?<AiFillStar />:<AiOutlineStar/>
+                                )
+                            }
                   </div>
                   <div className='duration'>
-                      30 mixins
+                      {
+                                props.subTask.duration
+                      }
                   </div>
                   < div className='begin'>
-                      0ct 3
+                       {
+                                props.subTask.dateTime
+                      }
                   </div>
                   
               </div>

@@ -85,7 +85,8 @@ class App extends React.Component {
           <Route path="/register" element={<Register />} />
           <Route path="/loading" element={<LoadingPage />} />
           <Route path="/task" element={<Task />} />
-           <Route path="/subtask" element={<SubTask />} />
+          <Route path="/subtask" element={<SubTask />} />
+          
           
 
         </Routes>

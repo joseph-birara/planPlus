@@ -8,6 +8,7 @@ import { Link, useNavigate, } from 'react-router-dom';
 import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import validEmail from '../../GlobalVariabls/EmailValidation';
+import Checkbox from '../../Assets/IconCollection/Checkbox';
 
 function Register() {
   const [error, setError] = useState(null);
@@ -17,6 +18,7 @@ function Register() {
   const [confirmPassword, setconfirmPassword] = useState('');
   const [email, setemail] = useState('');
   const [showAndHide, setshowAndHide] = useState(false);
+  const [agrement, setagrement] = useState(false);
   const dispatch = useDispatch();
   const { success,loading } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
@@ -56,12 +58,12 @@ function Register() {
     }, []) 
 
   return (
-    <div className='flex flex-col m-12 items-center gap-2'>
-          <img  src={TooDoo_logo} alt='logo' className='m-10 h-14' />
-          <h1 className='text-center text-4xl'>
+    <div className='flex flex-col m-16 items-center gap-2'>
+          <img  src={TooDoo_logo} alt='logo' className='m-10 h-12' />
+          <h1 className='text-center text-2xl font-black'>
               TooDoo
           </h1>
-          <h3 className='mt-10 text-1xl lg:text-2xl'>
+          <h3 className='mt-12 text-lg  font-medium sm:text-lg'>
              Create an account with us
       </h3>
       {
@@ -71,7 +73,7 @@ function Register() {
           ''
       }
          
-          <form className="m-2 flex flex-col gap-5 text-center items-center">
+          <form className="m-2 mt-9 flex flex-col gap-3 text-center items-center">
         
           
                   <input
@@ -95,7 +97,7 @@ function Register() {
                   type={showAndHide ===false? "password":"text"}
                   name="password"
                   id="password"
-                  placeholder=" password "
+                  placeholder=" Password "
             className="inputBox"
             onClick={(e) =>setError('')}
             
@@ -118,22 +120,49 @@ function Register() {
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="confirm password "
+                  placeholder="Confirm password "
           className="inputBox"
           onClick={(e) =>setError('')}
                   />
-        <p className='text-center w-60 lg:w-80'> <input type="checkbox" className=" checked:bg-red-300 w-8 h-5" /> By sigining up, you agree to our <span className='text-[#3AB0FF]'><Link to ='/register'>Privacy policy </Link> </span>and <span className='text-[#3AB0FF]'><Link to ='/register'>terms of service </Link> </span></p>
+        <div
+          className='w-64 lg:w-80 flex mt-1'>
+          
+          <div onClick={()=>setagrement(!agrement)} className='absolute'>
+            {
+             agrement? <Checkbox />:''
+            }
+          </div>
+            
+          <div
+            onClick={()=>setagrement(!agrement)}
+            className='w-12 h-7 lg:w-10 rounded bg-[#F9F2ED]'>
+            
+          </div>
+          <div
+            className='ml-3 text-xs text-left'>
+            By sigining up, you agree to our
+            <span
+              className='text-[#3AB0FF]'>
+              <Link to='/register'>Privacy Policy
+              </Link>
+            </span>and
+            <span
+              className='text-[#3AB0FF]'>
+              <Link to='/register'>Terms of Service </Link>
+            </span>
+          </div>
+        </div>
                 <button
                   // onClick={this.onSubmitSignin}
                   
-                  disabled = {!email || !password}
+                  disabled = {!email || password.length<8 ||!agrement ||confirmPassword !==password}
                  onClick={handleSubmit}
                   type="button" className=" btn">
                   Sign up</button>
         
              
       </form>
-      <p> Already have an account? <span className='text-[#3AB0FF]'><Link to ='/login'>Log in</Link></span></p>
+      <p className='text-sm -mt-4'> Already have an account? <span className='text-[#3AB0FF]'><Link to ='/login'>Log in</Link></span></p>
       </div>
   )
 }

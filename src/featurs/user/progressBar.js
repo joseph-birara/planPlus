@@ -1,11 +1,11 @@
 import React from 'react'
 const ProgressBar = ({ progressPercentage }) => {
     return (
-        <div className='h-2 w-52 bg-[#F9F2ED] relative mr-0'>
+        <div className='h-2 w-56 bg-[#F9F2ED] text-center rounded-full'>
             <div
                 style={{ width: `${progressPercentage}%`}}
                 className={`h-full 
-                    bg-[#FFB562] `}>
+                    bg-[#FFB562] rounded-full`}>
             </div>
         </div>
     );

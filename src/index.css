@@ -4,16 +4,16 @@
 
 @layer components{
     .inputBox{
-        @apply w-60 h-10 px-3 py-2 bg-[#F9F2ED] rounded-lg lg:w-80
+        @apply w-64 h-9 px-4 py-2 bg-[#F9F2ED] rounded-md lg:w-80 focus:border-[#FFB562] focus:outline-none focus:ring-1 focus:ring-[#FFB562]
     }
     .btn{
-        @apply m-4 w-40 h-10 text-white bg-[#3AB0FF] rounded-xl text-center disabled:bg-[#a9d2f0]
+        @apply m-4 w-32 h-9 text-white bg-[#3AB0FF] rounded-lg text-center disabled:bg-[#a9d2f0] focus:border-black font-bold text-lg
     }
     .iconbg{
         @apply bg-[#F9F2ED] rounded-xl h-10 p-1 w-10 text-center
     }
     .homeLogo{
-        @apply w-14 m-12 lg:ml-32 lg:w-32
+        @apply m-12 lg:ml-32 h-12 sm:ml-4
     }
     .addTask{
         @apply text-white bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-8 lg:right-12 lg:bottom-12
@@ -22,10 +22,10 @@
         @apply text-red-600 h-10 text-center
     }
     .task{
-      @apply bg-[#F9F2ED] flex rounded-2xl max-w-xl
+      @apply bg-[#F9F2ED] flex rounded-2xl max-w-2xl
     }
     .doneUndone{
-        @apply w-14 h-10 text-red-400 m-2 text-4xl
+        @apply w-14 h-10 text-4xl m-2
     }
     .taskSubtask{
         @apply text-3xl mb-6 ml-3
@@ -55,10 +55,13 @@
 
     }
     .star{
-        @apply text-[#FFB562] flex gap-2 mt-1
+        @apply text-[#FFB562] flex mt-1
     }
     .container{
-        @apply flex items-center flex-col max-w-xl bg-[#F9F2ED] rounded-lg
+        @apply flex items-center flex-col max-w-2xl bg-[#F9F2ED] rounded-lg
+    }
+    .checkBox{
+      @apply  w-12 h-8 text-[#3AB0FF] bg-gray-100  border-gray-300 focus:ring-[#3AB0FF] dark:bg-gray-700 dark:border-gray-600 mt-2
     }
 
 }
