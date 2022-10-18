@@ -6,6 +6,8 @@ const tasks =[
     "duraion": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
     "catagory": "work",
+    "status": "undene",
+    
     "sub": [
       {
         "title": " adipiscing elit",
@@ -48,6 +50,7 @@ const tasks =[
     "duraion": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
     "catagory": "work",
+    "status": "overdue",
     "sub": [
       {
         "title": " adipiscing elit",
@@ -65,7 +68,8 @@ const tasks =[
     "priority": "4",
     "duraion": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
-    "catagory": "work",
+      "catagory": "work",
+    "status": "canceled",
     "sub": [
       {
         "title": " adipiscing elit",
@@ -83,7 +87,8 @@ const tasks =[
     "priority": "4",
     "duraion": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
-    "catagory": "work",
+      "catagory": "work",
+      "status": "inprogress",
     "sub": [
       {
         "title": " adipiscing elit",

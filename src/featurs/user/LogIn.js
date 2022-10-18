@@ -9,6 +9,8 @@ import { Link, useNavigate, } from 'react-router-dom';
 import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import validEmail from '../../GlobalVariabls/EmailValidation';
+import { unwrapResult } from '@reduxjs/toolkit'
+
 
 
 function LogIn() {
@@ -16,15 +18,27 @@ function LogIn() {
   const userref = useRef();
   const errorref = useRef();
   const [password, setpassword] = useState('');
-  const [email, setemail] = useState();
+  const [email, setemail] = useState('');
   const dispatch = useDispatch();
-  const { success } = useSelector(selectCurrentUsers);
+  const { success,RequestMessage } = useSelector(selectCurrentUsers);
 const navigate = useNavigate();
   const [showAndHide, setshowAndHide] = useState(false);
   const validateEmail = (email) => {
     const re =validEmail
     return re.test(String(email).toLowerCase());
   };
+  const resultForLognIN = async () => {
+    const resultAction = await dispatch(Login({ password, email }))
+    const promiseResult = unwrapResult(resultAction)
+    if (promiseResult.email === email) {
+      navigate('/')
+    }
+    else {
+      setError('log in failed try again')
+    }
+
+     console.log(promiseResult.email)
+ }
   const handleSubmit =(e)=>{
     e.preventDefault();
     if (!validateEmail(email)) {
@@ -37,8 +51,8 @@ const navigate = useNavigate();
       
      
       if (password && email) {
-        dispatch(Login({ password, email }))
         
+        resultForLognIN()
       }
     }
         
@@ -53,10 +67,10 @@ const navigate = useNavigate();
     <div className='flex flex-col m-12 items-center gap-1 mt-20'>
       
           <img  src={TooDoo_logo} alt='logo' className='m-8 h-12' />
-          <h1 className='text-center text-2xl font-black'>
+          <h1 className='text-center text-3xl font-black'>
               TooDoo
           </h1>
-          <h3 className='mt-14 text-lg  font-medium'>
+          <h3 className='mt-14 text-2xl  font-semibold'>
               Log in to continue
       </h3>
       {
@@ -95,10 +109,10 @@ const navigate = useNavigate();
             onClick={(e) =>setError('')}
             
           />
-          <div onClick={() => {
+          <div onClick={() => 
             setshowAndHide(!showAndHide)
-            console.log(showAndHide)
-          }}>
+            
+          }>
 { showAndHide ?<IconsVisiblel/>:<Icons />}
           </div>
           

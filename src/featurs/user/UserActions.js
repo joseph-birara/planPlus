@@ -2,13 +2,19 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import constants from "../../GlobalVariabls/constant";
+import { useNavigate } from "react-router-dom";
+
 
 export const RegisterUser = createAsyncThunk(
   "user/RegisterUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const resp = await axios.post(`${constants}/auth/register`, { email, password });
-      console.log(resp.data);
+      console.log(resp, "this is from acction");
+      // const navigate = useNavigate()
+      // if (resp.data.email) {
+      //   navigate('/')
+      // }
       return resp.data;
     } catch (error) {
       if (error.response && error.response.data.err) {
@@ -45,7 +51,7 @@ export const EmailForCode = createAsyncThunk(
   async ({ email}, { rejectWithValue }) => {
     try {
       //post req to check credentials
-      const resp = await axios.post(`${constants}/auth/login`, { email});
+      const resp = await axios.post(`${constants}/auth/forgetPassword`, { email});
       console.log(resp.data);
 
       return resp.data;
@@ -64,7 +70,7 @@ export const SendCode = createAsyncThunk(
   async ({ code }, { rejectWithValue }) => {
     try {
       //post req to check credentials
-      const resp = await axios.post(`${constants}/auth/login`, { code });
+      const resp = await axios.post(`${constants}/auth/verifyCode`, { code });
       console.log(resp.data);
 
       return resp.data;
@@ -83,7 +89,7 @@ export const ResetNewPassword = createAsyncThunk(
   async ({  password }, { rejectWithValue }) => {
     try {
       //post req to check credentials
-      const resp = await axios.post(`${constants}/auth/login`, {  password });
+      const resp = await axios.post(`${constants}/auth/newPassword`, {  password });
       console.log(resp.data);
 
       return resp.data;

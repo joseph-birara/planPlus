@@ -3,18 +3,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import constants from "../../GlobalVariabls/constant";
 
 export const GetAllTasks = createAsyncThunk(
-  "user/RegisterUser",
-  async ( { rejectWithValue }) => {
+  "tasks/alltasks",
+  async ({token} ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.post('http://localhost:3004/Task');
-      console.log(resp.data);
-      return resp.data;
+      const resp = await axios.get(`${constants}/tasks`);
+      console.log(resp);
+      return resp;
     } catch (error) {
-      if (error.response && error.response.data.err) {
-        return rejectWithValue (error.response.data.err);
-      } else {
+      
         return rejectWithValue(error.err);
       }
     }
-  }
+  
 );

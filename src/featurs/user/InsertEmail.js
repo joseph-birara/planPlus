@@ -14,7 +14,7 @@ function InsertEmail() {
       const [error, setError] = useState(null);
     const userref = useRef();
     const errorref = useRef();
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState('');
     const dispatch = useDispatch();
     const { success } = useSelector(selectCurrentUsers);
     const navigate = useNavigate();
@@ -27,8 +27,8 @@ function InsertEmail() {
         e.preventDefault();
         
        if(email ){
-           dispatch(EmailForCode({ email }))
-           navigate('/entercode')
+           dispatch(EmailForCode({email}))
+           
        }
         
     }
@@ -51,7 +51,7 @@ function InsertEmail() {
     </div>
       <div className='flex flex-col m-16 items-center gap-2'>
           
-          <img  src={TooDoo_logo} alt='logo' className='mt-14 h-14' />
+          <img  src={TooDoo_logo} alt='logo' className='mt-20 h-14' />
           <h1 className='text-center text-3xl font-black mt-7'>
               TooDoo
           </h1>
@@ -80,7 +80,7 @@ function InsertEmail() {
                   
                   disabled = {!email }
                  onClick={handleSubmit}
-                  type="button" className="btn mt-8 font-bold">
+                  type="button" className="btn mt-8 font-bold text-xl">
                   Send code</button>
         
              

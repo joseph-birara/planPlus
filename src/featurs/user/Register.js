@@ -9,6 +9,7 @@ import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import validEmail from '../../GlobalVariabls/EmailValidation';
 import Checkbox from '../../Assets/IconCollection/Checkbox';
+import { unwrapResult } from '@reduxjs/toolkit'
 
 function Register() {
   const [error, setError] = useState(null);
@@ -20,7 +21,7 @@ function Register() {
   const [showAndHide, setshowAndHide] = useState(false);
   const [agrement, setagrement] = useState(false);
   const dispatch = useDispatch();
-  const { success,loading } = useSelector(selectCurrentUsers);
+  const { success,loading,userInfo ,RequestMessage} = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -29,7 +30,15 @@ function Register() {
     return re.test(String(email).toLowerCase());
   };
 
+  const result = async () => {
+    const resultAction = await dispatch(RegisterUser({ password, email }))
+    const promiseResult = unwrapResult(resultAction)
+    if (promiseResult.email === email) {
+      navigate('/')
+    }
 
+    console.log(promiseResult.email)
+ }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
@@ -44,11 +53,14 @@ function Register() {
     if (!error) {
         
       if (password && email) {
-        dispatch(RegisterUser({ password, email }))
-                  
+        
+                result()  
+      }
+      
+        setError(RequestMessage)
       }
         
-    }
+    
   }
   
     
@@ -60,10 +72,10 @@ function Register() {
   return (
     <div className='flex flex-col m-16 items-center gap-2'>
           <img  src={TooDoo_logo} alt='logo' className='m-10 h-12' />
-          <h1 className='text-center text-2xl font-black'>
+          <h1 className='text-center text-3xl font-black'>
               TooDoo
           </h1>
-          <h3 className='mt-12 text-lg  font-medium sm:text-lg'>
+          <h3 className='mt-12 text-2xl  font-medium'>
              Create an account with us
       </h3>
       {
@@ -125,7 +137,7 @@ function Register() {
           onClick={(e) =>setError('')}
                   />
         <div
-          className='w-64 lg:w-80 flex mt-1'>
+          className='w-64 lg:w-72 flex mt-1'>
           
           <div onClick={()=>setagrement(!agrement)} className='absolute'>
             {
@@ -140,15 +152,15 @@ function Register() {
           </div>
           <div
             className='ml-3 text-xs text-left'>
-            By sigining up, you agree to our
+            By sigining up, you agree to our 
             <span
               className='text-[#3AB0FF]'>
-              <Link to='/register'>Privacy Policy
+              <Link to='/register'> Privacy    Policy 
               </Link>
-            </span>and
+            </span> and 
             <span
               className='text-[#3AB0FF]'>
-              <Link to='/register'>Terms of Service </Link>
+              <Link to='/register'> Terms of Service </Link>
             </span>
           </div>
         </div>

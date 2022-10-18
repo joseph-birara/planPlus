@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 import {
     RegisterUser,
     Login,
@@ -8,15 +9,17 @@ import {
 
 } from "./UserActions";
 
+
 const initialState = {
     userInfo:{},
-    userToken:"",
+    userToken: "",
+    error:'',
     loading:false,
     success:false,
-    error: null,
     resetPassword: '',
     emailForReset: '',
-    codeForReset:''
+    codeForReset: '',
+    RequestMessage:''
 }
 
 const UserSlice = createSlice({
@@ -35,13 +38,14 @@ const UserSlice = createSlice({
             state.userToken={Token}
             state.loading = false;
             state.success = true;
-            console.log("succes signup",state.userInfo,state.success);
+            console.log("registration succes",state.userInfo,state.success);
                 
         },
         [RegisterUser.rejected]:(state,{payload})=>{
             state.loading = false;
-            state.error = payload;
+            state.RequestMessage = payload;
             console.log(payload);
+            
     
         },
         //login user
@@ -74,6 +78,8 @@ const UserSlice = createSlice({
             
             state.loading = false;
             state.success = true //registered
+            const navigate = useNavigate()
+            navigate('/entercode')
             console.log("succes login",state.userInfo);
         },
         [EmailForCode.rejected]:(state,{payload}) =>{

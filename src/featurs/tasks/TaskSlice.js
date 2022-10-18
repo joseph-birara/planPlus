@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GetAllTasks } from "./TaskActions";
 const initialState = {
-    tasks: '',
+    allTasks: '',
     loading:false,
     success:false,
     error: null,
@@ -21,7 +21,8 @@ const TasksSlice = createSlice({
             
             state.loading = false;
             state.success = true;
-            console.log("succes signup",state.success);
+            console.log("from tasks slice");
+            console.log(payload)
                 
         },
         [GetAllTasks.rejected]:(state,{payload})=>{

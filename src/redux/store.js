@@ -9,11 +9,14 @@ const persistConfig = {
   key: "root",
   storage: storageSession,
 };
-const persistedReducer = persistReducer(persistConfig, userReducer,tasksReducer);
+const persistedUsersReducer = persistReducer(persistConfig, userReducer);
+const persistedTasksReducer = persistReducer(persistConfig, tasksReducer);
+
 
 export const store = configureStore({
   reducer: {
-    User: persistedReducer,
+    User:persistedUsersReducer,
+    Tasks:persistedTasksReducer,
     middleware: [thunk],
   },
 });

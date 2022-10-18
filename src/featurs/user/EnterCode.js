@@ -79,7 +79,7 @@ const resetTimer = function () {
     </div>
 
     <div className='flex flex-col mt-40 items-center gap-4 text-sm'>
-      <div className='text-bold text-xl font-semibold mb-12 w-72 text-center'>
+      <div className='text-bold text-2xl font-semibold mb-12 w-72 text-center'>
         Enter code below
 
       </div>
@@ -98,7 +98,7 @@ const resetTimer = function () {
   type="numeric" 
   inputMode="number"
   style={{padding: '1px',}}  
-  inputStyle={{borderColor:'#F9F2ED', borderRadius: '10px',background:'#F9F2ED' ,height:'50px',width:'37px',margin:'12px'}}
+  inputStyle={{borderColor:'#F9F2ED', borderRadius: '10px',background:'#F9F2ED' ,height:'48px',width:'35px',margin:'11px'}}
   inputFocusStyle={{borderColor: '#C9B6A9'}}
           
           onComplete={(value, index) => {
@@ -112,11 +112,11 @@ const resetTimer = function () {
 
  <ProgressBar progressPercentage={ (100/60) * (60 - timer) }/>
       </div>
-        <div className='text-center mt-0'>
-          <div className='relative'>
+        <div className='text-center'>
+          <div className='relative -mt-2'>
             {
             timer > wid ? <Timer timeAndSec={ `${timer}sec`} /> : <span
-                className='-mt-3'>
+                className='-mt-5'>
                 <span>
 Didn't get code?
               <span className='text-start'>
@@ -128,7 +128,7 @@ Didn't get code?
             </span>
                 </span>
               
-            <span className='ml-10'>0sec
+            <span className='ml-10 -mt-3'>0sec
             </span>
           </span>
           }

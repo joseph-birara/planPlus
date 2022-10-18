@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
+
 import { AiOutlineArrowDown } from 'react-icons/ai'
 import { AiFillStar,AiOutlineStar,AiFillCheckSquare} from 'react-icons/ai'
 import { BiUpArrowAlt } from 'react-icons/bi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import EditDeleteCancel from './EditDeleteCancel'
 import SubTask from './SubTask'
-import { RiCheckboxBlankFill} from 'react-icons/ri'
+import { RiCheckboxBlankFill } from 'react-icons/ri'
+import UpArrow from '../../Assets/IconCollection/UpArrow'
+import DownArrow from '../../Assets/IconCollection/DownArrow'
+import DoneUndone from '../../Assets/IconCollection/DoneUndone'
 
 
 
@@ -16,26 +19,41 @@ function Task(props) {
     const [priority, setpriority] = useState(false)
     const [shortDescription, setshortDescription] = useState(true)
     const stars = [1, 2, 3, 4, 5]
+    const [done,setdone] = useState(false)
+    
     
     return (
-        <div className='container'>
+        <div className='container rounded-2xl'>
             
             
       
-      <div className='task'>
+      <div className='task p-3 rounded-2xl'>
           <div className='flex flex-col justify-between '>
               
                     <div
-                        className='doneUndone'>    <input
-                            type="checkbox" value="" className="checkBox" />
+                        onClick={()=>setdone(!done)}
+                        className='doneUndone'>
+                        {done?
+                            <div
+                                className='absolute ml-3 mt-2'>
+                            <DoneUndone/>
+                            </div>:''
+                        }
+                       
+                        <div
+                            className={`checkBox m-3 ${done? 'bg-[#3AB0FF] border-[#3AB0FF]':'' } ${props.task.status==='inprogress'?'border-[#3AB0FF]':''} ${props.task.status==='overdue'?'border-[#F87474]':''} ${props.task.status==='canceled'? 'bg-[#F87474] border-[#F87474]':''}`}>
+
+                        </div>
+                        
+                         
                     </div>
                 <div
                     onClick={() => setupArrow(!upArrow)
                     }
                     className='taskSubtask'>
                   
-                  {upArrow?<BiUpArrowAlt/>:
-                      <AiOutlineArrowDown /> 
+                  {upArrow?<UpArrow/>:
+                      <DownArrow /> 
                       
                   }
                     </div>
@@ -43,20 +61,25 @@ function Task(props) {
           </div> 
           <div className='taskBody'>
               <div className='titelAndDescription'>
-              <div className='title'>
-                            {
+                        <p className='text-start'>
+                            <span className='font-bold text-xl'>
+                                 {
                                 props.task.title
                   }
-              </div>
-              <div className='description' onClick={()=>setshortDescription(!shortDescription)}>
+
+                            </span>
+                             <span className='description font-medium' onClick={()=>setshortDescription(!shortDescription)}>
                  {
                      shortDescription? ( props.task.note.length>100 ? props.task.note.slice(0,100) +'....':props.task.note):props.task.note
                   }
-              </div>
+              </span>
+                           
+              </p>
+             
               
               
               </div>
-              <div className='starTime'>
+              <div className='starTime text-center mt-6 mb-0'>
                         <div className='star'>
                             {
                                 stars.map((item, index) => 
@@ -68,7 +91,7 @@ function Task(props) {
                   </div>
                   <div className='duration'>
                             {
-                                props.task.duration
+                                props.task.duraion
                       }
                   </div>
                   < div className='begin'>
@@ -76,7 +99,7 @@ function Task(props) {
                                 props.task.dateTime
                       }
                   </div>
-                  <div className='catagory'>
+                  <div className='catagory text-xl text-center mb-0 -mt-1'>
                             {
                                 props.task.catagory
                       }
@@ -91,10 +114,10 @@ function Task(props) {
               
           </div>
            {
-              edit?<div>
+              edit?<div className=''>
               <EditDeleteCancel/>
               
-                    </div> : console.log(edit)}
+                    </div> : ''}
                 </div>
          
             </div>
