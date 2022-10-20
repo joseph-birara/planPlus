@@ -10,6 +10,9 @@ import { RiCheckboxBlankFill } from 'react-icons/ri'
 import UpArrow from '../../Assets/IconCollection/UpArrow'
 import DownArrow from '../../Assets/IconCollection/DownArrow'
 import DoneUndone from '../../Assets/IconCollection/DoneUndone'
+import { UpdateStatus } from './TaskActions'
+import { useDispatch } from 'react-redux'
+import { BsDot,BsArrowRightShort } from 'react-icons/bs'
 
 
 
@@ -19,7 +22,20 @@ function Task(props) {
     const [priority, setpriority] = useState(false)
     const [shortDescription, setshortDescription] = useState(true)
     const stars = [1, 2, 3, 4, 5]
-    const [done,setdone] = useState(false)
+    const [done, setdone] = useState(false)
+    const dispatch = useDispatch()
+    const handleTaskCancelAndDone = (status) => {
+        if (props.task.status === 'inprogress' || props.task.status === 'upcoming') {
+            props.task.status = status
+            dispatch(UpdateStatus(props.task.id,status))
+
+            props.task.sub.foreach((subtask) => {
+                subtask.status = status
+                //this may be changed to subTaskUpdateStatus
+                dispatch(UpdateStatus(subtask.id,status))
+            })
+        }
+    }
     
     
     return (
@@ -31,9 +47,9 @@ function Task(props) {
           <div className='flex flex-col justify-between '>
               
                     <div
-                        onClick={()=>setdone(!done)}
+                        onClick={()=>handleTaskCancelAndDone('Done')}
                         className='doneUndone'>
-                        {done?
+                        {props.task.status==='Done'?
                             <div
                                 className='absolute ml-3 mt-2'>
                             <DoneUndone/>
@@ -41,7 +57,7 @@ function Task(props) {
                         }
                        
                         <div
-                            className={`checkBox m-3 ${done? 'bg-[#3AB0FF] border-[#3AB0FF]':'' } ${props.task.status==='inprogress'?'border-[#3AB0FF]':''} ${props.task.status==='overdue'?'border-[#F87474]':''} ${props.task.status==='canceled'? 'bg-[#F87474] border-[#F87474]':''}`}>
+                            className={`checkBox m-3 ${props.task.status==='Done'? 'bg-[#3AB0FF] border-[#3AB0FF]':'' } ${props.task.status==='In progress'?'border-[#3AB0FF]':''} ${props.task.status==='Overdue'?'border-[#F87474]':''} ${props.task.status==='Canceled'? 'bg-[#F87474] border-[#F87474]':''}`}>
 
                         </div>
                         
@@ -68,18 +84,19 @@ function Task(props) {
                   }
 
                             </span>
-                             <span className='description font-medium' onClick={()=>setshortDescription(!shortDescription)}>
+                             <span className='description font-medium text-lg' onClick={()=>setshortDescription(!shortDescription)}>
                  {
-                     shortDescription? ( props.task.note.length>100 ? props.task.note.slice(0,100) +'....':props.task.note):props.task.note
+                     shortDescription? ( props.task.note.length>70 ? props.task.note.slice(0,70) +'....':props.task.note):props.task.note
                   }
-              </span>
+                                </span>
+                                
                            
               </p>
              
               
               
               </div>
-              <div className='starTime text-center mt-6 mb-0'>
+              <div className='starTime text-center mt-2 mb-1'>
                         <div className='star'>
                             {
                                 stars.map((item, index) => 
@@ -88,17 +105,27 @@ function Task(props) {
                             }
                         
                         
-                  </div>
+                        </div>
+                        <div className='text-[#C9B6A9] text-2xl'>
+                            <BsDot/>
+                        </div>
                   <div className='duration'>
                             {
                                 props.task.duraion
                       }
-                  </div>
+                        </div>
+                        <div className='mt-1 -ml-3 text-xl -mr-3'>
+
+                            <BsArrowRightShort className=''/>
+                        </div>
                   < div className='begin'>
                             {
                                 props.task.dateTime
                       }
-                  </div>
+                        </div>
+                        <div className='text-[#C9B6A9] text-2xl'>
+                            <BsDot/>
+                        </div>
                   <div className='catagory text-xl text-center mb-0 -mt-1'>
                             {
                                 props.task.catagory
@@ -115,10 +142,10 @@ function Task(props) {
           </div>
            {
               edit?<div className=''>
-              <EditDeleteCancel/>
+                            <EditDeleteCancel task={props.task } cancelHandler={handleTaskCancelAndDone} />
               
                     </div> : ''}
-                </div>
+        </div>
          
             </div>
             {

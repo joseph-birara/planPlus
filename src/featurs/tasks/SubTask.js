@@ -6,6 +6,10 @@ import { BiUpArrowAlt } from 'react-icons/bi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import EditDeleteCancel from './EditDeleteCancel'
 import DoneUndone from '../../Assets/IconCollection/DoneUndone'
+import { useDispatch } from 'react-redux'
+import { UpdateStatus } from './TaskActions'
+import { BsDot,BsArrowRightShort } from 'react-icons/bs'
+
 
 
 
@@ -14,10 +18,21 @@ function SubTask(props) {
     const subStars = [1, 2, 3, 4, 5]
     const [done,setdone] = useState(false)
     const [subShortDescription, setsubShortDescription] = useState(true)
+    const dispatch = useDispatch()
+    const handleSubTaskCancelAndDone = (status) => {
+        if (props.subTask.status === 'inprogress' || props.subTask.status === 'upcoming') {
+            props.subTask.status = status
+            //this may be changed to subTaskUpdateStatus
+            dispatch(UpdateStatus(props.subTask.id,status))
+
+            
+        }
+    }
+    
     return (
       
       
-          <div className='task ml-20 border-t-4'>
+          <div className='task ml-20 border-t-2 border-[#C9B6A9] lg:h-28'>
           <div className='flex flex-col justify-between '>
               
                 <div
@@ -37,33 +52,40 @@ function SubTask(props) {
           </div> 
           <div className='taskBody'>
               <div className='mr-6 -ml-3 text-start font-medium'>
-              <p className=''>
+              <p className='font-semibold'>
                  {
-                    props.subTask.title
+                    props.subTask.title +'   '
                   }
               
-              <span className='description' onClick={()=>setsubShortDescription(!subShortDescription)}>
+              <span className='description font-medium' onClick={()=>setsubShortDescription(!subShortDescription)}>
                 {
-                     subShortDescription? ( props.subTask.note.length>100? props.subTask.note.slice(0,100) +'....':props.subTask.note):props.subTask.note
+                     subShortDescription? ( props.subTask.note.length>70? props.subTask.note.slice(0,70) +'....':props.subTask.note):props.subTask.note
                   }
                         </span>
                         </p>
               
               
               </div>
-              <div className='starTime text-center mt-6 mb-0'>
+              <div className='starTime text-center mb-1'>
                     <div className='star'>
                         {
                                 subStars.map((item, index) => 
                                     props.subTask.priority>index?<AiFillStar />:<AiOutlineStar/>
                                 )
                             }
-                  </div>
+                    </div>
+                     <div className='text-[#C9B6A9] text-2xl'>
+                            <BsDot/>
+                        </div>
                   <div className='duration'>
-                      {
-                                props.subTask.duration
+                            {
+                                props.subTask.duraion
                       }
-                  </div>
+                        </div>
+                    <div className='mt-1 -ml-3 text-xl -mr-3'>
+
+                            <BsArrowRightShort className=''/>
+                        </div>
                   < div className='begin'>
                        {
                                 props.subTask.dateTime
@@ -81,7 +103,7 @@ function SubTask(props) {
           </div>
            {
               edit?<div>
-              <EditDeleteCancel/>
+                        <EditDeleteCancel task={props.subTask} cancelHandler={ handleSubTaskCancelAndDone} />
               
                     </div> : console.log(edit)}
                 </div>

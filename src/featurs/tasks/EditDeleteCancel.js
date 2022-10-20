@@ -1,19 +1,28 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { DeleteTask, UpdateStatus } from './TaskActions'
 
-function EditDeleteCancel(props) {
+
+function EditDeleteCancel(props,{cancelHandler}) {
+  const dispatch = useDispatch()
   return (
     <div className='editDeleteCancel'>
       <div className='m-2'>
         <div
-          onClick={props.parent.status ='canceld'}
-          className='bg-[#F9F2ED] mb-2'>
+          onClick={() => {
+            cancelHandler('canceled')
+            
+
+          }}
+          className=' hover:cursor-pointer mb-2'>
               Cancel
           </div>
-          <div  className='bg-[#F9F2ED] mb-2'>
+          <div  className=' hover:cursor-pointer mb-2'>
              Edit
           </div>
         <div
-          className='bg-[#F9F2ED]'>
+          onClick={()=> dispatch(DeleteTask(props.task.id))}
+          className=' hover:cursor-pointer'>
               Delete
           </div>
 

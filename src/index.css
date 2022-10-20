@@ -17,7 +17,7 @@
         @apply bg-[#F9F2ED] rounded-2xl h-12 p-1 w-12 text-center py-2 px-0 justify-center
     }
     .homeLogo{
-        @apply m-12 lg:ml-32 h-12 sm:ml-4
+        @apply m-12 lg:ml-16 h-12 sm:ml-4
     }
     .addTask{
         @apply text-white bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-8 lg:right-36 lg:bottom-12
@@ -26,7 +26,7 @@
         @apply text-red-600 h-10 text-center
     }
     .task{
-      @apply bg-[#F9F2ED] flex max-w-2xl mt-4
+      @apply bg-[#F9F2ED] flex max-w-xl mt-1 lg:h-28
     }
     .doneUndone{
         @apply w-14 h-10 text-4xl
@@ -41,13 +41,13 @@
         @apply text-lg
     }
     .titelAndDescription{
-        @apply mr-8
+        @apply mr-3
     }
     .DeleteEdit{
         @apply right-1  h-8 w-10 text-3xl mt-2
     }
     .starTime{
-        @apply flex justify-start m-3 gap-5 max-w-lg
+        @apply flex justify-start m-3 gap-3 max-w-lg flex-wrap
     }
     .taskBody{
         @apply flex justify-between flex-col
@@ -55,15 +55,15 @@
     .editDeleteCancel{
         @apply z-40 w-28 h-28 right-6 top-10 text-left
         border-2 absolute
-         border-[#C9B6A9] rounded flex-col  mr-1
+         border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED]
           
 
     }
     .star{
-        @apply text-[#FFB562] flex mt-1
+        @apply text-[#FFB562] flex mt-1 text-xl
     }
     .container{
-        @apply flex items-center flex-col max-w-2xl bg-[#F9F2ED]
+        @apply flex items-center flex-col max-w-xl bg-[#F9F2ED] 
     }
     .checkBox{
       @apply  w-8 h-8 border-[#C9B6A9] rounded-lg border-solid border-2 bg-[#FFFFFF]

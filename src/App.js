@@ -18,6 +18,7 @@ import LoadingPage from './featurs/LoadingPage';
 import HomePage from './featurs/tasks/HomePage';
 import Task from './featurs/tasks/Task';
 import SubTask from './featurs/tasks/SubTask';
+import Calculatore from './featurs/tasks/Calculatore';
 
 
  
@@ -86,6 +87,9 @@ class App extends React.Component {
           <Route path="/loading" element={<LoadingPage />} />
           <Route path="/task" element={<Task />} />
           <Route path="/subtask" element={<SubTask />} />
+                    <Route path="/cal" element={<Calculatore />} />
+
+
           
           
 

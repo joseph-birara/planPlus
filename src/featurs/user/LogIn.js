@@ -21,7 +21,7 @@ function LogIn() {
   const [email, setemail] = useState('');
   const dispatch = useDispatch();
   const { success,RequestMessage } = useSelector(selectCurrentUsers);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [showAndHide, setshowAndHide] = useState(false);
   const validateEmail = (email) => {
     const re =validEmail

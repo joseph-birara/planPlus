@@ -52,10 +52,10 @@ function InsertEmail() {
       <div className='flex flex-col m-16 items-center gap-2'>
           
           <img  src={TooDoo_logo} alt='logo' className='mt-20 h-14' />
-          <h1 className='text-center text-3xl font-black mt-7'>
+          <h1 className='text-center text-3xl font-black mt-5'>
               TooDoo
           </h1>
-          <h3 className='mt-10 text-lg font-semibold'>
+          <h3 className='mt-12 text-xl font-semibold'>
               Forgot password?
           </h3>
           <p className='m-3 w-60 text-center'>

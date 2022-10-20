@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GetAllTasks } from "./TaskActions";
+import { GetAllTasks,CreateTask } from "./TaskActions";
 const initialState = {
     allTasks: '',
     loading:false,
@@ -26,6 +26,25 @@ const TasksSlice = createSlice({
                 
         },
         [GetAllTasks.rejected]:(state,{payload})=>{
+            state.loading = false;
+            state.error = payload;
+            console.log(payload);
+    
+        },
+        [CreateTask.pending]:(state)=>{
+            state.loading = true;
+    
+        },
+        [CreateTask.fulfilled]:(state,{payload})=>{
+            state.tasks = payload;
+            
+            state.loading = false;
+            state.success = true;
+            console.log("from tasks slice");
+            console.log(payload)
+                
+        },
+        [CreateTask.rejected]:(state,{payload})=>{
             state.loading = false;
             state.error = payload;
             console.log(payload);

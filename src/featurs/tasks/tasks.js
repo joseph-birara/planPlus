@@ -82,7 +82,7 @@ const tasks =[
     ]
     },
     {
-    "title": "Lorem ipsum ",
+    "title": "abebe ipsum ",
     "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
     "priority": "4",
     "duraion": "3MIN",

@@ -44,11 +44,11 @@ function NewPassword() {
 
   return (
     <div className='flex flex-col m-16 items-center gap-2'>
-          <img  src={TooDoo_logo} alt='logo' className='mt-16 h-12 mb-8' />
-          <h1 className='text-center text-2xl font-black'>
+          <img  src={TooDoo_logo} alt='logo' className='mt-16 h-14 mb-8' />
+          <h1 className='text-center text-3xl font-black'>
               TooDoo
           </h1>
-          <h3 className='mt-10 text-1xl mb-4 font-medium'>
+          <h3 className='mt-12 text-2xl mb-4 font-medium'>
               Create new password
       </h3>
       {
