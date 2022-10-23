@@ -32,7 +32,7 @@ export const Login = createAsyncThunk(
     try {
       //post req to check credentials
       const resp = await axios.post(`${constants}/auth/login`, { email, password });
-      console.log(resp.data);
+      console.log(resp.data.Token);
 
       return resp.data;
     } catch (error) {
@@ -47,14 +47,14 @@ export const Login = createAsyncThunk(
 );
 
 export const EmailForCode = createAsyncThunk(
-  "user/Login",
+  "user/EmailForCode",
   async ({ email}, { rejectWithValue }) => {
     try {
       //post req to check credentials
       const resp = await axios.post(`${constants}/auth/forgetPassword`, { email});
       console.log(resp.data);
 
-      return resp.data;
+      return resp;
     } catch (error) {
       console.log(error.response.data.err);
       if (error.response && error.response.data.err) {
@@ -66,11 +66,11 @@ export const EmailForCode = createAsyncThunk(
   }
 );
 export const SendCode = createAsyncThunk(
-  "user/Login",
-  async ({ code }, { rejectWithValue }) => {
+  "user/SendCode",
+  async ({ code,email }, { rejectWithValue }) => {
     try {
       //post req to check credentials
-      const resp = await axios.post(`${constants}/auth/verifyCode`, { code });
+      const resp = await axios.post(`${constants}/auth/verifyCode`, { code,email });
       console.log(resp.data);
 
       return resp.data;
@@ -85,11 +85,11 @@ export const SendCode = createAsyncThunk(
   }
 );
 export const ResetNewPassword = createAsyncThunk(
-  "user/Login",
-  async ({  password }, { rejectWithValue }) => {
+  "user/resetPass",
+  async ({  password,email,token }, { rejectWithValue }) => {
     try {
       //post req to check credentials
-      const resp = await axios.post(`${constants}/auth/newPassword`, {  password });
+      const resp = await axios.patch(`${constants}/auth/newPassword`, {  password ,email,token});
       console.log(resp.data);
 
       return resp.data;

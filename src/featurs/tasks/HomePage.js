@@ -22,22 +22,25 @@ function HomePage() {
     const dispatch = useDispatch()
     // const [tasksData, settasksData] = useState('')
     const { allTasks } = useSelector(selectCurrentTasks)
-    const { token } = useSelector(selectCurrentUsers)
+    const { userToken } = useSelector(selectCurrentUsers)
     const [search, setsearch] = useState('')
     let filterdTasks = ''
-    console.log("form homepage",token)
+    
   
     useEffect(() => {
-        console.log("form homepage",token)
+        console.log("form homepage",userToken.Token,allTasks)
 
-    //     if (token) {
-    //        dispatch(GetAllTasks(token))
-    //   }
-   
-    }, [])
+       
+        dispatch(GetAllTasks({userToken:userToken.Token}))
+      
+            
+    }, [userToken])
 
-     
-        filterdTasks = tasks.filter(monster => monster.title.toLowerCase().includes(search.toLowerCase()));
+    if (allTasks) {
+        filterdTasks =  allTasks.filter(monster => monster.title.toLowerCase().includes(search.toLowerCase()));
+         
+     }
+          
 
     
     
@@ -88,16 +91,23 @@ function HomePage() {
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
                 <div className='flex flex-col m-12 mt-3 items-center gap-2 '>
-                
-                    {/* <HomePageImage /> */}
-                    {/* {<div className='text-center w-52 font-thin text-lg'>
-               Get started by creating your very first task.
-          </div> } */}
+                    
+                    
+                    
                     {
-                     filterdTasks.map((data ,i)=> 
-                        <Task task={ data } key = {i} />
+                       allTasks.length>0?
+                         filterdTasks.map((data ,i)=> 
+                        <Task  task={ data } key = {i} />
                  
                     )
+                            : <div>
+                                <HomePageImage />
+                    <div className='text-center w-52 font-thin text-lg -ml-3'>
+               Get started by creating your very first task.
+          </div> 
+                        
+                </div>
+                    
                 
                     }
 

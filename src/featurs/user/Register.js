@@ -21,7 +21,7 @@ function Register() {
   const [showAndHide, setshowAndHide] = useState(false);
   const [agrement, setagrement] = useState(false);
   const dispatch = useDispatch();
-  const { success,loading,userInfo ,RequestMessage} = useSelector(selectCurrentUsers);
+  const { success,loading,userInfo ,RequestMessageForRegister} = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -57,7 +57,7 @@ function Register() {
                 result()  
       }
       
-        setError(RequestMessage)
+        setError(RequestMessageForRegister)
       }
         
     
@@ -68,6 +68,11 @@ function Register() {
     useEffect(() => {
         userref.current.focus();
     }, []) 
+  useEffect(() => {
+    if (RequestMessageForRegister) {
+      setError(RequestMessageForRegister)
+    }
+  },[RequestMessageForRegister])
 
   return (
     <div className='flex flex-col m-16 items-center gap-2'>

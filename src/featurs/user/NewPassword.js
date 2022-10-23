@@ -7,18 +7,33 @@ import {EmailForCode,ResetNewPassword} from './UserActions';
 import { Link, useNavigate, } from 'react-router-dom';
 import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 
 function NewPassword() {
     const [error, setError] = useState(null);
   const userref = useRef();
   const errorref = useRef();
-  const [password, setpassword] = useState();
-  const [confirmPassword, setconfirmPassword] = useState();
-    const dispatch = useDispatch();
-    const { success } = useSelector(selectCurrentUsers);
+  const [password, setpassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+  const dispatch = useDispatch();
+  const { success,resetPasswordToken,emailForReset } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
   const [showAndHide, setshowAndHide] = useState(false);
+  const resultForNewPassword = async () => {
+  console.log(emailForReset,"email inside new password");
+    const resultAction = await dispatch(ResetNewPassword({ password:password ,email:emailForReset,token:resetPasswordToken }))
+    const promiseResult = unwrapResult(resultAction)
+    if (promiseResult) {
+       navigate('/login')
+    }
+    else {
+      setError('enter password again')
+    }
+
+     
+ }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password.length < 8) {
@@ -30,8 +45,8 @@ function NewPassword() {
     if (!error) {
         
       if (password && confirmPassword) {
-        dispatch(ResetNewPassword({ password }))
-        navigate('/login')
+        resultForNewPassword()
+       
       }
         
     }
@@ -96,7 +111,7 @@ function NewPassword() {
                 <button
                   // onClick={this.onSubmitSignin}
                   
-                  disabled = {!password || !confirmPassword}
+                  disabled = {!password || !confirmPassword ||password !== confirmPassword}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
                   Save</button>

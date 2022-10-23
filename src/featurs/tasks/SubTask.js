@@ -36,15 +36,15 @@ function SubTask(props) {
           <div className='flex flex-col justify-between '>
               
                 <div
-                     onClick={()=>setdone(!done)}
+                     onClick={()=>handleSubTaskCancelAndDone('Done')}
                     className='doneUndone ml-0'>
-                    {done?
+                    {props.subTask.status==='Done'?
                             <div
                                 className='absolute ml-1 mt-1'>
                             <DoneUndone/>
                             </div>:''
                         }
-              <div className={`checkBox mt-2 ${done? 'bg-[#3AB0FF] border-[#3AB0FF]':'' }  `}>
+              <div className={`checkBox mt-2 ${props.subTask.status==='Done'? 'bg-[#3AB0FF] border-[#3AB0FF]':'' } ${props.subTask.status==='In progress'?'border-[#3AB0FF]':''} ${props.subTask.status==='Overdue'?'border-[#F87474]':''} ${props.subTask.status==='Canceled'? 'bg-[#F87474] border-[#F87474]':''}`}>
 
              </div>
           </div>
@@ -66,7 +66,7 @@ function SubTask(props) {
               
               
               </div>
-              <div className='starTime text-center mb-1'>
+              <div className='starTime text-center mb-3'>
                     <div className='star'>
                         {
                                 subStars.map((item, index) => 
@@ -79,7 +79,7 @@ function SubTask(props) {
                         </div>
                   <div className='duration'>
                             {
-                                props.subTask.duraion
+                                props.subTask.duration
                       }
                         </div>
                     <div className='mt-1 -ml-3 text-xl -mr-3'>
@@ -102,10 +102,10 @@ function SubTask(props) {
               
           </div>
            {
-              edit?<div>
+              edit?<div className='mt-2 mr-4'>
                         <EditDeleteCancel task={props.subTask} cancelHandler={ handleSubTaskCancelAndDone} />
               
-                    </div> : console.log(edit)}
+                    </div> : null}
                 </div>
          
     </div>

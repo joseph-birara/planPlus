@@ -3,43 +3,48 @@ const tasks =[
     "title": "Lorem ipsum ",
     "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
     "priority": "4",
-    "duraion": "3MIN",
+    "duration": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
     "catagory": "work",
-    "status": "undene",
+    "status": "Done",
     
-    "sub": [
+    "subTask": [
       {
         "title": " adipiscing elit",
         "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
         "priority": "4",
-        "duraion": "3MIN",
+        "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
-        "catagory": "work"
+        "catagory": "work",
+        "status":'Canceled'
         },
         {
         "title": " adipiscing elit",
         "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
         "priority": "4",
-        "duraion": "3MIN",
+        "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
-        "catagory": "work"
+          "catagory": "work",
+          "status":'Done'
+        
         },
         {
         "title": " adipiscing elit",
         "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
         "priority": "4",
-        "duraion": "3MIN",
+        "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
-        "catagory": "work"
+          "catagory": "work",
+        "status":'Upcoming'
         },
         {
         "title": " adipiscing elit",
         "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
         "priority": "4",
-        "duraion": "3MIN",
+        "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
-        "catagory": "work"
+          "catagory": "work",
+        "status":'In progress'
       }
     ]
     },
@@ -47,18 +52,19 @@ const tasks =[
     "title": "Lorem ipsum ",
     "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
     "priority": "4",
-    "duraion": "3MIN",
+    "duration": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
     "catagory": "work",
-    "status": "overdue",
-    "sub": [
+    "status": "Overdue",
+    "subTask": [
       {
         "title": " adipiscing elit",
         "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
         "priority": "4",
-        "duraion": "3MIN",
+        "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
-        "catagory": "work"
+        "catagory": "work",
+        "status":'Overdue'
       }
     ]
     },
@@ -66,18 +72,19 @@ const tasks =[
     "title": "Lorem ipsum ",
     "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
     "priority": "4",
-    "duraion": "3MIN",
+    "duration": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
       "catagory": "work",
-    "status": "canceled",
-    "sub": [
+    "status": "Canceled",
+    "subTask": [
       {
         "title": " adipiscing elit",
         "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
         "priority": "4",
-        "duraion": "3MIN",
+        "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
-        "catagory": "work"
+        "catagory": "work",
+        "status":'Canceled'
       }
     ]
     },
@@ -85,18 +92,19 @@ const tasks =[
     "title": "abebe ipsum ",
     "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
     "priority": "4",
-    "duraion": "3MIN",
+    "duration": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
       "catagory": "work",
-      "status": "inprogress",
-    "sub": [
+      "status": "In progress",
+    "subTask": [
       {
         "title": " adipiscing elit",
         "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
         "priority": "4",
-        "duraion": "3MIN",
+        "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
-        "catagory": "work"
+        "catagory": "work",
+        "status":'Canceld'
       }
     ]
   }

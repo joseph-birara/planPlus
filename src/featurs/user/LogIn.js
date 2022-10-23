@@ -14,13 +14,18 @@ import { unwrapResult } from '@reduxjs/toolkit'
 
 
 function LogIn() {
-  const [error, setError] = useState(null);
   const userref = useRef();
   const errorref = useRef();
   const [password, setpassword] = useState('');
   const [email, setemail] = useState('');
   const dispatch = useDispatch();
-  const { success,RequestMessage } = useSelector(selectCurrentUsers);
+  const { success, RequestMessageForLogIn } = useSelector(selectCurrentUsers);
+  const [error, setError] = useState('');
+  // if (RequestMessageForLogIn) {
+  //   setError(RequestMessageForLogIn)
+  // }
+
+  
   const navigate = useNavigate();
   const [showAndHide, setshowAndHide] = useState(false);
   const validateEmail = (email) => {
@@ -62,6 +67,11 @@ function LogIn() {
     useEffect(() => {
         userref.current.focus();
     }, []) 
+  useEffect(() => {
+    if (RequestMessageForLogIn) {
+      setError(RequestMessageForLogIn)
+    }
+  },[RequestMessageForLogIn])
 
   return (
     <div className='flex flex-col m-12 items-center gap-1 mt-20'>

@@ -7,6 +7,7 @@ import {EmailForCode} from './UserActions';
 import { Link, useNavigate} from 'react-router-dom';
 import validEmail from '../../GlobalVariabls/EmailValidation';
 import LeftArraw from '../../Assets/IconCollection/LeftArraw';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 
 
@@ -22,12 +23,25 @@ function InsertEmail() {
     const validateEmail = (email) => {
     const re = validEmail
     return re.test(String(email).toLowerCase());
-  };
+    };
+    const resultForRecovery = async () => {
+    const resultAction = await dispatch(EmailForCode({email}))
+        const promiseResult = unwrapResult(resultAction)
+        console.log("inside insert email",promiseResult.data.email);
+    if (promiseResult.data.email ===email ) {
+      navigate('/entercode')
+    }
+    else {
+      setError('invalid email')
+    }
+
+     
+ }
     const handleSubmit =(e)=>{
         e.preventDefault();
         
        if(email ){
-           dispatch(EmailForCode({email}))
+           resultForRecovery()
            
        }
         

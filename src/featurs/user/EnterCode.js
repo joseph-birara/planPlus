@@ -12,6 +12,7 @@ import { EmailForCode } from './UserActions';
 import ProgressBar from './progressBar';
 import { Link, useNavigate } from 'react-router-dom';
 import Timer from './Timer';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 
 
@@ -32,17 +33,27 @@ useEffect(() => {
   // useEffect(() => {
   //       userref.current.focus();
   //   }, [])
+  const resultForSendCode = async () => {
+    const resultAction = await dispatch(SendCode({code:optCode,email:emailForReset}))
+    const promiseResult = unwrapResult(resultAction)
+    console.log("from inside entercode",promiseResult.token);
+    if (promiseResult.token) {
+      navigate('/newpassword')
+    }  
+
+     
+ }
 
 useEffect(() => {
   timer > 0 && setTimeout(timeOutCallback, 1000);
 }, [timer, timeOutCallback]);
 
-  console.log(timer);
+  
   const handleSubmit = (e) => {
     e.preventDefault()
+    resultForSendCode()
     
-    dispatch(SendCode(optCode))
-    navigate('/newpassword')
+    
   }
 
 const resetTimer = function () {
@@ -50,7 +61,7 @@ const resetTimer = function () {
     setoptCode('')
     setfalg(!flag)
     setTimer(60);
-    dispatch(EmailForCode({ emailForReset }))
+    dispatch(EmailForCode({email:emailForReset}))
     
     
    
@@ -70,7 +81,9 @@ const resetTimer = function () {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          coding@gmail.com
+          {
+            emailForReset
+          }
         </div>
         <div>
 

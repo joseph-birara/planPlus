@@ -47,13 +47,13 @@
         @apply right-1  h-8 w-10 text-3xl mt-2
     }
     .starTime{
-        @apply flex justify-start m-3 gap-3 max-w-lg flex-wrap
+        @apply flex justify-start m-3 gap-1 max-w-lg flex-wrap -ml-1
     }
     .taskBody{
         @apply flex justify-between flex-col
     }
     .editDeleteCancel{
-        @apply z-40 w-28 h-28 right-6 top-10 text-left
+        @apply z-40 w-28 h-28 right-7 top-8 text-left
         border-2 absolute
          border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED]
           

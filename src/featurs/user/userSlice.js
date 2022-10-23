@@ -16,10 +16,11 @@ const initialState = {
     error:'',
     loading:false,
     success:false,
-    resetPassword: '',
+    resetPasswordToken: '',
     emailForReset: '',
     codeForReset: '',
-    RequestMessage:''
+    RequestMessageForLogIn: '',
+    RequestMessageForRegister:''
 }
 
 const UserSlice = createSlice({
@@ -38,12 +39,13 @@ const UserSlice = createSlice({
             state.userToken={Token}
             state.loading = false;
             state.success = true;
+            state.RequestMessageForRegister=''
             console.log("registration succes",state.userInfo,state.success);
                 
         },
         [RegisterUser.rejected]:(state,{payload})=>{
             state.loading = false;
-            state.RequestMessage = payload;
+            state.RequestMessageForRegister = "registration failed , try again";
             console.log(payload);
             
     
@@ -52,39 +54,45 @@ const UserSlice = createSlice({
         [Login.pending]:(state) =>{
             state.loading = true;
             state.error = null
+            console.log("log in loading =", state.userToken);
         },
         [Login.fulfilled]:(state,{payload}) =>{
             
             const{email,Token} = payload;
             state.userInfo={email};
             state.userToken={Token}
+            console.log(payload,'py');
             state.loading = false;
+            state.RequestMessageForLogIn =''
             state.success = true //registered
-            console.log("succes login",state.userInfo);
+            console.log("token from login slice =", state.userToken);
+            
         },
         [Login.rejected]:(state,{payload}) =>{
             state.loading = false;
-            state.error = payload
+            state.RequestMessageForLogIn = "log in rejected, try again"
+            console.log("log in rejected =", payload);
         },
         //email for reset user password
         [EmailForCode.pending]:(state) =>{
             state.loading = true;
             state.error = null
+            console.log("sent email loading .....");
         },
         [EmailForCode.fulfilled]:(state,{payload}) =>{
             
-            const{emailForReset} = payload;
-            state.emailForReset={emailForReset};
+            
+            state.emailForReset=payload.data.email;
             
             state.loading = false;
-            state.success = true //registered
-            const navigate = useNavigate()
-            navigate('/entercode')
-            console.log("succes login",state.userInfo);
+            state.success = true 
+            
+            console.log("sent email slice paylode",payload.data.email);
         },
         [EmailForCode.rejected]:(state,{payload}) =>{
             state.loading = false;
             state.error = payload
+            console.log("sent email rejected",payload);
         },
         //sending code to reset user password
         [SendCode.pending]:(state) =>{
@@ -93,12 +101,12 @@ const UserSlice = createSlice({
         },
         [SendCode.fulfilled]:(state,{payload}) =>{
             
-            const{codeForReset} = payload;
-            state.codeForReset={codeForReset};
+            
+            state.resetPasswordToken=payload.token;
             
             state.loading = false;
             state.success = true //registered
-            console.log("succes login",state.userInfo);
+            console.log("code recived inside slice",payload.token);
         },
         [SendCode.rejected]:(state,{payload}) =>{
             state.loading = false;
@@ -116,7 +124,7 @@ const UserSlice = createSlice({
             
             state.loading = false;
             state.success = true //registered
-            console.log("succes login",state.userInfo);
+            console.log("reset new password",state.userInfo);
         },
         [ResetNewPassword.rejected]:(state,{payload}) =>{
             state.loading = false;

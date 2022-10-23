@@ -10,9 +10,11 @@ import { RiCheckboxBlankFill } from 'react-icons/ri'
 import UpArrow from '../../Assets/IconCollection/UpArrow'
 import DownArrow from '../../Assets/IconCollection/DownArrow'
 import DoneUndone from '../../Assets/IconCollection/DoneUndone'
-import { UpdateStatus } from './TaskActions'
-import { useDispatch } from 'react-redux'
-import { BsDot,BsArrowRightShort } from 'react-icons/bs'
+import { UpdateStatus,UpdateSubTaskStatus } from './TaskActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { BsDot, BsArrowRightShort } from 'react-icons/bs'
+import Moment from 'react-moment';
+import { selectCurrentUsers } from '../user/userSlice'
 
 
 
@@ -24,16 +26,19 @@ function Task(props) {
     const stars = [1, 2, 3, 4, 5]
     const [done, setdone] = useState(false)
     const dispatch = useDispatch()
+    const{ userToken} = useSelector(selectCurrentUsers)
     const handleTaskCancelAndDone = (status) => {
-        if (props.task.status === 'inprogress' || props.task.status === 'upcoming') {
-            props.task.status = status
-            dispatch(UpdateStatus(props.task.id,status))
+        console.log('cancling on progress');
+        if (props.task.status === 'In progress' || props.task.status === 'Upcoming') {
+            console.log("update status inside task component",props.task._id,"and the status",status);
+            
+            dispatch(UpdateStatus({_id:"hello id",status:"hello status",userToken:userToken.Token}))
 
-            props.task.sub.foreach((subtask) => {
-                subtask.status = status
-                //this may be changed to subTaskUpdateStatus
-                dispatch(UpdateStatus(subtask.id,status))
-            })
+            // props.task.subTask.foreach((subtask) => {
+                
+            //     //this may be changed to subTaskUpdateStatus
+            //     dispatch(UpdateSubTaskStatus({id:subtask._id,status:status,userToken:userToken.Token}))
+            // })
         }
     }
     
@@ -111,24 +116,33 @@ function Task(props) {
                         </div>
                   <div className='duration'>
                             {
-                                props.task.duraion
+                                props.task.duration
                       }
                         </div>
-                        <div className='mt-1 -ml-3 text-xl -mr-3'>
+                        <div className='mt-1 -ml-1 text-xl -mr-2'>
 
                             <BsArrowRightShort className=''/>
                         </div>
                   < div className='begin'>
                             {
-                                props.task.dateTime
+                                <Moment format={`${'h'}:mm${"hh">=12?'P':"A"},MMM  DD,'YY`} >
+                                    { props.task.dateTime}
+                                    
+
+                                </Moment>
+                                
+                               
+                                
+
+                               
                       }
                         </div>
                         <div className='text-[#C9B6A9] text-2xl'>
                             <BsDot/>
                         </div>
-                  <div className='catagory text-xl text-center mb-0 -mt-1'>
+                  <div className='category text-console.log(); text-center mb-0 '>
                             {
-                                props.task.catagory
+                                props.task.category
                       }
                   </div>
               </div>
@@ -141,15 +155,15 @@ function Task(props) {
               
           </div>
            {
-              edit?<div className=''>
-                            <EditDeleteCancel task={props.task } cancelHandler={handleTaskCancelAndDone} />
+              edit?<div className='-mt-3'>
+                            <EditDeleteCancel  task={props.task } cancelHandler={handleTaskCancelAndDone} />
               
                     </div> : ''}
         </div>
          
             </div>
             {
-                upArrow ? props.task.sub.map((x,i) => 
+                upArrow ? props.task.subTask.map((x,i) => 
                     <SubTask subTask={x} key ={i} />
                 )  :''
                       
