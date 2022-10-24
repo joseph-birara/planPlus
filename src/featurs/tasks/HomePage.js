@@ -8,7 +8,7 @@ import {MdOutlineAccountCircle} from 'react-icons/md'
 import Task from './Task'
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentTasks } from './TaskSlice'
-import { GetAllTasks } from './TaskActions'
+import { GetAllTasks, UpdateStatus, UpdateSubTaskStatus } from './TaskActions'
 import axios from 'axios'
 import tasks from './tasks'
 import HomePageImage from '../../Assets/IconCollection/HomePageImage'
@@ -16,6 +16,7 @@ import AddTaskPlus from '../../Assets/IconCollection/AddTaskPlus'
 import Sorting from '../../Assets/IconCollection/Sorting'
 import Filter from '../../Assets/IconCollection/Filter'
 import { selectCurrentUsers } from '../user/userSlice'
+import { calculatore, Calculatore } from './Calculatore'
 
 
 function HomePage() {
@@ -24,17 +25,49 @@ function HomePage() {
     const { allTasks } = useSelector(selectCurrentTasks)
     const { userToken } = useSelector(selectCurrentUsers)
     const [search, setsearch] = useState('')
+    
     let filterdTasks = ''
+    console.log("form homepage token", userToken)
+    //change to overdue or inprogress
+    const changeHandler = async(_id,nextStatus) => {
+   await  dispatch(UpdateStatus({ _id:_id,status:nextStatus, userToken:userToken})).then
+    (()=>dispatch(GetAllTasks({userToken:userToken})))
+    }
+    const changeHandlerSubTask = async(_id,nextStatus) => {
+   await  dispatch(UpdateSubTaskStatus({ _id:_id,status:nextStatus, userToken:userToken})).then
+    (()=>dispatch(GetAllTasks({userToken:userToken})))
+    }
+    useEffect(() => {
+        const timer2 = setInterval(() => {
+            allTasks?.forEach(task => calculatore({
+                task: task,
+                changeHandler:changeHandler
+            })
+
+        
+    );
+            allTasks?.map(t => t.subTask?.map(sub => calculatore({
+                task: sub,
+                changeHandler:changeHandlerSubTask
+                
+         })))   
+        }, 60000);
+        return ()=>clearInterval(timer2)
+      
+    
+      
+    }, [allTasks])
     
   
     useEffect(() => {
-        console.log("form homepage",userToken.Token,allTasks)
+        console.log("form homepage token",userToken)
 
        
-        dispatch(GetAllTasks({userToken:userToken.Token}))
+        // dispatch(GetAllTasks({userToken}))
       
             
     }, [userToken])
+
 
     if (allTasks) {
         filterdTasks =  allTasks.filter(monster => monster.title.toLowerCase().includes(search.toLowerCase()));
@@ -117,7 +150,7 @@ function HomePage() {
             
             
             <div
-                onClick={()=>dispatch(GetAllTasks())}
+                // onClick={()=>dispatch(GetAllTasks())}
                 className='addTask'>
                 <AddTaskPlus/>
             </div>

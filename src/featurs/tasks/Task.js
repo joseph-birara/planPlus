@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 
-import { AiOutlineArrowDown } from 'react-icons/ai'
-import { AiFillStar,AiOutlineStar,AiFillCheckSquare} from 'react-icons/ai'
-import { BiUpArrowAlt } from 'react-icons/bi'
+import { AiFillStar,AiOutlineStar} from 'react-icons/ai'
+
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import EditDeleteCancel from './EditDeleteCancel'
 import SubTask from './SubTask'
-import { RiCheckboxBlankFill } from 'react-icons/ri'
+
 import UpArrow from '../../Assets/IconCollection/UpArrow'
 import DownArrow from '../../Assets/IconCollection/DownArrow'
 import DoneUndone from '../../Assets/IconCollection/DoneUndone'
-import { UpdateStatus,UpdateSubTaskStatus } from './TaskActions'
+import { DeleteTask, GetAllTasks, UpdateStatus,UpdateSubTaskStatus } from './TaskActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { BsDot, BsArrowRightShort } from 'react-icons/bs'
 import Moment from 'react-moment';
@@ -26,18 +25,32 @@ function Task(props) {
     const stars = [1, 2, 3, 4, 5]
     const [done, setdone] = useState(false)
     const dispatch = useDispatch()
-    const{ userToken} = useSelector(selectCurrentUsers)
-    const handleTaskCancelAndDone = (status) => {
+    
+    const { userToken } = useSelector(selectCurrentUsers)
+    
+
+
+    //delet
+
+    const deleteHandler = async() => {
+   await  dispatch(DeleteTask({ _id:props.task._id, userToken:userToken})).then
+    (()=>dispatch(GetAllTasks({userToken:userToken})))
+    
+    }
+    
+    //this function changes status and dispachs updated tasks
+    const handleTaskCancelAndDone = async(status) => {
         console.log('cancling on progress');
         if (props.task.status === 'In progress' || props.task.status === 'Upcoming') {
             console.log("update status inside task component",props.task._id,"and the status",status);
             
-            dispatch(UpdateStatus({_id:"hello id",status:"hello status",userToken:userToken.Token}))
+         await   dispatch(UpdateStatus({ _id: props.task._id, status: status,userToken })).then
+    (()=>dispatch(GetAllTasks({userToken:userToken})))
+            console.log("update status inside task component",props.task._id,"and the status",status);
 
-            // props.task.subTask.foreach((subtask) => {
+            // props.task.subTask.foreach((subtask) => {               
                 
-            //     //this may be changed to subTaskUpdateStatus
-            //     dispatch(UpdateSubTaskStatus({id:subtask._id,status:status,userToken:userToken.Token}))
+            //     dispatch(UpdateSubTaskStatus({ _id: subtask._id, status: status,userToken }))
             // })
         }
     }
@@ -105,7 +118,7 @@ function Task(props) {
                         <div className='star'>
                             {
                                 stars.map((item, index) => 
-                                    props.task.priority>index?<AiFillStar />:<AiOutlineStar/>
+                                    props.task.priority>index?<AiFillStar key={index}/>:<AiOutlineStar key={index}/>
                                 )
                             }
                         
@@ -156,7 +169,7 @@ function Task(props) {
           </div>
            {
               edit?<div className='-mt-3'>
-                            <EditDeleteCancel  task={props.task } cancelHandler={handleTaskCancelAndDone} />
+                            <EditDeleteCancel  deleteHandler={deleteHandler } task={props.task } cancelHandler={handleTaskCancelAndDone} />
               
                     </div> : ''}
         </div>
@@ -164,7 +177,7 @@ function Task(props) {
             </div>
             {
                 upArrow ? props.task.subTask.map((x,i) => 
-                    <SubTask subTask={x} key ={i} />
+                    <SubTask subTask={x} key ={i} partent ={props.task} />
                 )  :''
                       
                       

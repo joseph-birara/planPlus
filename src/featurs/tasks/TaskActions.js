@@ -5,7 +5,7 @@ import constants from "../../GlobalVariabls/constant";
 export const GetAllTasks = createAsyncThunk(
   "tasks/alltasks",
   async ({ userToken }, { rejectWithValue }) => {
-    console.log("a",userToken.Token)
+    console.log("aqw",userToken)
     try {
       const resp = await axios.get(`${constants}/tasks`,{
          headers: {
@@ -42,15 +42,17 @@ export const CreateTask = createAsyncThunk(
   
 );
 export const DeleteTask = createAsyncThunk(
-  "tasks/delettask",
+  "tasks/DeleteTask",
   async ({_id,userToken} ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.delete(`${constants}/tasks/delete`, {_id},{
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
+      const resp = await axios.delete(`${constants}/tasks/delete`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+      data: {
+        _id:_id
+      },
+    });
       console.log(resp);
       return resp;
     } catch (error) {
@@ -65,14 +67,16 @@ export const UpdateStatus = createAsyncThunk(
   async ({ _id, status, userToken }, { rejectWithValue }) => {
     console.log("from action ",_id,status);
     try {
-      const resp = await axios.patch(`${constants}/tasks/updateStatus`,
-        { _id, status },
-        {
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
+      const resp = await axios.patch(`${constants}/tasks/updateStatus`,{
+        _id: _id,
+        status:status
+      },
+        
+         {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      }
+    });
       console.log(resp,"from action update ");
       return resp;
     } catch (error) {
@@ -122,14 +126,41 @@ export const EditTask = createAsyncThunk(
 );
 export const UpdateSubTaskStatus = createAsyncThunk(
   "tasks/update",
-  async ({id,status,userToken} ,{ rejectWithValue }) => {
+  async ({_id,status,userToken} ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.patch(`${constants}/subTasks/updateStatus`,{id,status},{
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
+      const resp = await axios.patch(`${constants}/subTasks/updateStatus`,{
+        _id: _id,
+        status:status
+      },
+        
+         {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      }
+    });
+      console.log(resp);
+      return resp;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+//delete subtask
+
+export const DeleteSubTask = createAsyncThunk(
+  "subTask/DeleteSubTask",
+  async ({_id,userToken} ,{ rejectWithValue }) => {
+    try {
+      const resp = await axios.delete(`${constants}/subTasks/delete`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+      data: {
+        _id:_id
+      },
+    });
       console.log(resp);
       return resp;
     } catch (error) {

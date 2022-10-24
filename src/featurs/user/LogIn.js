@@ -35,14 +35,14 @@ function LogIn() {
   const resultForLognIN = async () => {
     const resultAction = await dispatch(Login({ password, email }))
     const promiseResult = unwrapResult(resultAction)
-    if (promiseResult.email === email) {
+    if (promiseResult.data.email === email) {
       navigate('/')
     }
     else {
       setError('log in failed try again')
     }
 
-     console.log(promiseResult.email)
+     console.log(promiseResult.data.email)
  }
   const handleSubmit =(e)=>{
     e.preventDefault();

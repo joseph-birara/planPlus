@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
-import { MdCheckBoxOutlineBlank } from 'react-icons/md'
-import { AiOutlineArrowDown } from 'react-icons/ai'
+
 import { AiFillStar,AiOutlineStar} from 'react-icons/ai'
-import { BiUpArrowAlt } from 'react-icons/bi'
+
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import EditDeleteCancel from './EditDeleteCancel'
 import DoneUndone from '../../Assets/IconCollection/DoneUndone'
-import { useDispatch } from 'react-redux'
-import { UpdateStatus } from './TaskActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { DeleteSubTask, GetAllTasks,  UpdateStatus,  UpdateSubTaskStatus } from './TaskActions'
 import { BsDot,BsArrowRightShort } from 'react-icons/bs'
+import Moment from 'react-moment'
+import { selectCurrentUsers } from '../user/userSlice'
 
 
 
@@ -16,14 +17,40 @@ import { BsDot,BsArrowRightShort } from 'react-icons/bs'
 function SubTask(props) {
     const [edit, setedit] = useState(false)
     const subStars = [1, 2, 3, 4, 5]
-    const [done,setdone] = useState(false)
+    const { userToken } = useSelector(selectCurrentUsers)
+    
     const [subShortDescription, setsubShortDescription] = useState(true)
     const dispatch = useDispatch()
-    const handleSubTaskCancelAndDone = (status) => {
-        if (props.subTask.status === 'inprogress' || props.subTask.status === 'upcoming') {
-            props.subTask.status = status
-            //this may be changed to subTaskUpdateStatus
-            dispatch(UpdateStatus(props.subTask.id,status))
+    //delete
+
+    const deleteHandler = async() => {
+    console.log("inside in the function delet handler",userToken);
+   await  dispatch(DeleteSubTask({ _id:props.subTask._id, userToken:userToken})).then
+    (()=>dispatch(GetAllTasks({userToken:userToken})))
+    
+    }
+    
+
+    const handleSubTaskCancelAndDone = async (status) => {
+        
+        if (props.subTask.status === 'In progress' || props.subTask.status === 'upcoming') {
+            
+            //changes status and gets updated all tasks and subtasks
+            await dispatch(UpdateSubTaskStatus({ _id: props.subTask._id, status: status, userToken }))
+                .then(() => dispatch(GetAllTasks({ userToken: userToken })))
+                .then(() => {
+                let cal = true
+              props.partent.forEach(sub => {
+             if (sub.status !== status) {
+                        cal = false
+                    }
+        })
+        if (cal) {
+            dispatch(UpdateStatus({ _id: props.task._id, status: status, userToken }))
+                
+        }
+                })
+            .then(()=>dispatch(GetAllTasks({userToken:userToken})))
 
             
         }
@@ -70,7 +97,7 @@ function SubTask(props) {
                     <div className='star'>
                         {
                                 subStars.map((item, index) => 
-                                    props.subTask.priority>index?<AiFillStar />:<AiOutlineStar/>
+                                    props.subTask.priority>index?<AiFillStar key={index}/>:<AiOutlineStar key={index}/>
                                 )
                             }
                     </div>
@@ -82,13 +109,18 @@ function SubTask(props) {
                                 props.subTask.duration
                       }
                         </div>
-                    <div className='mt-1 -ml-3 text-xl -mr-3'>
+                    <div className='mt-1  text-xl'>
 
                             <BsArrowRightShort className=''/>
                         </div>
                   < div className='begin'>
                        {
-                                props.subTask.dateTime
+                            
+                             <Moment format={`${'h'}:mm${"hh">=12?'P':"A"},MMM  DD,'YY`} >
+                                    { props.subTask.dateTime}
+                                    
+
+                                </Moment>
                       }
                   </div>
                   
@@ -103,7 +135,7 @@ function SubTask(props) {
           </div>
            {
               edit?<div className='mt-2 mr-4'>
-                        <EditDeleteCancel task={props.subTask} cancelHandler={ handleSubTaskCancelAndDone} />
+                        <EditDeleteCancel deleteHandler={deleteHandler } task={props.subTask} cancelHandler={ handleSubTaskCancelAndDone} />
               
                     </div> : null}
                 </div>

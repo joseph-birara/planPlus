@@ -6,7 +6,8 @@ import {
     UpdateStatus,
     UpdateData,
     EditTask,
-    UpdateSubTaskStatus
+    UpdateSubTaskStatus,
+    DeleteSubTask
 
 } from "./TaskActions";
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
     error: null,
 }
 const TasksSlice = createSlice({
-    name: 'Tasks',
+    name: 'Task',
     initialState,
     reducers: {},
     extraReducers: {
@@ -160,33 +161,57 @@ const TasksSlice = createSlice({
             console.log(payload);
     
         },
-//         //update status of a subtask by id
-//         [UpdateSubTaskStatus
-// .pending]:(state)=>{
-//             state.loading = true;
-//              console.log("UpdateSubTaskStatus loading from tasks slice loading");
+        //update status of a subtask by id
+        [UpdateSubTaskStatus
+.pending]:(state)=>{
+            state.loading = true;
+             console.log("UpdateSubTaskStatus loading from tasks slice loading");
     
-//         },
-//         [UpdateSubTaskStatus
-// .fulfilled]:(state,{payload})=>{
+        },
+        [UpdateSubTaskStatus
+.fulfilled]:(state,{payload})=>{
             
             
             
-//             state.loading = false;
-//             state.success = true;
-//             console.log("UpdateSubTaskStatus  from tasks slice accepted");
-//             console.log(payload.data)
+            state.loading = false;
+            state.success = true;
+            console.log("UpdateSubTaskStatus  from tasks slice accepted");
+            console.log(payload.data)
             
                 
-//         },
-//         [UpdateSubTaskStatus
-// .rejected]:(state,{payload})=>{
-//             state.loading = false;
-//             state.error = payload;
-//             console.log("UpdateSubTaskStatus  from tasks slice rejected");
-//             console.log(payload);
+        },
+        [UpdateSubTaskStatus
+.rejected]:(state,{payload})=>{
+            state.loading = false;
+            state.error = payload;
+            console.log("UpdateSubTaskStatus  from tasks slice rejected");
+            console.log(payload);
     
-//         },
+            },
+        //delet sub task by id
+        [DeleteSubTask.pending]:(state)=>{
+            state.loading = true;
+             console.log("delete loading from tasks slice loading");
+    
+        },
+        [DeleteSubTask.fulfilled]:(state,{payload})=>{
+            
+            
+            
+            state.loading = false;
+            state.success = true;
+            console.log("delete from tasks slice accepted");
+            console.log(payload.data)
+            
+                
+        },
+        [DeleteSubTask.rejected]:(state,{payload})=>{
+            state.loading = false;
+            state.error = payload;
+            console.log("delete from tasks slice rejected");
+            console.log(payload);
+    
+        },
 
 
 
@@ -194,5 +219,5 @@ const TasksSlice = createSlice({
 })
 
 
-export const selectCurrentTasks = state => state.Tasks
+export const selectCurrentTasks = state => state.Task
 export default TasksSlice.reducer

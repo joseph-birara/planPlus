@@ -54,13 +54,13 @@ const UserSlice = createSlice({
         [Login.pending]:(state) =>{
             state.loading = true;
             state.error = null
-            console.log("log in loading =", state.userToken);
+            console.log("log in loading ....");
         },
         [Login.fulfilled]:(state,{payload}) =>{
             
-            const{email,Token} = payload;
-            state.userInfo={email};
-            state.userToken={Token}
+            
+            state.userInfo=payload.data.email;
+            state.userToken=payload.data.Token
             console.log(payload,'py');
             state.loading = false;
             state.RequestMessageForLogIn =''
