@@ -53,7 +53,7 @@ export const DeleteTask = createAsyncThunk(
       },
     });
       console.log(resp);
-      return resp;
+      return _id;
     } catch (error) {
       
         return rejectWithValue(error.err);
@@ -77,7 +77,7 @@ export const UpdateStatus = createAsyncThunk(
       }
     });
       console.log(resp,"from action update ");
-      return resp;
+      return {_id, status};
     } catch (error) {
       
         return rejectWithValue(error.err);
@@ -86,17 +86,17 @@ export const UpdateStatus = createAsyncThunk(
   
 );
 export const UpdateData = createAsyncThunk(
-  "tasks/edit",
-  async ({_id,user,title,note,dateTime,duration,category,priority,reminder,status,reminderStatus,userToken} ,{ rejectWithValue }) => {
+  "tasks/UpdateData",
+  async ({_id,title,note,dateTime,duration,category,priority,reminder,status,userToken} ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.put(`${constants}/tasks/update`,{_id,user,title,note,dateTime,duration,category,priority,reminder,status,reminderStatus},{
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
+      const resp = await axios.patch(`${constants}/tasks/update`,{_id,title,note,dateTime,duration,category,priority,reminder,status},{
+        
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      }
+    });
       console.log(resp);
-      return resp;
+      return {_id,title,note,dateTime,duration,category,priority,reminder,status};
     } catch (error) {
       
         return rejectWithValue(error.err);
@@ -104,25 +104,9 @@ export const UpdateData = createAsyncThunk(
     }
   
 );
-export const EditTask = createAsyncThunk(
-  "tasks/edit",
-  async ({_id,userToken} ,{ rejectWithValue }) => {
-    try {
-      const resp = await axios.get(`${constants}/tasks/edit`,{_id},{
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
-      console.log(resp);
-      return resp;
-    } catch (error) {
-      
-        return rejectWithValue(error.err);
-      }
-    }
-  
-);
+
+
+
 //sub tasks actions 
 
 //
@@ -186,7 +170,7 @@ export const CreateSubTask = createAsyncThunk(
         console.log("create  subtask action");
 
     try {
-      const resp = await axios.post(`${constants}/subTasks/create`, {title, note, dateTime:new Date(dateTime).toISOString(), duration,  priority, reminder}, {
+      const resp = await axios.post(`${constants}/subTasks/create`, {id,title, note, dateTime:new Date(dateTime).toISOString(), duration,  priority, reminder}, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       }
@@ -227,23 +211,5 @@ export const UpdateSubTaskData = createAsyncThunk(
 );
 
 //get the subtask to be edited
-export const EditSubTask = createAsyncThunk(
-  "subTasks/edit",
-  async ({_id,userToken} ,{ rejectWithValue }) => {
-    try {
-      const resp = await axios.get(`${constants}/subTasks/edit`,{_id},{
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
-      console.log(resp);
-      return resp;
-    } catch (error) {
-      
-        return rejectWithValue(error.err);
-      }
-    }
-  
-);
+
 

@@ -6,14 +6,16 @@ function EditDeleteCancel(props) {
   
   
   return (
-    <div className='editDeleteCancel'>
+    <div className={`${props.parent?'editDeleteCancel':'editDeleteCancelForSubTask'}`}>
       <div className='m-2'>
         <div
           onClick={() =>props.cancelHandler('Canceled')}
           className=' hover:cursor-pointer mb-2'>
               Cancel task
           </div>
-          <div  className=' hover:cursor-pointer mb-2'>
+        <div
+          onClick={()=>props.editHandler()}
+          className=' hover:cursor-pointer mb-2'>
              Edit task
           </div>
         <div

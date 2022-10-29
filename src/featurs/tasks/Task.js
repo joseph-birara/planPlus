@@ -14,14 +14,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BsDot, BsArrowRightShort } from 'react-icons/bs'
 import Moment from 'react-moment';
 import { selectCurrentUsers } from '../user/userSlice'
+import { Link } from 'react-router-dom'
+import AddSubTask from '../subTasks/AddSubTask'
+import Editask from './Editask'
 
 
 
 function Task(props) {
     const [upArrow, setupArrow] = useState(false)
     const [edit, setedit] = useState(false)
-    const [priority, setpriority] = useState(false)
-    const [shortDescription, setshortDescription] = useState(true)
+    const [editForm, seteditForm] = useState(false)
+    const [createSubtask, setcreateSubtask] = useState(false)
     const stars = [1, 2, 3, 4, 5]
     const [done, setdone] = useState(false)
     const dispatch = useDispatch()
@@ -33,8 +36,9 @@ function Task(props) {
     //delet
 
     const deleteHandler = async() => {
-   await  dispatch(DeleteTask({ _id:props.task._id, userToken:userToken})).then
-    (()=>dispatch(GetAllTasks({userToken:userToken})))
+        await dispatch(DeleteTask({ _id: props.task._id, userToken: userToken }))
+    //         .then
+    // (()=>dispatch(GetAllTasks({userToken:userToken})))
     
     }
     
@@ -44,7 +48,8 @@ function Task(props) {
         if (props.task.status === 'In progress' || props.task.status === 'Upcoming') {
             console.log("update status inside task component",props.task._id,"and the status",status);
             
-         await   dispatch(UpdateStatus({ _id: props.task._id, status: status,userToken })).then
+            await dispatch(UpdateStatus({ _id: props.task._id, status: status, userToken }))
+                .then
     (()=>dispatch(GetAllTasks({userToken:userToken})))
             console.log("update status inside task component",props.task._id,"and the status",status);
 
@@ -54,6 +59,10 @@ function Task(props) {
             // })
         }
     }
+    const editHandler = () =>
+    {
+        seteditForm(!editForm)
+      }
 
     
     
@@ -139,7 +148,7 @@ function Task(props) {
           
            {
               edit?<div className='relative'>
-                            <EditDeleteCancel  deleteHandler={deleteHandler } task={props.task } cancelHandler={handleTaskCancelAndDone} />
+                            <EditDeleteCancel  deleteHandler={deleteHandler } task={props.task } cancelHandler={handleTaskCancelAndDone} editHandler ={editHandler} parent={true} />
               
                     </div> : ''}
         </div>
@@ -198,12 +207,27 @@ function Task(props) {
             </div>
             {
                 upArrow ? props.task.subTask.map((x,i) => 
-                    <SubTask subTask={x} key ={i} partent ={props.task} />
+                    <SubTask subTask={x} key={i} partent={props.task} />
                 )  :''
                       
-                      
+                        
                    
             }
+            {upArrow?
+                <span onClick={() => setcreateSubtask(!createSubtask)}
+                className='btn'>
+                add sub task
+                {
+                    createSubtask? <div>
+                        <AddSubTask id={props.task._id } />
+                    </div>:''
+                }
+                </span> : ''}
+            {
+                editForm ?
+                    <Editask task={props.task} editHandler={editHandler }/> : ''
+            }
+            
             </div>
   )
 }

@@ -72,14 +72,15 @@ const TasksSlice = createSlice({
              console.log("delete loading from tasks slice loading");
     
         },
-        [DeleteTask.fulfilled]:(state,{payload})=>{
+        [DeleteTask.fulfilled]:(state,action)=>{
             
-            
+            const  _id =action.payload
             
             state.loading = false;
             state.success = true;
             console.log("delete from tasks slice accepted");
-            console.log(payload.data)
+            
+              state.allTasks.filter((task) => task._id !== _id);
             
                 
         },
@@ -93,17 +94,16 @@ const TasksSlice = createSlice({
         //update status of a task by id
         [UpdateStatus.pending]:(state)=>{
             state.loading = true;
-             console.log("UpdateStatus loading from tasks slice loading");
+            console.log("UpdateStatus loading from tasks slice loading");
+            
     
         },
-        [UpdateStatus.fulfilled]:(state,{payload})=>{
+        [UpdateStatus.fulfilled]:(state,action)=>{
             
             
+            const {_id,status} =action.payload
             
-            state.loading = false;
-            state.success = true;
-            console.log("Update Status from tasks slice accepted");
-            console.log(payload.data)
+            state.map((task) => task._id === _id && (task.status = status))
             
                 
         },
@@ -138,30 +138,7 @@ const TasksSlice = createSlice({
             console.log(payload);
     
         },
-        //edit task id to be sent in body
-        [ EditTask.pending]:(state)=>{
-            state.loading = true;
-             console.log("edit  loading from tasks slice loading");
-    
-        },
-        [EditTask.fulfilled]:(state,{payload})=>{
-            
-            
-            
-            state.loading = false;
-            state.success = true;
-            console.log("edit from tasks slice accepted");
-            console.log(payload.data)
-            
-                
-        },
-        [ EditTask.rejected]:(state,{payload})=>{
-            state.loading = false;
-            state.error = payload;
-            console.log("edit from tasks slice rejected");
-            console.log(payload);
-    
-        },
+        
         //update status of a subtask by id
         [UpdateSubTaskStatus.pending]:(state)=>{
             state.loading = true;

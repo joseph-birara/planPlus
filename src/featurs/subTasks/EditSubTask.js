@@ -1,35 +1,40 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { UpdateSubTaskData } from '../tasks/TaskActions'
 import { selectCurrentUsers } from '../user/userSlice'
-import { CreateTask } from './TaskActions'
 
-function AddTask() {
+function EditSubTask(props) {
+    
+    const dispatch = useDispatch()
+    const { userToken } = useSelector(selectCurrentUsers)
+    
+    
     const [state, setState] = useState({
-        catagory: 'Others',
-        duration: '',
-        priority: 1,
-      dateTime: new Date(),
-      status: 'Upcoming',
-      note: '',
-      title: '',
-      reminder:'30 mins'
+        
+        duration:props.task.duration,
+        priority:props.task.priority,
+       dateTime: props.task.dateTime,
+      status: props.task.status,
+      note:props.task.note,
+      title: props.task.title,
+      reminder:props.task.reminder
         
         
         
     })
-  const {userToken} = useSelector(selectCurrentUsers)
-  const dispatch = useDispatch()
-  const { title, note, dateTime, duration, category, priority, reminder } = state
+
+  const { title, note, dateTime, duration, priority, reminder,status } = state
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
   const handleSubmit = () => {
-    dispatch(CreateTask({title,note,dateTime,duration,category,priority,reminder,userToken}))
+      dispatch(UpdateSubTaskData({ _id: props.task._id, title, note, dateTime, duration,  priority, reminder, status, userToken }))      
+      props.editHandler()
   }
     
-    
-  return (
-      <div className=''>
+   if(props.task._id) 
+  {return (
+      <div className='w-screen h-screen bg-white z-50 absolute'>
       <form className='flex flex-col gap-2 w-32 m-10'>
          <input
                  
@@ -67,28 +72,9 @@ function AddTask() {
           className="inputBox"
           
         />
+             
         <select
-          name='category'
-          onChange={handleChange}>
-          <option>
-            Others
-          </option>
-
-          <option >
-            Family
-          </option>
-          
-          <option>
-            Work
-          </option>
-          <option>
-            Education
-          </option>
-          <option>
-            Shoping
-          </option>
-        </select>
-        <select
+           value={state.priority}
           name='priority'
           onChange={handleChange}>
           <option>
@@ -110,7 +96,8 @@ function AddTask() {
           </option>
         </select>
         <select
-          name='reminder'
+          value={state.reminder}
+                  name='reminder'
           onChange={handleChange}>
           <option >
             15 mins
@@ -147,11 +134,11 @@ function AddTask() {
                   // disabled = {!email || password.length<8}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
-                  Save Task</button>
+                  Save subTask</button>
         
         </form>
     </div>
-  )
+  )}
 }
 
-export default AddTask
+export default EditSubTask

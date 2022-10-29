@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUsers } from '../user/userSlice'
 import { CreateSubTask } from '../tasks/TaskActions'
 
-function AddSubTask() {
+function AddSubTask(props) {
  const [state, setState] = useState({
         
     duration: '',
@@ -18,17 +18,18 @@ function AddSubTask() {
     })
   const {userToken} = useSelector(selectCurrentUsers)
   const dispatch = useDispatch()
+  
   const { title, note, dateTime, duration,  priority, reminder } = state
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
   const handleSubmit = () => {
-    dispatch(CreateSubTask({title,note,dateTime,duration,priority,reminder,userToken}))
+    dispatch(CreateSubTask({id:props.id,title,note,dateTime,duration,priority,reminder,userToken}))
   }
     
     
   return (
-      <div className=''>
+      <div className='z-40 absolute bg-slate-300 w-full'>
       <form className='flex flex-col gap-2 w-32 m-10'>
          <input
                  
@@ -38,7 +39,7 @@ function AddSubTask() {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="title of the task "
+                  placeholder="title of the sub task "
           className="inputBox"
           
         />
@@ -50,7 +51,7 @@ function AddSubTask() {
                   type="text"
                   name="note"
                   id="note"
-                  placeholder="note of the task "
+                  placeholder="note of the sub task "
           className="inputBox"
           
         />
@@ -62,7 +63,7 @@ function AddSubTask() {
                   type="text"
                   name="duration"
                   id="duration"
-                  placeholder="duration of the task "
+                  placeholder="duration of the sub task "
           className="inputBox"
           
         />
@@ -91,23 +92,22 @@ function AddSubTask() {
         <select
           name='reminder'
           onChange={handleChange}>
+          <option >
+            15 mins
+          </option>
           <option>
             30 mins
           </option>
 
-          <option >
-            1 hrs
-          </option>
+          
           
           <option>
-            5 hrs
+            1 hrs
           </option>
           <option>
-           12 hrs
+           2 hrs
           </option>
-          <option>
-            24 hrs
-          </option>
+         
         </select>
         <input
                  

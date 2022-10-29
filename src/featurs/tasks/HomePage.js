@@ -68,7 +68,7 @@ function HomePage() {
         
 
        
-        dispatch(GetAllTasks({ userToken }))
+        //dispatch(GetAllTasks({ userToken }))
         pushAndSubscribe({userToken:userToken})
       
             

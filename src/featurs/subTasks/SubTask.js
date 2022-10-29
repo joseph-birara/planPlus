@@ -10,6 +10,7 @@ import { DeleteSubTask, GetAllTasks,  UpdateStatus,  UpdateSubTaskStatus } from 
 import { BsDot,BsArrowRightShort } from 'react-icons/bs'
 import Moment from 'react-moment'
 import { selectCurrentUsers } from '../user/userSlice'
+import EditSubTask from './EditSubTask'
 
 
 
@@ -19,7 +20,7 @@ function SubTask(props) {
     const subStars = [1, 2, 3, 4, 5]
     const { userToken } = useSelector(selectCurrentUsers)
     
-    const [subShortDescription, setsubShortDescription] = useState(true)
+    const [editForm, seteditForm] = useState(false)
     const dispatch = useDispatch()
     //delete
 
@@ -55,6 +56,10 @@ function SubTask(props) {
             
         }
     }
+    const editHandler = () =>
+    {
+        seteditForm(!editForm)
+      }
     
     return (
       
@@ -128,7 +133,7 @@ function SubTask(props) {
                                 props.subTask.duration
                       }
                         </div>
-                    <div className='mt-1 -mr-2 text-xl'>
+                    <div className='mt-1  text-xl'>
 
                             <BsArrowRightShort className=''/>
                         </div>
@@ -149,11 +154,15 @@ function SubTask(props) {
           <div className='relative'>
           
            {
-              edit?<div className='mt-2 mr-4'>
-                        <EditDeleteCancel deleteHandler={deleteHandler } task={props.subTask} cancelHandler={ handleSubTaskCancelAndDone} />
+              edit?<div className=' mr-4'>
+                        <EditDeleteCancel deleteHandler={deleteHandler } task={props.subTask} cancelHandler={ handleSubTaskCancelAndDone} editHandler ={editHandler} parent={false}/>
               
                     </div> : null}
-                </div>
+            </div>
+            {
+                editForm ?
+                    <EditSubTask task={props.subTask} editHandler={editHandler }/> : ''
+            }
          
     </div>
     
