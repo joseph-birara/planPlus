@@ -17,7 +17,7 @@ import Sorting from '../../Assets/IconCollection/Sorting'
 import Filter from '../../Assets/IconCollection/Filter'
 import { selectCurrentUsers } from '../user/userSlice'
 import { calculatore, Calculatore } from './Calculatore'
-
+import { pushAndSubscribe } from '../../Clinet'
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -27,7 +27,12 @@ function HomePage() {
     const [search, setsearch] = useState('')
     
     let filterdTasks = ''
-    console.log("form homepage token", userToken)
+    useEffect(() => {
+      pushAndSubscribe({userToken:userToken})
+    
+      
+    },[userToken])
+    
     //change to overdue or inprogress
     const changeHandler = async(_id,nextStatus) => {
    await  dispatch(UpdateStatus({ _id:_id,status:nextStatus, userToken:userToken})).then
@@ -37,39 +42,41 @@ function HomePage() {
    await  dispatch(UpdateSubTaskStatus({ _id:_id,status:nextStatus, userToken:userToken})).then
     (()=>dispatch(GetAllTasks({userToken:userToken})))
     }
-    useEffect(() => {
-        const timer2 = setInterval(() => {
-            allTasks?.forEach(task => calculatore({
-                task: task,
-                changeHandler:changeHandler
-            })
+    // useEffect(() => {
+    //     const timer2 = setInterval(() => {
+    //         allTasks?.forEach(task => calculatore({
+    //             task: task,
+    //             changeHandler:changeHandler
+    //         })
 
         
-    );
-            allTasks?.map(t => t.subTask?.map(sub => calculatore({
-                task: sub,
-                changeHandler:changeHandlerSubTask
+    // );
+    //         allTasks?.map(t => t.subTask?.map(sub => calculatore({
+    //             task: sub,
+    //             changeHandler:changeHandlerSubTask
                 
-         })))   
-        }, 60000);
-        return ()=>clearInterval(timer2)
+    //      })))   
+    //     }, 60000);
+    //     return ()=>clearInterval(timer2)
       
     
       
-    }, [allTasks])
+    // }, [allTasks])
     
   
     useEffect(() => {
-        console.log("form homepage token",userToken)
+        
 
        
-        // dispatch(GetAllTasks({userToken}))
+        dispatch(GetAllTasks({ userToken }))
+        pushAndSubscribe({userToken:userToken})
       
             
     }, [userToken])
 
 
     if (allTasks) {
+        
         filterdTasks =  allTasks.filter(monster => monster.title.toLowerCase().includes(search.toLowerCase()));
          
      }
@@ -123,19 +130,19 @@ function HomePage() {
                 Your TooDoo
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
-                <div className='flex flex-col m-12 mt-3 items-center gap-2 '>
+                <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>
                     
                     
                     
                     {
-                       allTasks.length>0?
+                      filterdTasks?
                          filterdTasks.map((data ,i)=> 
                         <Task  task={ data } key = {i} />
                  
                     )
                             : <div>
                                 <HomePageImage />
-                    <div className='text-center w-52 font-thin text-lg -ml-3'>
+                    <div className='text-center w-52 font-thin text-lg -ml-10 text-[#1D1D1D]'>
                Get started by creating your very first task.
           </div> 
                         

@@ -1,7 +1,7 @@
 const tasks =[
   {
-    "title": "Lorem ipsum ",
-    "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+    "title": "adipiscing elit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturadipiscing elit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur adipiscing elit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur  adipiscing elit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
+    "note": "Neque ",
     "priority": "4",
     "duration": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",
@@ -10,8 +10,8 @@ const tasks =[
     
     "subTask": [
       {
-        "title": " adipiscing elit",
-        "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+        "title": " adipiscing elit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
+        "note": ", Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est ",
         "priority": "4",
         "duration": "3MIN",
         "dateTime": "10:00AM, oct 08,'22",
@@ -50,7 +50,7 @@ const tasks =[
     },
     {
     "title": "Lorem ipsum ",
-    "note": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit  Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+    "note": "hi",
     "priority": "4",
     "duration": "3MIN",
     "dateTime": "10:00AM, oct 08,'22",

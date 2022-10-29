@@ -26,7 +26,7 @@
         @apply text-red-600 h-10 text-center
     }
     .task{
-      @apply bg-[#F9F2ED] flex max-w-xl mt-1 lg:h-28
+      @apply bg-[#F9F2ED] flex flex-col mt-1 lg:h-28 flex-auto mr-1
     }
     .doneUndone{
         @apply w-14 h-10 text-4xl
@@ -35,25 +35,25 @@
         @apply text-3xl mb-6 ml-2
     }
     .description{
-        @apply text-center
+        @apply text-center 
     }
     .title{
         @apply text-lg
     }
     .titelAndDescription{
-        @apply mr-3
+        @apply line-clamp-2 ml-1 mr-3
     }
     .DeleteEdit{
-        @apply right-1  h-8 w-10 text-3xl mt-2
+        @apply  h-8 w-10 text-3xl mt-3 -mr-2
     }
     .starTime{
-        @apply flex justify-start m-3 gap-1 max-w-lg flex-wrap -ml-1
+        @apply flex justify-start m-3 gap-1 max-w-lg flex-wrap -ml-1 sm:gap-0 sm:m-0
     }
     .taskBody{
-        @apply flex justify-between flex-col
+        @apply flex justify-between flex-col 
     }
     .editDeleteCancel{
-        @apply z-40 w-28 h-28 right-7 top-8 text-left
+        @apply z-40 w-24 h-24 right-3 -top-[70px] text-left
         border-2 absolute
          border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED]
           
@@ -63,7 +63,7 @@
         @apply text-[#FFB562] flex mt-1 text-xl
     }
     .container{
-        @apply flex items-center flex-col max-w-xl bg-[#F9F2ED] 
+        @apply flex flex-col max-w-xl bg-[#F9F2ED] justify-between 
     }
     .checkBox{
       @apply  w-8 h-8 border-[#C9B6A9] rounded-lg border-solid border-2 bg-[#FFFFFF]

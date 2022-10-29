@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUsers } from '../user/userSlice'
-import { CreateTask } from './TaskActions'
+import { CreateSubTask } from '../tasks/TaskActions'
 
-function AddTask() {
-    const [state, setState] = useState({
-        catagory: 'Others',
-        duration: '',
-        priority: 1,
-      dateTime: new Date(),
-      status: 'Upcoming',
+function AddSubTask() {
+ const [state, setState] = useState({
+        
+    duration: '',
+    priority: 1,
+      dateTime: new Date(),     
       note: '',
       title: '',
       reminder:'30 mins'
@@ -19,12 +18,12 @@ function AddTask() {
     })
   const {userToken} = useSelector(selectCurrentUsers)
   const dispatch = useDispatch()
-  const { title, note, dateTime, duration, category, priority, reminder } = state
+  const { title, note, dateTime, duration,  priority, reminder } = state
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
   const handleSubmit = () => {
-    dispatch(CreateTask({title,note,dateTime,duration,category,priority,reminder,userToken}))
+    dispatch(CreateSubTask({title,note,dateTime,duration,priority,reminder,userToken}))
   }
     
     
@@ -67,27 +66,7 @@ function AddTask() {
           className="inputBox"
           
         />
-        <select
-          name='category'
-          onChange={handleChange}>
-          <option>
-            Others
-          </option>
-
-          <option >
-            Family
-          </option>
-          
-          <option>
-            Work
-          </option>
-          <option>
-            Education
-          </option>
-          <option>
-            Shoping
-          </option>
-        </select>
+        
         <select
           name='priority'
           onChange={handleChange}>
@@ -151,11 +130,13 @@ function AddTask() {
                   // disabled = {!email || password.length<8}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
-                  Save Task</button>
+                  Save subask</button>
         
         </form>
     </div>
   )
 }
 
-export default AddTask
+
+
+export default AddSubTask

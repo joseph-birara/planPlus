@@ -4,7 +4,7 @@ import { AiFillStar,AiOutlineStar} from 'react-icons/ai'
 
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import EditDeleteCancel from './EditDeleteCancel'
-import SubTask from './SubTask'
+import SubTask from '../subTasks/SubTask'
 
 import UpArrow from '../../Assets/IconCollection/UpArrow'
 import DownArrow from '../../Assets/IconCollection/DownArrow'
@@ -54,15 +54,17 @@ function Task(props) {
             // })
         }
     }
+
     
     
     return (
-        <div className='container rounded-2xl'>
-            
+        <div className='container rounded-2xl grow-[2]'>            
             
       
-      <div className='task p-3 rounded-2xl'>
-          <div className='flex flex-col justify-between '>
+            <div className='task p-2 rounded-2xl'>
+                <div className='flex flex-auto justify-between'>
+                    <div className='flex'>
+                        <div className='flex flex-col justify-between '>
               
                     <div
                         onClick={()=>handleTaskCancelAndDone('Done')}
@@ -92,19 +94,23 @@ function Task(props) {
                   }
                     </div>
           
-          </div> 
-          <div className='taskBody'>
-              <div className='titelAndDescription'>
-                        <p className='text-start'>
+                        </div> 
+                         <div className='taskBody'>
+                    <div className='flex justify-between flex-wrap'>
+                        <div className='titelAndDescription'>
+                        <p className='text-start line-clamp-2'>
                             <span className='font-bold text-xl'>
                                  {
-                                props.task.title
+                                props.task.title+'- '
                   }
 
                             </span>
-                             <span className='description font-medium text-lg' onClick={()=>setshortDescription(!shortDescription)}>
+                                        <span className='description font-medium text-lg'
+                                            // onClick={() => setshortDescription(!shortDescription)}
+                                        >
                  {
-                     shortDescription? ( props.task.note.length>70 ? props.task.note.slice(0,70) +'....':props.task.note):props.task.note
+                                                //  shortDescription? ( props.task.note.length>70 ? props.task.note.slice(0,70) +'....':props.task.note):
+                                                props.task.note
                   }
                                 </span>
                                 
@@ -113,8 +119,33 @@ function Task(props) {
              
               
               
-              </div>
-              <div className='starTime text-center mt-2 mb-1'>
+          </div>
+              
+              
+                    </div>
+                </div>
+
+
+                    </div>
+                     
+               
+                <div onClick={() =>setedit(!edit)} className='DeleteEdit'>
+              <BsThreeDotsVertical />
+
+                </div>
+                </div>
+         
+                 <div className=''>
+          
+           {
+              edit?<div className='relative'>
+                            <EditDeleteCancel  deleteHandler={deleteHandler } task={props.task } cancelHandler={handleTaskCancelAndDone} />
+              
+                    </div> : ''}
+        </div>
+
+                
+              <div className='starTime text-center ml-14 -mt-14'>
                         <div className='star'>
                             {
                                 stars.map((item, index) => 
@@ -132,7 +163,7 @@ function Task(props) {
                                 props.task.duration
                       }
                         </div>
-                        <div className='mt-1 -ml-1 text-xl -mr-2'>
+                        <div className='mt-1 text-xl'>
 
                             <BsArrowRightShort className=''/>
                         </div>
@@ -160,19 +191,9 @@ function Task(props) {
                   </div>
               </div>
               
-          </div>
+          
          
-          <div className='relative'>
-          <div onClick={() =>setedit(!edit)} className='DeleteEdit'>
-              <BsThreeDotsVertical />
-              
-          </div>
-           {
-              edit?<div className='-mt-3'>
-                            <EditDeleteCancel  deleteHandler={deleteHandler } task={props.task } cancelHandler={handleTaskCancelAndDone} />
-              
-                    </div> : ''}
-        </div>
+         
          
             </div>
             {

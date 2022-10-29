@@ -26,12 +26,11 @@ export const CreateTask = createAsyncThunk(
   "tasks/createTasks",
   async ({title,note,dateTime,duration,category,priority,reminder,status,userToken} ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.post(`${constants}/tasks/create`, {title, note, dateTime, duration, category, priority, reminder, status }, {
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
+      const resp = await axios.post(`${constants}/tasks/create`, {title, note, dateTime:new Date(dateTime).toISOString(), duration, category, priority, reminder, status }, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      }
+    });
       console.log(resp);
       return resp;
     } catch (error) {
@@ -124,9 +123,16 @@ export const EditTask = createAsyncThunk(
     }
   
 );
+//sub tasks actions 
+
+//
+//
+
 export const UpdateSubTaskStatus = createAsyncThunk(
-  "tasks/update",
-  async ({_id,status,userToken} ,{ rejectWithValue }) => {
+  "subTasks/updateStatus",
+  async ({ _id, status, userToken }, { rejectWithValue }) => {
+        console.log("update status subtask action");
+
     try {
       const resp = await axios.patch(`${constants}/subTasks/updateStatus`,{
         _id: _id,
@@ -147,11 +153,14 @@ export const UpdateSubTaskStatus = createAsyncThunk(
     }
   
 );
+
+
 //delete subtask
 
 export const DeleteSubTask = createAsyncThunk(
-  "subTask/DeleteSubTask",
-  async ({_id,userToken} ,{ rejectWithValue }) => {
+  "subTask/Delete",
+  async ({ _id, userToken }, { rejectWithValue }) => {
+    console.log("delete subtask action");
     try {
       const resp = await axios.delete(`${constants}/subTasks/delete`, {
       headers: {
@@ -161,6 +170,73 @@ export const DeleteSubTask = createAsyncThunk(
         _id:_id
       },
     });
+      console.log(resp);
+      return resp;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+//create subtask 
+export const CreateSubTask = createAsyncThunk(
+  "subTasks/create",
+  async ({ id, title, note, dateTime, duration, priority, reminder, userToken }, { rejectWithValue }) => {
+        console.log("create  subtask action");
+
+    try {
+      const resp = await axios.post(`${constants}/subTasks/create`, {title, note, dateTime:new Date(dateTime).toISOString(), duration,  priority, reminder}, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      }
+    });
+      console.log(resp);
+      return resp;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+
+//update subtask all parametrs
+
+
+export const UpdateSubTaskData = createAsyncThunk(
+  "subTasks/update",
+  async ({ _id, task, title, note, dateTime, duration, priority, reminder, status, reminderStatus, userToken }, { rejectWithValue }) => {
+        console.log("update sub task subtask action");
+
+    try {
+      const resp = await axios.put(`${constants}/subTasks/update`,{_id,task,title,note,dateTime,duration,priority,reminder,status,reminderStatus},{
+        headers: {
+          'content-type': 'text/json',
+          "authorization": `Bearer ${userToken}`
+        }
+      });
+      console.log(resp);
+      return resp;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+
+//get the subtask to be edited
+export const EditSubTask = createAsyncThunk(
+  "subTasks/edit",
+  async ({_id,userToken} ,{ rejectWithValue }) => {
+    try {
+      const resp = await axios.get(`${constants}/subTasks/edit`,{_id},{
+        headers: {
+          'content-type': 'text/json',
+          "authorization": `Bearer ${userToken}`
+        }
+      });
       console.log(resp);
       return resp;
     } catch (error) {

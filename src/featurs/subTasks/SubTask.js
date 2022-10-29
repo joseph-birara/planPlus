@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import { AiFillStar,AiOutlineStar} from 'react-icons/ai'
 
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import EditDeleteCancel from './EditDeleteCancel'
+import EditDeleteCancel from '../tasks/EditDeleteCancel'
 import DoneUndone from '../../Assets/IconCollection/DoneUndone'
 import { useDispatch, useSelector } from 'react-redux'
-import { DeleteSubTask, GetAllTasks,  UpdateStatus,  UpdateSubTaskStatus } from './TaskActions'
+import { DeleteSubTask, GetAllTasks,  UpdateStatus,  UpdateSubTaskStatus } from '../tasks/TaskActions'
 import { BsDot,BsArrowRightShort } from 'react-icons/bs'
 import Moment from 'react-moment'
 import { selectCurrentUsers } from '../user/userSlice'
@@ -33,7 +33,7 @@ function SubTask(props) {
 
     const handleSubTaskCancelAndDone = async (status) => {
         
-        if (props.subTask.status === 'In progress' || props.subTask.status === 'upcoming') {
+        if (props.subTask.status === 'In progress' || props.subTask.status === 'Upcoming') {
             
             //changes status and gets updated all tasks and subtasks
             await dispatch(UpdateSubTaskStatus({ _id: props.subTask._id, status: status, userToken }))
@@ -59,10 +59,10 @@ function SubTask(props) {
     return (
       
       
-          <div className='task ml-20 border-t-2 border-[#C9B6A9] lg:h-28'>
-          <div className='flex flex-col justify-between '>
-              
-                <div
+        <div className='task ml-[70px] border-t-2 border-[#C9B6A9] lg:h-28'>
+            <div className='flex  justify-between'>
+                <div className='flex justify-start'>
+                     <div
                      onClick={()=>handleSubTaskCancelAndDone('Done')}
                     className='doneUndone ml-0'>
                     {props.subTask.status==='Done'?
@@ -75,25 +75,44 @@ function SubTask(props) {
 
              </div>
           </div>
-             
-          </div> 
-          <div className='taskBody'>
-              <div className='mr-6 -ml-3 text-start font-medium'>
-              <p className='font-semibold'>
-                 {
-                    props.subTask.title +'   '
+                    <div className='-ml-5'>
+                        <div className='flex justify-between '>
+                            <div className='titelAndDescription'>
+              <p className='text-start mr-1'>
+                
+                                    <span className='font-semibold text-xl'  >
+                                          {
+                    props.subTask.title +'- '
                   }
+                                    </span>                
               
-              <span className='description font-medium' onClick={()=>setsubShortDescription(!subShortDescription)}>
+                                    <span className='description font-medium'
+                                        // onClick={() => setsubShortDescription(!subShortDescription)}
+                                    >
                 {
-                     subShortDescription? ( props.subTask.note.length>70? props.subTask.note.slice(0,70) +'....':props.subTask.note):props.subTask.note
+                                            // subShortDescription ? (props.subTask.note.length > 70 ? props.subTask.note.slice(0, 70) + '....' : props.subTask.note) :
+                                                props.subTask.note
                   }
                         </span>
                         </p>
               
               
               </div>
-              <div className='starTime text-center mb-3'>
+
+                        </div>
+              
+             
+              
+          </div>
+                </div>
+                <div onClick={() =>setedit(!edit)} className='DeleteEdit mr-2'>
+              <BsThreeDotsVertical />
+              
+          </div>
+            </div>
+            
+          
+             <div className='starTime text-center ml-12'>
                     <div className='star'>
                         {
                                 subStars.map((item, index) => 
@@ -109,7 +128,7 @@ function SubTask(props) {
                                 props.subTask.duration
                       }
                         </div>
-                    <div className='mt-1  text-xl'>
+                    <div className='mt-1 -mr-2 text-xl'>
 
                             <BsArrowRightShort className=''/>
                         </div>
@@ -125,14 +144,10 @@ function SubTask(props) {
                   </div>
                   
               </div>
-              
-          </div>
+          
          
           <div className='relative'>
-          <div onClick={() =>setedit(!edit)} className='DeleteEdit mr-3'>
-              <BsThreeDotsVertical />
-              
-          </div>
+          
            {
               edit?<div className='mt-2 mr-4'>
                         <EditDeleteCancel deleteHandler={deleteHandler } task={props.subTask} cancelHandler={ handleSubTaskCancelAndDone} />

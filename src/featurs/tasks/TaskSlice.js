@@ -7,7 +7,8 @@ import {
     UpdateData,
     EditTask,
     UpdateSubTaskStatus,
-    DeleteSubTask
+    DeleteSubTask,
+    CreateSubTask
 
 } from "./TaskActions";
 const initialState = {
@@ -162,14 +163,12 @@ const TasksSlice = createSlice({
     
         },
         //update status of a subtask by id
-        [UpdateSubTaskStatus
-.pending]:(state)=>{
+        [UpdateSubTaskStatus.pending]:(state)=>{
             state.loading = true;
              console.log("UpdateSubTaskStatus loading from tasks slice loading");
     
         },
-        [UpdateSubTaskStatus
-.fulfilled]:(state,{payload})=>{
+        [UpdateSubTaskStatus.fulfilled]:(state,{payload})=>{
             
             
             
@@ -180,8 +179,7 @@ const TasksSlice = createSlice({
             
                 
         },
-        [UpdateSubTaskStatus
-.rejected]:(state,{payload})=>{
+        [UpdateSubTaskStatus.rejected]:(state,{payload})=>{
             state.loading = false;
             state.error = payload;
             console.log("UpdateSubTaskStatus  from tasks slice rejected");
@@ -209,6 +207,27 @@ const TasksSlice = createSlice({
             state.loading = false;
             state.error = payload;
             console.log("delete from tasks slice rejected");
+            console.log(payload);
+    
+        },
+
+        // create subtask
+        [CreateSubTask.pending]:(state)=>{
+            state.loading = true;
+    
+        },
+        [CreateSubTask.fulfilled]:(state,{payload})=>{
+            state.tasks = payload;
+            
+            state.loading = false;
+            state.success = true;
+            console.log("from subtasks slice");
+            console.log(payload)
+                
+        },
+        [CreateSubTask.rejected]:(state,{payload})=>{
+            state.loading = false;
+            state.error = payload;
             console.log(payload);
     
         },
