@@ -14,7 +14,7 @@ async function subscribe({serviceWorkerReg,userToken}) {
       userVisibleOnly: true,
       applicationServerKey: "BJ-kJrBQbrRwViibMQLy6T0fxprp6cVoX4IWx3wH5pzDbMJM7HEn5cS1naCsyehRWypOfubhB4wk_YOEFI_OzLs",
     });
-    console.log("abouve the axious");
+    console.log("above the axious");
     axios.post (`${constants}/subscribe`, subscription,{
       headers: {
         Authorization: `Bearer ${userToken}`,

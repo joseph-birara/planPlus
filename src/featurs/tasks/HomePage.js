@@ -27,11 +27,7 @@ function HomePage() {
     const [search, setsearch] = useState('')
     
     let filterdTasks = ''
-    useEffect(() => {
-      pushAndSubscribe({userToken:userToken})
-    
-      
-    },[userToken])
+   
     
     //change to overdue or inprogress
     const changeHandler = async(_id,nextStatus) => {
@@ -68,7 +64,7 @@ function HomePage() {
         
 
        
-        //dispatch(GetAllTasks({ userToken }))
+        dispatch(GetAllTasks({ userToken }))
         pushAndSubscribe({userToken:userToken})
       
             

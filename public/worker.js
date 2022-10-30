@@ -10,12 +10,7 @@ this.addEventListener ('push', async function (event) {
   console.log ("message ===",{message});
   await event.waitUntil (
     this.registration.showNotification (title, {
-      body: body,
-      actions: [
-        {
-          title: 'say hi',
-        },
-      ],
+      body: body
     })
   );
 });

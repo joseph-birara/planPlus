@@ -37,8 +37,7 @@ function Task(props) {
 
     const deleteHandler = async() => {
         await dispatch(DeleteTask({ _id: props.task._id, userToken: userToken }))
-    //         .then
-    // (()=>dispatch(GetAllTasks({userToken:userToken})))
+            .then(()=>dispatch(GetAllTasks({userToken:userToken})))
     
     }
     
@@ -53,10 +52,11 @@ function Task(props) {
     (()=>dispatch(GetAllTasks({userToken:userToken})))
             console.log("update status inside task component",props.task._id,"and the status",status);
 
-            // props.task.subTask.foreach((subtask) => {               
-                
-            //     dispatch(UpdateSubTaskStatus({ _id: subtask._id, status: status,userToken }))
-            // })
+             props.task.subTask?.foreach((subtask) => {               
+                 if (props.subtask.status === 'In progress' || props.subtask.status === 'Upcoming') {
+                     dispatch(UpdateSubTaskStatus({ _id: subtask._id, status: status, userToken }))
+                 }
+             })
         }
     }
     const editHandler = () =>

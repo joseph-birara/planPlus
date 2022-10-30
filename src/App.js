@@ -21,34 +21,22 @@ import SubTask from './featurs/subTasks/SubTask';
 import Calculatore from './featurs/tasks/Calculatore';
 import AddTask from './featurs/tasks/AddTask';
 import AddSubTask from './featurs/subTasks/AddSubTask';
+import { useSelector } from 'react-redux';
+import { selectCurrentUsers } from './featurs/user/userSlice';
 
 
  
 
-class App extends React.Component {
-  constructor() {
-    super()
+function App () {
   
-    this.state = {
-      
-      route: 'signin',
-      logedIn: false,
-      
-    }
-  }
  
   
   
-  onRoutChange = (rout) => {
-    if (rout === 'Home') {
-      this.setState({ logedIn: true })
-      
-    }
-    
+  
+    const {userToken} = useSelector(selectCurrentUsers)
 
-    this.setState({route:rout})
-  }
-  render() {
+   
+      
     
     
   
@@ -78,7 +66,7 @@ class App extends React.Component {
       
       <BrowserRouter>
         <Routes>
-           <Route path='/' element={<HomePage />} />
+           <Route path='/' element={userToken?<HomePage />:<LogIn/>} />
           
 
           <Route path="/entercode" element={<EnterCode/>} />
@@ -87,11 +75,11 @@ class App extends React.Component {
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/loading" element={<LoadingPage />} />
-          <Route path="/task" element={<Task />} />
-          <Route path="/subtask" element={<SubTask />} />
+          <Route path="/task" element={userToken?<Task />:<LogIn/>} />
+          <Route path="/subtask" element={userToken?<SubTask />:<LogIn/>} />
           {/* <Route path="/cal" element={<Calculatore />} /> */}
-          <Route path="/addtask" element={<AddTask />} />
-          <Route path="/addsubtask" element={<AddSubTask/>} />
+          <Route path="/addtask" element={userToken?<AddTask />:<LogIn/>} />
+          <Route path="/addsubtask" element={userToken?<AddSubTask/>:<LogIn/>} />
 
 
           
@@ -103,6 +91,6 @@ class App extends React.Component {
     </div>
   );
     }
-}
+
 
 export default App
