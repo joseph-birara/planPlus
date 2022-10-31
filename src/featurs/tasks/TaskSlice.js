@@ -16,11 +16,36 @@ const initialState = {
     loading:false,
     success:false,
     error: null,
+    taskeCreated: '',
+    taskStatusUpdated: '',
+    subTaskAdded: '',
+    SubTaskUpdated: '',
+    taskDeleteNote: '',
+    subTaskDeleteNote: '',
+    taskEdited: '',
+    subTaskEdited:'',
+    
+    
 }
 const TasksSlice = createSlice({
     name: 'Task',
     initialState,
-    reducers: {},
+    reducers: {
+        empity: (state) => {
+             state.taskeCreated=''
+        },
+        taskEditMessage: (state) => {
+            state.taskEdited=''
+        },
+        subTaskEditMessage: (state) => {
+            state.subTaskEdited=''
+        },
+        subTaskcreateMessage: (state) => {
+            state.subTaskAdded=''
+        },
+
+
+    },
     extraReducers: {
         //get all tasks
         [GetAllTasks.pending]:(state)=>{
@@ -49,21 +74,23 @@ const TasksSlice = createSlice({
         },
         [CreateTask.pending]:(state)=>{
             state.loading = true;
+            state.taskeCreated=''
     
         },
         [CreateTask.fulfilled]:(state,{payload})=>{
             state.tasks = payload;
-            
+            state.taskeCreated="task crated successfully"
             state.loading = false;
             state.success = true;
             console.log("from tasks slice");
             console.log(payload)
-                
+            
         },
         [CreateTask.rejected]:(state,{payload})=>{
             state.loading = false;
             state.error = payload;
             console.log(payload);
+            state.taskeCreated="adding task rejected try agin"
     
         },
         //delet task by id
@@ -80,7 +107,7 @@ const TasksSlice = createSlice({
             state.success = true;
             console.log("delete from tasks slice accepted");
             
-              state.allTasks.filter((task) => task._id !== _id);
+            state.allTasks.filter((task) => task._id !== _id);
             
                 
         },
@@ -101,9 +128,9 @@ const TasksSlice = createSlice({
         [UpdateStatus.fulfilled]:(state,action)=>{
             
             
-            const {_id,status} =action.payload
+            // const {_id,status} =action.payload
             
-            state.map((task) => task._id === _id && (task.status = status))
+            // state.map((task) => task._id === _id && (task.status = status))
             
                 
         },
@@ -117,7 +144,8 @@ const TasksSlice = createSlice({
         //UpdateData  of a task by id to get information to be edited
         [UpdateData.pending]:(state)=>{
             state.loading = true;
-             console.log("UpdateData loading from tasks slice loading");
+            console.log("UpdateData loading from tasks slice loading");
+            state.taskEdited=''
     
         },
         [UpdateData.fulfilled]:(state,{payload})=>{
@@ -128,6 +156,7 @@ const TasksSlice = createSlice({
             state.success = true;
             console.log("UpdateData from tasks slice accepted");
             console.log(payload.data)
+            state.taskEdited="task edited successfully"
             
                 
         },
@@ -136,6 +165,7 @@ const TasksSlice = createSlice({
             state.error = payload;
             console.log("UpdateData from tasks slice rejected");
             console.log(payload);
+            state.taskEdited="task editing rejected"
     
         },
         
@@ -191,6 +221,8 @@ const TasksSlice = createSlice({
         // create subtask
         [CreateSubTask.pending]:(state)=>{
             state.loading = true;
+            console.log("crating subtask.....");
+            state.subTaskAdded = ''
     
         },
         [CreateSubTask.fulfilled]:(state,{payload})=>{
@@ -198,14 +230,18 @@ const TasksSlice = createSlice({
             
             state.loading = false;
             state.success = true;
-            console.log("from subtasks slice");
+            console.log("from subtasks slice created successfully");
             console.log(payload)
+            state.subTaskAdded="sub task successfully added"
                 
         },
         [CreateSubTask.rejected]:(state,{payload})=>{
             state.loading = false;
             state.error = payload;
             console.log(payload);
+            console.log("from subtasks slice rejected");
+            state.subTaskAdded="sub task rejected"
+
     
         },
 
@@ -216,4 +252,5 @@ const TasksSlice = createSlice({
 
 
 export const selectCurrentTasks = state => state.Task
+export const {empity,taskEditMessage,subTaskEditMessage,subTaskcreateMessage} =TasksSlice.actions
 export default TasksSlice.reducer

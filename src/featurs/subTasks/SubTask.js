@@ -40,18 +40,24 @@ function SubTask(props) {
             await dispatch(UpdateSubTaskStatus({ _id: props.subTask._id, status: status, userToken }))
                 .then(() => dispatch(GetAllTasks({ userToken: userToken })))
                 .then(() => {
-                let cal = true
-              props.partent.forEach(sub => {
-             if (sub.status !== status) {
-                        cal = false
-                    }
-        })
-        if (cal) {
-            dispatch(UpdateStatus({ _id: props.task._id, status: status, userToken }))
+                let cal = 1
+                    props.parent.subTask?.forEach(sub => {
+                        console.log(sub.status === status);
+                        if (sub.status === status) {
+                            cal++
+                            console.log(cal, "inside");
+                        }
+                    });
+                console.log("cal after all checks", cal);
+                console.log("length=",props.parent.subTask.length);
+            if (cal === props.parent.subTask.length) {
+                console.log("cal inside oarent", cal);
+                console.log("length=",props.parent.subTask.length);
+            dispatch(UpdateStatus({ _id: props.parent._id, status: status, userToken })).then(()=>dispatch(GetAllTasks({userToken:userToken})))
                 
         }
                 })
-            .then(()=>dispatch(GetAllTasks({userToken:userToken})))
+            
 
             
         }
@@ -72,7 +78,7 @@ function SubTask(props) {
                     className='doneUndone ml-0'>
                     {props.subTask.status==='Done'?
                             <div
-                                className='absolute ml-1 mt-1'>
+                                className='absolute '>
                             <DoneUndone/>
                             </div>:''
                         }
@@ -80,7 +86,7 @@ function SubTask(props) {
 
              </div>
           </div>
-                    <div className='-ml-5'>
+                    <div className='-ml-4'>
                         <div className='flex justify-between '>
                             <div className='titelAndDescription'>
               <p className='text-start mr-1'>
@@ -110,14 +116,14 @@ function SubTask(props) {
               
           </div>
                 </div>
-                <div onClick={() =>setedit(!edit)} className='DeleteEdit mr-2'>
+                <div onClick={() =>setedit(!edit)} className='DeleteEdit mr-[1px]'>
               <BsThreeDotsVertical />
               
           </div>
             </div>
             
           
-             <div className='starTime text-center ml-12'>
+             <div className='starTime text-center ml-8 mt-2'>
                     <div className='star'>
                         {
                                 subStars.map((item, index) => 

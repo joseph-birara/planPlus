@@ -20,16 +20,16 @@
         @apply m-12 lg:ml-16 h-12 sm:ml-4
     }
     .addTask{
-        @apply text-white bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-8 lg:right-36 lg:bottom-12
+        @apply text-white text-center bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-8 lg:right-36 lg:bottom-12 inline-flex items-center justify-center
     }
     .errorMessag{
         @apply text-red-600 h-10 text-center
     }
     .task{
-      @apply bg-[#F9F2ED] flex flex-col mt-1 lg:h-28 flex-auto mr-1
+      @apply bg-[#F9F2ED] flex flex-col mt-1  flex-auto mr-1 lg:h-28
     }
     .doneUndone{
-        @apply w-14 h-10 text-4xl
+        @apply w-12 h-10 text-4xl
     }
     .taskSubtask{
         @apply text-3xl mb-6 ml-2
@@ -44,7 +44,7 @@
         @apply line-clamp-2 ml-1 mr-3
     }
     .DeleteEdit{
-        @apply  h-8 w-10 text-3xl mt-3 -mr-2 ml-3
+        @apply  h-8 w-10 text-3xl mt-3 -mr-2
     }
     .starTime{
         @apply flex justify-start m-3 gap-1 max-w-lg flex-wrap -ml-1 sm:gap-0 sm:m-0
@@ -53,9 +53,9 @@
         @apply flex justify-between flex-col 
     }
     .editDeleteCancel{
-        @apply z-40 w-24 h-24 right-3 -top-[70px] text-left
+        @apply z-40 w-24 h-24 right-4 -top-[70px] text-left
         border-2 absolute
-         border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED]
+         border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED] lg:right-3 lg:-top-[75px]
           
 
     }
@@ -66,7 +66,7 @@
         @apply flex flex-col max-w-xl bg-[#F9F2ED] justify-between 
     }
     .checkBox{
-      @apply  w-8 h-8 border-[#C9B6A9] rounded-lg border-solid border-2 bg-[#FFFFFF]
+      @apply  w-7 h-7 border-[#C9B6A9] rounded-lg border-solid border-2 bg-[#FFFFFF]
     }
     .editDeleteCancelForSubTask{
         @apply z-40 w-24 h-24 right-8 -top-[30px] text-left

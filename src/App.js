@@ -77,7 +77,7 @@ function App () {
           <Route path="/loading" element={<LoadingPage />} />
           <Route path="/task" element={userToken?<Task />:<LogIn/>} />
           <Route path="/subtask" element={userToken?<SubTask />:<LogIn/>} />
-          {/* <Route path="/cal" element={<Calculatore />} /> */}
+          
           <Route path="/addtask" element={userToken?<AddTask />:<LogIn/>} />
           <Route path="/addsubtask" element={userToken?<AddSubTask/>:<LogIn/>} />
 

@@ -38,26 +38,27 @@ function HomePage() {
    await  dispatch(UpdateSubTaskStatus({ _id:_id,status:nextStatus, userToken:userToken})).then
     (()=>dispatch(GetAllTasks({userToken:userToken})))
     }
-    // useEffect(() => {
-    //     const timer2 = setInterval(() => {
-    //         allTasks?.forEach(task => calculatore({
-    //             task: task,
-    //             changeHandler:changeHandler
-    //         })
+    useEffect(() => {
+        console.log("calculatore is called once");
+        const timer2 = setInterval(() => {
+            allTasks?.forEach(task => calculatore({
+                task: task,
+                changeHandler:changeHandler
+            })
 
         
-    // );
-    //         allTasks?.map(t => t.subTask?.map(sub => calculatore({
-    //             task: sub,
-    //             changeHandler:changeHandlerSubTask
+    );
+            allTasks?.map(t => t.subTask?.map(sub => calculatore({
+                task: sub,
+                changeHandler:changeHandlerSubTask
                 
-    //      })))   
-    //     }, 60000);
-    //     return ()=>clearInterval(timer2)
+         })))   
+        }, 10000);
+        return ()=>clearInterval(timer2)
       
     
       
-    // }, [allTasks])
+    }, [allTasks])
     
   
     useEffect(() => {
@@ -65,7 +66,7 @@ function HomePage() {
 
        
         dispatch(GetAllTasks({ userToken }))
-        pushAndSubscribe({userToken:userToken})
+        //pushAndSubscribe({userToken:userToken})
       
             
     }, [userToken])
@@ -131,7 +132,7 @@ function HomePage() {
                     
                     
                     {
-                      filterdTasks?
+                      filterdTasks &&filterdTasks.length>0?
                          filterdTasks.map((data ,i)=> 
                         <Task  task={ data } key = {i} />
                  
@@ -153,7 +154,7 @@ function HomePage() {
             
             
             <div
-                // onClick={()=>dispatch(GetAllTasks())}
+                 
                 className='addTask'>
                 <AddTaskPlus/>
             </div>

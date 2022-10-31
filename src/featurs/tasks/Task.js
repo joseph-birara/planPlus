@@ -40,7 +40,13 @@ function Task(props) {
             .then(()=>dispatch(GetAllTasks({userToken:userToken})))
     
     }
-    
+    const handleClick = () => {
+        setTimeout(() => {
+            dispatch(GetAllTasks({ userToken }))
+            setcreateSubtask(!createSubtask)
+        }, 2000);
+        
+    }
     //this function changes status and dispachs updated tasks
     const handleTaskCancelAndDone = async(status) => {
         console.log('cancling on progress');
@@ -59,18 +65,18 @@ function Task(props) {
              })
         }
     }
-    const editHandler = () =>
-    {
+    const editHandler = () =>setTimeout(() => {
         seteditForm(!editForm)
-      }
+    }, 2000);
+   
 
     
     
     return (
-        <div className='container rounded-2xl grow-[2]'>            
+        <div className='container rounded-xl grow-[2]'>            
             
       
-            <div className='task p-2 rounded-2xl'>
+            <div className='task p-2 rounded-xl'>
                 <div className='flex flex-auto justify-between'>
                     <div className='flex'>
                         <div className='flex flex-col justify-between '>
@@ -80,7 +86,7 @@ function Task(props) {
                         className='doneUndone'>
                         {props.task.status==='Done'?
                             <div
-                                className='absolute ml-3 mt-2'>
+                                className='absolute ml-3 mt-1'>
                             <DoneUndone/>
                             </div>:''
                         }
@@ -92,7 +98,7 @@ function Task(props) {
                         
                          
                     </div>
-                <div
+                {props.task.status!=='Done'?<div
                     onClick={() => setupArrow(!upArrow)
                     }
                     className='taskSubtask'>
@@ -101,7 +107,7 @@ function Task(props) {
                       <DownArrow /> 
                       
                   }
-                    </div>
+                    </div>:''}
           
                         </div> 
                          <div className='taskBody'>
@@ -154,7 +160,7 @@ function Task(props) {
         </div>
 
                 
-              <div className='starTime text-center ml-14 -mt-14'>
+              <div className='starTime text-center ml-14 -mt-11'>
                         <div className='star'>
                             {
                                 stars.map((item, index) => 
@@ -207,22 +213,24 @@ function Task(props) {
             </div>
             {
                 upArrow ? props.task.subTask.map((x,i) => 
-                    <SubTask subTask={x} key={i} partent={props.task} />
+                    <SubTask subTask={x} key={i} parent={props.task} />
                 )  :''
                       
                         
                    
             }
-            {upArrow?
+            {upArrow ?
+                <span>
                 <span onClick={() => setcreateSubtask(!createSubtask)}
                 className='btn'>
-                add sub task
+                    add sub task
+                </span>
                 {
                     createSubtask? <div>
-                        <AddSubTask id={props.task._id } />
+                        <AddSubTask task={props.task } handleClick={handleClick} />
                     </div>:''
                 }
-                </span> : ''}
+                 </span>: ''}
             {
                 editForm ?
                     <Editask task={props.task} editHandler={editHandler }/> : ''

@@ -1,12 +1,19 @@
-import React, {  useState } from 'react'
+import React, {  useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUsers } from '../user/userSlice'
-import { UpdateData } from './TaskActions'
+import { GetAllTasks, UpdateData } from './TaskActions'
+import { selectCurrentTasks,taskEditMessage } from './TaskSlice'
 
 function Editask(props) {
     
-    const dispatch = useDispatch()
-    const { userToken } = useSelector(selectCurrentUsers)
+  const dispatch = useDispatch()
+  const { userToken } = useSelector(selectCurrentUsers)
+  const { taskEdited } = useSelector(selectCurrentTasks)
+  const [falseInput,setfalseInput]=useState('')
+  const [errOrSuc, seterrOrSuc] = useState(true)
+  const userref = useRef();
+  
+
     
     
     const [state, setState] = useState({
@@ -22,23 +29,67 @@ function Editask(props) {
         
         
     })
+  //error or suscces message managment
+  useEffect(() => {
+    if (errOrSuc) {
+      dispatch(taskEditMessage(taskEdited))
+    }
+    
+  
+    
+  }, [errOrSuc])
 
-  const { title, note, dateTime, duration, category, priority, reminder,status } = state
+  const timeSter=()=>setTimeout(() => {
+    seterrOrSuc(true)
+    console.log("inside timeout");
+    }, 3000);
+  const modify = () => {
+    seterrOrSuc(!errOrSuc)
+    timeSter()
+    
+    
+    
+  }
+  //set and unset false inpute
+  useEffect(() => {
+  
+    if ( new Date()> new Date(state.dateTime)) {
+     setfalseInput("invalid starting time ")
+    }
+    else {
+      setfalseInput("")
+    }
+   
+  }, [state.dateTime])
+  //focus on the input
+  useEffect(() => {
+        userref.current.focus();
+    }, [])
+
+  const { title, note, dateTime, duration, category, priority, reminder, status } = state
+  //changes state when inpute change
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
-  const handleSubmit = () => {
-      dispatch(UpdateData({ _id: props.task._id, title, note, dateTime, duration, category, priority, reminder, status, userToken }))
+  const handleSubmit = async() => {
+    await dispatch(UpdateData({ _id: props.task._id, title, note, dateTime, duration, category, priority, reminder, status, userToken }))
+      .then(() => {
+        dispatch(GetAllTasks({ userToken }))
+        modify()
+      })
       console.log(props.task._id);
       props.editHandler()
   }
     
    if(props.task._id) 
   {return (
-      <div className='w-screen h-screen bg-white z-50 absolute'>
+     <div className='w-screen h-screen bg-white z-50 absolute'>
+       {
+        taskEdited?<div className='errorMessag' >{taskEdited}</div>:''
+      }
       <form className='flex flex-col gap-2 w-32 m-10'>
          <input
-                 
+                 ref = {userref}
                   required
                   value={state.title}
                  onChange={handleChange}
@@ -61,22 +112,44 @@ function Editask(props) {
           className="inputBox"
           
         />
-        <input
-                 
-                  required
-                  value={state.duration}
-                 onChange={handleChange}
-                  type="text"
-                  name="duration"
-                  id="duration"
-                  placeholder="duration of the task "
-          className="inputBox"
+        <select
+          required
+          value={state.duration}
+          onChange={handleChange}
+          name="duration"
+          id="duration"
+        ><option>
+           duration
+           </option>
+           <option>
+            15 mins
+          </option>
+          <option>
+            30 mins
+          </option>
           
-        />
+           
+           <option>
+            1 hrs
+          </option>
+           <option>
+            2 hrs
+          </option>
+           <option>
+            6 hrs
+          </option>
+           <option>
+            12 hrs
+          </option>
+
+        </select>
               <select
                   value={state.category}
           name='category'
-          onChange={handleChange}>
+           onChange={handleChange}>
+           <option>
+            category
+          </option>
           <option>
             Others
           </option>
@@ -92,13 +165,16 @@ function Editask(props) {
             Education
           </option>
           <option>
-            Shoping
+            Shopping
           </option>
         </select>
         <select
            value={state.priority}
           name='priority'
-          onChange={handleChange}>
+           onChange={handleChange}>
+           <option>
+            priority
+          </option>
           <option>
             1
           </option>
@@ -120,7 +196,10 @@ function Editask(props) {
         <select
           value={state.reminder}
                   name='reminder'
-          onChange={handleChange}>
+           onChange={handleChange}>
+           <option>
+            reminder
+          </option>
           <option >
             15 mins
           </option>
@@ -138,7 +217,7 @@ function Editask(props) {
         <input
                  
                   required
-                  value={new Date(state.dateTime)}
+                  value={state.dateTime}
           onChange={handleChange}
                   type="datetime-local"
                   name="dateTime"
@@ -153,12 +232,17 @@ function Editask(props) {
           
                   // onClick={this.onSubmitSignin}
                   
-                  // disabled = {!email || password.length<8}
+                  disabled = {falseInput}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
                   Save Task</button>
         
-        </form>
+       </form>
+        {
+        falseInput ? <div className='errorMessag'>
+         { falseInput}
+        </div>:''
+      }
     </div>
   )}
 }

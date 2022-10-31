@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUsers } from '../user/userSlice'
-import { CreateSubTask } from '../tasks/TaskActions'
+import { CreateSubTask, GetAllTasks } from '../tasks/TaskActions'
+import {selectCurrentTasks, subTaskcreateMessage} from '../tasks/TaskSlice'
 
 function AddSubTask(props) {
  const [state, setState] = useState({
         
-    duration: '',
+    duration: '30 mins',
     priority: 1,
       dateTime: new Date(),     
       note: '',
@@ -15,24 +16,84 @@ function AddSubTask(props) {
         
         
         
-    })
+ })
+  const userref = useRef();
+  const {subTaskAdded} = useSelector(selectCurrentTasks)
   const {userToken} = useSelector(selectCurrentUsers)
   const dispatch = useDispatch()
+  const [errOrSuc, seterrOrSuc] = useState(true)
+  const [falseInput,setfalseInput]=useState('')
   
   const { title, note, dateTime, duration,  priority, reminder } = state
   const handleChange = (e) => {
-    setState({...state,[e.target.name]:e.target.value})
+    setState({ ...state, [e.target.name]: e.target.value })
+    
   }
-  const handleSubmit = () => {
-    dispatch(CreateSubTask({id:props.id,title,note,dateTime,duration,priority,reminder,userToken}))
+  const handleSubmit = async() => {
+   await dispatch(CreateSubTask({ id: props.task._id, title, note, dateTime, duration, priority, reminder, userToken }))
+     .then(() => {
+       dispatch(GetAllTasks({ userToken }))
+     modify()})
+    props.handleClick()
   }
+  //message handiling
+  useEffect(() => {
+    if (errOrSuc) {
+      dispatch(subTaskcreateMessage())
+    }
+    
+  
+    
+  }, [errOrSuc])
+  //function to identify hours or mins
+  const durationCalculatore = (xyz) => {
+    let arr = xyz.duration.split(' ')
+    let addition
+  if (arr[1] === 'hrs') {
+   addition = arr[0] * 3600000
+  }
+  else {
+    addition = arr[0]*60000
+  }
+    return addition +( new Date(xyz.dateTime).getTime())
+  }
+  //use efrect to check date time
+  useEffect(() => {
+  
+    if (props.task.dateTime > state.dateTime || props.task.duration < state.duration ||durationCalculatore(props.task)< durationCalculatore(state) ||new Date()> new Date(state.dateTime)) {
+     setfalseInput("invalid starting time or duration")
+    }
+    else {
+      setfalseInput("")
+    }
+   
+  }, [state.dateTime,state.duration,])
+  
+  const timeSter=()=>setTimeout(() => {
+    seterrOrSuc(true)
+    console.log("inside timeout");
+    }, 3000);
+  const modify = () => {
+    seterrOrSuc(!errOrSuc)
+    timeSter()
+    
+    
+    
+  }
+  //focus on the input
+  useEffect(() => {
+        userref.current.focus();
+    }, [])
     
     
   return (
-      <div className='z-40 absolute bg-slate-300 w-full'>
+    <div className='w-screen h-screen bg-white z-50 absolute'>
+      {
+       subTaskAdded?<div className='errorMessag' >{subTaskAdded}</div>:''
+      }
       <form className='flex flex-col gap-2 w-32 m-10'>
          <input
-                 
+                 ref = {userref}
                   required
                   value={state.title}
                  onChange={handleChange}
@@ -55,18 +116,35 @@ function AddSubTask(props) {
           className="inputBox"
           
         />
-        <input
-                 
-                  required
-                  value={state.duration}
-                 onChange={handleChange}
-                  type="text"
-                  name="duration"
-                  id="duration"
-                  placeholder="duration of the sub task "
-          className="inputBox"
-          
-        />
+        
+        <select
+          required
+          value={state.duration}
+          onChange={handleChange}
+          name="duration"
+          id="duration"
+        >
+          <option>
+            30 mins
+          </option>
+          <option>
+            15 mins
+          </option>
+           
+           <option>
+            1 hrs
+          </option>
+           <option>
+            2 hrs
+          </option>
+           <option>
+            6 hrs
+          </option>
+           <option>
+            12 hrs
+          </option>
+
+        </select>
         
         <select
           name='priority'
@@ -92,12 +170,12 @@ function AddSubTask(props) {
         <select
           name='reminder'
           onChange={handleChange}>
-          <option >
-            15 mins
-          </option>
           <option>
             30 mins
           </option>
+          <option >
+            15 mins
+          </option>         
 
           
           
@@ -127,12 +205,17 @@ function AddSubTask(props) {
           
                   // onClick={this.onSubmitSignin}
                   
-                  // disabled = {!email || password.length<8}
+                 disabled = {falseInput}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
                   Save subask</button>
         
-        </form>
+      </form>
+      {
+        falseInput ? <div className='errorMessag'>
+         { falseInput}
+        </div>:''
+      }
     </div>
   )
 }

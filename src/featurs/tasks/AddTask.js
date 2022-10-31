@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import { CAlert } from '@coreui/react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Await, Link } from 'react-router-dom'
 import { selectCurrentUsers } from '../user/userSlice'
-import { CreateTask } from './TaskActions'
+import { CreateTask, GetAllTasks } from './TaskActions'
+import { selectCurrentTasks,empity } from './TaskSlice'
 
 function AddTask() {
     const [state, setState] = useState({
         catagory: 'Others',
-        duration: '',
+        duration: '30 mins',
         priority: 1,
       dateTime: new Date(),
       status: 'Upcoming',
@@ -17,22 +20,78 @@ function AddTask() {
         
         
     })
+  
+  
+  const userref = useRef();
+  const {taskeCreated} = useSelector(selectCurrentTasks)
   const {userToken} = useSelector(selectCurrentUsers)
   const dispatch = useDispatch()
+  const [errOrSuc, seterrOrSuc] = useState(true)
+  const [falseInput,setfalseInput]=useState('')
   const { title, note, dateTime, duration, category, priority, reminder } = state
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
-  const handleSubmit = () => {
-    dispatch(CreateTask({title,note,dateTime,duration,category,priority,reminder,userToken}))
+  //make the error or succes massage empity
+  useEffect(() => {
+    if (errOrSuc) {
+      dispatch(empity())
+    }
+    
+  
+    
+  }, [errOrSuc])
+  
+  const timeSter=()=>setTimeout(() => {
+    seterrOrSuc(true)
+    console.log("inside timeout");
+    }, 3000);
+  const modify = () => {
+    seterrOrSuc(!errOrSuc)
+    timeSter()
+    
+    
+    
+            }
+  const handleSubmit = async() => {
+   await dispatch(CreateTask({ title, note, dateTime, duration, category, priority, reminder, userToken }))
+     .then(() => dispatch(GetAllTasks({ userToken }))).then(() => {
+      modify()
+     })
   }
+
+    //focus on the input
+  useEffect(() => {
+        userref.current.focus();
+    }, [])        
     
-    
+    //set and unset false inpute
+  useEffect(() => {
+  
+    if ( new Date()> new Date(state.dateTime)) {
+     setfalseInput("invalid starting time ")
+    }
+    else {
+      setfalseInput("")
+    }
+   
+  }, [state.dateTime])
   return (
-      <div className=''>
+    
+    <div className=''>
+      <button
+          
+                 
+        type="button" className=" btn mt-10">
+       <Link to='/'>Back to home</Link> 
+      </button>
+      {
+        taskeCreated?<div className='errorMessag' >{taskeCreated}</div>:''
+      }
       <form className='flex flex-col gap-2 w-32 m-10'>
          <input
                  
+                 ref = {userref}
                   required
                   value={state.title}
                  onChange={handleChange}
@@ -55,21 +114,46 @@ function AddTask() {
           className="inputBox"
           
         />
-        <input
-                 
-                  required
-                  value={state.duration}
-                 onChange={handleChange}
-                  type="text"
-                  name="duration"
-                  id="duration"
-                  placeholder="duration of the task "
-          className="inputBox"
+        
+        <select
+          required
+         
+          onChange={handleChange}
+          name="duration"
+          id="duration"
+        >
+          <option>
+            duration
+          </option>
           
-        />
+          <option>
+            15 mins
+          </option>
+          <option>
+            30 mins
+          </option>
+           
+           <option>
+            1 hrs
+          </option>
+           <option>
+            2 hrs
+          </option>
+           <option>
+            6 hrs
+          </option>
+           <option>
+            12 hrs
+          </option>
+
+        </select>
+        
         <select
           name='category'
           onChange={handleChange}>
+          <option>
+            category
+          </option>
           <option>
             Others
           </option>
@@ -85,12 +169,17 @@ function AddTask() {
             Education
           </option>
           <option>
-            Shoping
+            Shopping
           </option>
         </select>
+       
         <select
           name='priority'
           onChange={handleChange}>
+          <option>
+             priority
+          </option>
+
           <option>
             1
           </option>
@@ -109,9 +198,13 @@ function AddTask() {
             5
           </option>
         </select>
+        
         <select
           name='reminder'
           onChange={handleChange}>
+          <option >
+            reminder
+          </option>
           <option >
             15 mins
           </option>
@@ -126,6 +219,7 @@ function AddTask() {
            2 hrs
           </option>
         </select>
+        starting time:
         <input
                  
                   required
@@ -144,12 +238,24 @@ function AddTask() {
           
                   // onClick={this.onSubmitSignin}
                   
-                  // disabled = {!email || password.length<8}
+                   disabled = {falseInput}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
                   Save Task</button>
         
-        </form>
+      </form>
+      {/* {
+        taskeCreated ? <div className='errorMessag text-gray-600'>
+          { alert(taskeCreated)}
+        </div>:''
+      } */}
+       
+        {
+        falseInput ? <div className='errorMessag'>
+         { falseInput}
+        </div>:''
+      }
+      
     </div>
   )
 }

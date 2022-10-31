@@ -89,7 +89,7 @@ export const UpdateData = createAsyncThunk(
   "tasks/UpdateData",
   async ({_id,title,note,dateTime,duration,category,priority,reminder,status,userToken} ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.patch(`${constants}/tasks/update`,{_id,title,note,dateTime,duration,category,priority,reminder,status},{
+      const resp = await axios.patch(`${constants}/tasks/update`,{_id,title,note,dateTime:new Date(dateTime).toISOString(),duration,category,priority,reminder,status},{
         
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -194,7 +194,7 @@ export const UpdateSubTaskData = createAsyncThunk(
         console.log("update sub task subtask action");
 
     try {
-      const resp = await axios.put(`${constants}/subTasks/update`,{_id,task,title,note,dateTime,duration,priority,reminder,status,reminderStatus},{
+      const resp = await axios.put(`${constants}/subTasks/update`,{_id,task,title,note,dateTime:new Date(dateTime).toISOString(),duration,priority,reminder,status,reminderStatus},{
         headers: {
           'content-type': 'text/json',
           "authorization": `Bearer ${userToken}`
