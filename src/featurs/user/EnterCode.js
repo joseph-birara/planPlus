@@ -1,7 +1,7 @@
 
 import PinInput from 'react-pin-input';
 import React, {useCallback, useState ,useEffect,useRef} from 'react';
-import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
+// import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw';
 
 
@@ -13,6 +13,7 @@ import ProgressBar from './progressBar';
 import { Link, useNavigate } from 'react-router-dom';
 import Timer from './Timer';
 import { unwrapResult } from '@reduxjs/toolkit';
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
 
 
 
@@ -22,7 +23,7 @@ function EnterCode() {
   const userref = useRef();
   const [timer, setTimer] = useState(60); 
   const dispatch = useDispatch()
-  const { emailForReset,codeRejected } = useSelector(selectCurrentUsers);
+  const { emailForReset,codeRejected,loading } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
   const [flag, setfalg] = useState(false)
   const [error, setError] = useState(null);
@@ -79,6 +80,9 @@ const resetTimer = function () {
       dispatch(codeRejectedReset()) 
     }
   let wid = 0
+  if (loading) {
+  return <LoadingSpiner/>
+}
   return (
     <div>
 

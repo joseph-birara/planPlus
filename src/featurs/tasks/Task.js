@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BsDot, BsArrowRightShort } from 'react-icons/bs'
 import Moment from 'react-moment';
 import { selectCurrentUsers } from '../user/userSlice'
-import { Link } from 'react-router-dom'
+
 import AddSubTask from '../subTasks/AddSubTask'
 import Editask from './Editask'
 
@@ -26,7 +26,7 @@ function Task(props) {
     const [editForm, seteditForm] = useState(false)
     const [createSubtask, setcreateSubtask] = useState(false)
     const stars = [1, 2, 3, 4, 5]
-    const [done, setdone] = useState(false)
+    //const [done, setdone] = useState(false)
     const dispatch = useDispatch()
     
     const { userToken } = useSelector(selectCurrentUsers)
@@ -76,7 +76,7 @@ function Task(props) {
         <div className='container rounded-xl grow-[2]'>            
             
       
-            <div className='task p-2 rounded-xl'>
+            <div className='task p-1 lg:p-2 rounded-xl'>
                 <div className='flex flex-auto justify-between'>
                     <div className='flex'>
                         <div className='flex flex-col justify-between '>
@@ -98,7 +98,7 @@ function Task(props) {
                         
                          
                     </div>
-                {props.task.subTask && props.task.subTask.length>0?<div
+                            {props.task.subTask && props.task.subTask.length>0?<div
                     onClick={() => setupArrow(!upArrow)
                     }
                     className='taskSubtask'>
@@ -114,13 +114,13 @@ function Task(props) {
                     <div className='flex justify-between flex-wrap'>
                         <div className='titelAndDescription'>
                         <p className='text-start line-clamp-2'>
-                            <span className='font-bold text-xl'>
+                            <span className='font-bold text-sm lg:text-xl'>
                                  {
                                 props.task.title+'- '
                   }
 
                             </span>
-                                        <span className='description font-medium text-lg'
+                                        <span className='description font-medium text-sm lg:text-lg'
                                             // onClick={() => setshortDescription(!shortDescription)}
                                         >
                  {
@@ -160,7 +160,7 @@ function Task(props) {
         </div>
 
                 
-              <div className='starTime text-center ml-14 -mt-11'>
+              <div className='starTime text-center  ml-9 lg:ml-14 -mt-11'>
                         <div className='star'>
                             {
                                 stars.map((item, index) => 

@@ -8,16 +8,17 @@ import { Link, useNavigate} from 'react-router-dom';
 import validEmail from '../../GlobalVariabls/EmailValidation';
 import LeftArraw from '../../Assets/IconCollection/LeftArraw';
 import { unwrapResult } from '@reduxjs/toolkit';
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
 
 
 
 function InsertEmail() {
     const [error, setError] = useState(null);
     const userref = useRef();
-    const errorref = useRef();
+    
     const [email, setEmail] = useState('');
     const dispatch = useDispatch();
-    const { emailRejected } = useSelector(selectCurrentUsers);
+    const { emailRejected ,loading} = useSelector(selectCurrentUsers);
     const navigate = useNavigate();
 
     const validateEmail = (email) => {
@@ -56,7 +57,9 @@ function InsertEmail() {
         setError('')
       dispatch(emailRejectedReset()) 
     }
-   
+   if (loading) {
+  return <LoadingSpiner/>
+}
     return (
         <div>
             <div className='bg-[#F9F2ED] flex justify-between w-full h-10'>
@@ -98,7 +101,7 @@ function InsertEmail() {
                 <button
                   // onClick={this.onSubmitSignin}
                   
-                  disabled = {!email }
+                  disabled = {!email ||!validateEmail(email) }
                  onClick={handleSubmit}
                   type="button" className="btn mt-8 font-bold text-xl">
                   Send code</button>

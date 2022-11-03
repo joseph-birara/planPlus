@@ -3,21 +3,22 @@ import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 
 import { useDispatch, useSelector } from "react-redux";
 import {selectCurrentUsers} from './userSlice';
-import {EmailForCode,ResetNewPassword} from './UserActions';
-import { Link, useNavigate, } from 'react-router-dom';
+import {ResetNewPassword} from './UserActions';
+import {  useNavigate, } from 'react-router-dom';
 import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import { unwrapResult } from '@reduxjs/toolkit';
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
 
 
 function NewPassword() {
     const [error, setError] = useState(null);
   const userref = useRef();
-  const errorref = useRef();
+  
   const [password, setpassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const dispatch = useDispatch();
-  const { success,resetPasswordToken,emailForReset } = useSelector(selectCurrentUsers);
+  const { resetPasswordToken,emailForReset,loading } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
   const [showAndHide, setshowAndHide] = useState(false);
   const resultForNewPassword = async () => {
@@ -56,7 +57,9 @@ function NewPassword() {
     useEffect(() => {
         userref.current.focus();
     }, []) 
-
+ if (loading) {
+  return <LoadingSpiner/>
+}
   return (
     <div className='flex flex-col m-16 items-center gap-2'>
           <img  src={TooDoo_logo} alt='logo' className='mt-16 h-14 mb-8' />

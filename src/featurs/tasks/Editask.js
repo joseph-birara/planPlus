@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUsers } from '../user/userSlice'
 import { GetAllTasks, UpdateData } from './TaskActions'
 import { selectCurrentTasks, taskEditMessage } from './TaskSlice'
-import Moment from 'react-moment';
-import { Link } from 'react-router-dom'
+
 
 
 function Editask(props) {
@@ -40,7 +39,7 @@ function Editask(props) {
     
   
     
-  }, [errOrSuc])
+  }, [errOrSuc,dispatch,taskEdited])
 
   const timeSter=()=>setTimeout(() => {
     seterrOrSuc(true)

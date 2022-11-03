@@ -3,7 +3,6 @@ import LogIn from './featurs/user/LogIn';
 
 import Register from './featurs/user/Register';
 import React from 'react';
-import Home from './featurs/user/Home';
 import {
   BrowserRouter,
   Routes,
@@ -18,7 +17,6 @@ import LoadingPage from './featurs/LoadingPage';
 import HomePage from './featurs/tasks/HomePage';
 import Task from './featurs/tasks/Task';
 import SubTask from './featurs/subTasks/SubTask';
-import Calculatore from './featurs/tasks/Calculatore';
 import AddTask from './featurs/tasks/AddTask';
 import AddSubTask from './featurs/subTasks/AddSubTask';
 import { useSelector } from 'react-redux';

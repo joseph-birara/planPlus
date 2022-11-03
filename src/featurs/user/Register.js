@@ -10,18 +10,19 @@ import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import validEmail from '../../GlobalVariabls/EmailValidation';
 import Checkbox from '../../Assets/IconCollection/Checkbox';
 import { unwrapResult } from '@reduxjs/toolkit'
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
 
 function Register() {
   const [error, setError] = useState(null);
   const userref = useRef();
-  const errorref = useRef();
+  
   const [password, setpassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const [email, setemail] = useState('');
   const [showAndHide, setshowAndHide] = useState(false);
   const [agrement, setagrement] = useState(false);
   const dispatch = useDispatch();
-  const { success,loading,userInfo ,RequestMessageForRegister} = useSelector(selectCurrentUsers);
+  const { loading,RequestMessageForRegister} = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -73,7 +74,9 @@ function Register() {
       setError(RequestMessageForRegister)
     }
   },[RequestMessageForRegister])
-
+if (loading) {
+  return <LoadingSpiner/>
+}
   return (
     <div className='flex flex-col m-16 items-center gap-2'>
           <img  src={TooDoo_logo} alt='logo' className='m-10 h-12' />

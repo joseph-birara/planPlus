@@ -10,16 +10,17 @@ import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import validEmail from '../../GlobalVariabls/EmailValidation';
 import { unwrapResult } from '@reduxjs/toolkit'
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
 
 
 
 function LogIn() {
   const userref = useRef();
-  const errorref = useRef();
+  
   const [password, setpassword] = useState('');
   const [email, setemail] = useState('');
   const dispatch = useDispatch();
-  const { success, RequestMessageForLogIn } = useSelector(selectCurrentUsers);
+  const { loading, RequestMessageForLogIn } = useSelector(selectCurrentUsers);
   const [error, setError] = useState('');
   // if (RequestMessageForLogIn) {
   //   setError(RequestMessageForLogIn)
@@ -72,7 +73,9 @@ function LogIn() {
       setError(RequestMessageForLogIn)
     }
   },[RequestMessageForLogIn])
-
+  if (loading) {
+  return <LoadingSpiner/>
+}
   return (
     <div className='flex flex-col m-12 items-center gap-1 mt-20'>
       

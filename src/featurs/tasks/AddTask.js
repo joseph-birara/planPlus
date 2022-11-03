@@ -1,7 +1,6 @@
-import { CAlert } from '@coreui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Await, Link } from 'react-router-dom'
+import {  Link } from 'react-router-dom'
 import { selectCurrentUsers } from '../user/userSlice'
 import { CreateTask, GetAllTasks } from './TaskActions'
 import { selectCurrentTasks,empity } from './TaskSlice'

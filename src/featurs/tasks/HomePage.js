@@ -1,24 +1,23 @@
 import React, { useState,useEffect} from 'react'
-import {BiFilterAlt} from 'react-icons/bi'
-import { FaSortAmountDown } from 'react-icons/fa'
+
+
 import SearchIcon from '../../Assets/IconCollection/SearchIcon'
 import AccountIcon from '../../Assets/IconCollection/AccountIcon'
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
-import {MdOutlineAccountCircle} from 'react-icons/md'
 import Task from './Task'
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentTasks } from './TaskSlice'
 import { GetAllTasks, UpdateStatus, UpdateSubTaskStatus } from './TaskActions'
-import axios from 'axios'
-import tasks from './tasks'
+
 import HomePageImage from '../../Assets/IconCollection/HomePageImage'
 import AddTaskPlus from '../../Assets/IconCollection/AddTaskPlus'
 import Sorting from '../../Assets/IconCollection/Sorting'
 import Filter from '../../Assets/IconCollection/Filter'
 import { selectCurrentUsers } from '../user/userSlice'
-import { calculatore, Calculatore } from './Calculatore'
+import { calculatore } from './Calculatore'
 import { pushAndSubscribe } from '../../Clinet'
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
+import LogOut from '../user/LogOut'
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -26,7 +25,8 @@ function HomePage() {
     const { allTasks } = useSelector(selectCurrentTasks)
     const { userToken } = useSelector(selectCurrentUsers)
     const [search, setsearch] = useState('')
-    const {loading} = useSelector(selectCurrentTasks)
+    const { loading } = useSelector(selectCurrentTasks)
+    const [logedIn,setlogedIn]= useState(true)
     
     let filterdTasks = ''
    
@@ -67,7 +67,7 @@ function HomePage() {
         
 
        
-        dispatch(GetAllTasks({ userToken }))
+       // dispatch(GetAllTasks({ userToken }))
         //pushAndSubscribe({userToken:userToken})
       
             
@@ -87,7 +87,7 @@ function HomePage() {
     }
     
     return (
-      <div className='lg:mt-1 sm:ml-3 lg:ml-10 lg:mr-12 overflow-hidden'>
+      <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
       <div className='flex flex-auto justify-between items-center mr-10 sm:mr-5 lg:ml-20 lg:mr-24'>
                 <div className='md:ml-10'>
                    {/* { <form>
@@ -103,6 +103,9 @@ function HomePage() {
                   
         />
                     </form>} */}
+                    {
+                        logedIn?<LogOut/>:''
+                    }
               <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>
           </div>
           <div className='flex  -mr-3 gap-3 m-10 lg:ml-24 sm:items-center lg:w-80 mt-8 '>
@@ -120,7 +123,8 @@ function HomePage() {
                         className=' iconbg'>
                 <SearchIcon/>
               </div>
-              <div className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
+                    <div onClick={()=>setlogedIn(!logedIn)}
+                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
                  <AccountIcon/>
               </div>
               
@@ -128,7 +132,7 @@ function HomePage() {
           </div>
           
             </div>
-            <div className='text-center text-2xl font-black -mt-12 sm:-ml-8 md:-ml-14'>
+            <div className='text-center text-2xl font-black -mt-12 ml-0 sm:-ml-14'>
                 Your TooDoo
             </div>
             <div className='flex justify-center text-center content-center mt-4'>

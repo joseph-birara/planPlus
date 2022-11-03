@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 import {
     RegisterUser,
     Login,
@@ -34,6 +33,9 @@ const UserSlice = createSlice({
         },
         codeRejectedReset: (state) => {
             state.codeRejected=''
+        },
+        logeOutAndNullToken: (state) => {
+            state.userToken=''
         }
 
     },
@@ -155,5 +157,5 @@ const UserSlice = createSlice({
 })
 
 export const selectCurrentUsers = (state) => state.User;
-export const {emailRejectedReset,codeRejectedReset} =UserSlice.actions
+export const {emailRejectedReset,codeRejectedReset,logeOutAndNullToken} =UserSlice.actions
 export default UserSlice.reducer;
