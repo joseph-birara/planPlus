@@ -6,7 +6,7 @@ import LeftArraw from '../../Assets/IconCollection/LeftArraw';
 
 
 import { useDispatch, useSelector } from "react-redux";
-import {selectCurrentUsers} from './userSlice';
+import {selectCurrentUsers,codeRejectedReset} from './userSlice';
 import { SendCode } from './UserActions';
 import { EmailForCode } from './UserActions';
 import ProgressBar from './progressBar';
@@ -22,9 +22,10 @@ function EnterCode() {
   const userref = useRef();
   const [timer, setTimer] = useState(60); 
   const dispatch = useDispatch()
-  const { emailForReset } = useSelector(selectCurrentUsers);
+  const { emailForReset,codeRejected } = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
-  const [flag, setfalg]=useState(false)
+  const [flag, setfalg] = useState(false)
+  const [error, setError] = useState(null);
   
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
 useEffect(() => {
@@ -40,6 +41,9 @@ useEffect(() => {
     if (promiseResult.token) {
       navigate('/newpassword')
     }  
+    else {
+      setError('invalid code')
+    }
 
      
  }
@@ -69,7 +73,11 @@ const resetTimer = function () {
 };
   
 
-   
+   //error reset
+    const resetor = () => {
+        setError('')
+      dispatch(codeRejectedReset()) 
+    }
   let wid = 0
   return (
     <div>
@@ -95,9 +103,17 @@ const resetTimer = function () {
       <div className='text-bold text-2xl font-semibold mb-12 w-72 text-center'>
         Enter code below
 
-      </div>
+        </div>
+         {
+          error ? <div className='errorMessag'>{error }</div>:''
+        }
+        {
+          codeRejected ? <div className='errorMessag'>{codeRejected }</div>:''
+                }
       
-      <div className='w-72 text-center -mb-2'>
+        <div
+           onClick ={resetor}
+          className='w-72 text-center -mb-2'>
           <PinInput 
             ref ={userref}
   length={4} 
@@ -107,7 +123,8 @@ const resetTimer = function () {
           // console.log(optCode)
           
           
-  }} 
+            }} 
+           
   type="numeric" 
   inputMode="number"
   style={{padding: '1px',}}  

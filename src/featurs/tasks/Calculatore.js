@@ -26,5 +26,8 @@ export const calculatore = ({ task,changeHandler }) => {
        
         
   }
+  else if ((counter) < ((new Date(task.dateTime).getTime())) && task.status === 'In progress'){
+changeHandler(task._id,"Upcoming")
+  }
   
 }

@@ -98,7 +98,7 @@ function Task(props) {
                         
                          
                     </div>
-                {props.task.status!=='Done'?<div
+                {props.task.subTask && props.task.subTask.length>0?<div
                     onClick={() => setupArrow(!upArrow)
                     }
                     className='taskSubtask'>

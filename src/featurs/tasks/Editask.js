@@ -2,7 +2,10 @@ import React, {  useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUsers } from '../user/userSlice'
 import { GetAllTasks, UpdateData } from './TaskActions'
-import { selectCurrentTasks,taskEditMessage } from './TaskSlice'
+import { selectCurrentTasks, taskEditMessage } from './TaskSlice'
+import Moment from 'react-moment';
+import { Link } from 'react-router-dom'
+
 
 function Editask(props) {
     
@@ -20,7 +23,7 @@ function Editask(props) {
         category: props.task.category,
         duration:props.task.duration,
         priority:props.task.priority,
-       dateTime: props.task.dateTime,
+       dateTime: new Date(new Date(props.task.dateTime).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19)  ,                           
       status: props.task.status,
       note:props.task.note,
       title: props.task.title,
@@ -235,14 +238,16 @@ function Editask(props) {
                   disabled = {falseInput}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
-                  Save Task</button>
+           Save Task</button>
+         
         
        </form>
         {
         falseInput ? <div className='errorMessag'>
          { falseInput}
         </div>:''
-      }
+       }
+       
     </div>
   )}
 }

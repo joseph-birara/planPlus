@@ -20,13 +20,23 @@ const initialState = {
     emailForReset: '',
     codeForReset: '',
     RequestMessageForLogIn: '',
-    RequestMessageForRegister:''
+    RequestMessageForRegister: '',
+    emailRejected: '',
+    codeRejected:''
 }
 
 const UserSlice = createSlice({
     name:'User',
     initialState,
-    reducers:{},
+    reducers: {
+        emailRejectedReset: (state) => {
+            state.emailRejected =''
+        },
+        codeRejectedReset: (state) => {
+            state.codeRejected=''
+        }
+
+    },
     extraReducers:{
         //register user
         [RegisterUser.pending]:(state)=>{
@@ -87,12 +97,14 @@ const UserSlice = createSlice({
             state.loading = false;
             state.success = true 
             
-            console.log("sent email slice paylode",payload.data.email);
+            console.log("sent email slice paylode", payload.data.email);
+            state.emailRejected=''
         },
         [EmailForCode.rejected]:(state,{payload}) =>{
             state.loading = false;
             state.error = payload
-            console.log("sent email rejected",payload);
+            console.log("sent email rejected", payload);
+            state.emailRejected="email not found"
         },
         //sending code to reset user password
         [SendCode.pending]:(state) =>{
@@ -106,11 +118,14 @@ const UserSlice = createSlice({
             
             state.loading = false;
             state.success = true //registered
-            console.log("code recived inside slice",payload.token);
+            console.log("code recived inside slice", payload.token);
+            state.codeRejected=''
+            
         },
         [SendCode.rejected]:(state,{payload}) =>{
             state.loading = false;
             state.error = payload
+            state.codeRejected="invalid code!"
         },
         //sending new password to reset user password
         [ ResetNewPassword.pending]:(state) =>{
@@ -140,4 +155,5 @@ const UserSlice = createSlice({
 })
 
 export const selectCurrentUsers = (state) => state.User;
+export const {emailRejectedReset,codeRejectedReset} =UserSlice.actions
 export default UserSlice.reducer;

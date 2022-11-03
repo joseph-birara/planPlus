@@ -18,6 +18,7 @@ import Filter from '../../Assets/IconCollection/Filter'
 import { selectCurrentUsers } from '../user/userSlice'
 import { calculatore, Calculatore } from './Calculatore'
 import { pushAndSubscribe } from '../../Clinet'
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -25,6 +26,7 @@ function HomePage() {
     const { allTasks } = useSelector(selectCurrentTasks)
     const { userToken } = useSelector(selectCurrentUsers)
     const [search, setsearch] = useState('')
+    const {loading} = useSelector(selectCurrentTasks)
     
     let filterdTasks = ''
    
@@ -79,7 +81,10 @@ function HomePage() {
      }
           
 
-    
+    if (loading) {
+        return(< LoadingSpiner/>)
+       
+    }
     
     return (
       <div className='lg:mt-1 sm:ml-3 lg:ml-10 lg:mr-12 overflow-hidden'>
@@ -139,7 +144,7 @@ function HomePage() {
                     )
                             : <div>
                                 <HomePageImage />
-                    <div className='text-center w-52 font-thin text-lg -ml-10 text-[#1D1D1D]'>
+                    <div className='text-center w-56 font-thin text-xl -ml-10 text-gray-500'>
                Get started by creating your very first task.
           </div> 
                         

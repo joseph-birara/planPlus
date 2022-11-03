@@ -65,7 +65,8 @@ function SubTask(props) {
     const editHandler = () =>
     {
         seteditForm(!editForm)
-      }
+    }
+    
     
     return (
       
@@ -167,7 +168,7 @@ function SubTask(props) {
             </div>
             {
                 editForm ?
-                    <EditSubTask task={props.subTask} editHandler={editHandler }/> : ''
+                    <EditSubTask task={props.subTask} editHandler={editHandler} /> : ''
             }
          
     </div>

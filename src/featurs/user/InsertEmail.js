@@ -2,7 +2,7 @@ import React, { useState,useEffect,useRef } from 'react';
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 
 import { useDispatch, useSelector } from "react-redux";
-import {selectCurrentUsers} from './userSlice';
+import {selectCurrentUsers,emailRejectedReset} from './userSlice';
 import {EmailForCode} from './UserActions';
 import { Link, useNavigate} from 'react-router-dom';
 import validEmail from '../../GlobalVariabls/EmailValidation';
@@ -12,12 +12,12 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 
 function InsertEmail() {
-      const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
     const userref = useRef();
     const errorref = useRef();
     const [email, setEmail] = useState('');
     const dispatch = useDispatch();
-    const { success } = useSelector(selectCurrentUsers);
+    const { emailRejected } = useSelector(selectCurrentUsers);
     const navigate = useNavigate();
 
     const validateEmail = (email) => {
@@ -50,7 +50,12 @@ function InsertEmail() {
 
     useEffect(() => {
         userref.current.focus();
-    }, [])    
+    }, [])  
+    //error reset
+    const resetor = () => {
+        setError('')
+      dispatch(emailRejectedReset()) 
+    }
    
     return (
         <div>
@@ -81,13 +86,14 @@ function InsertEmail() {
                   <input
                  ref = {userref}
                   required
-                  value={email}
+                        value={email}
+                        onClick ={resetor}
                  onChange={e => setEmail(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
                   placeholder="Your email "
-                      className="inputBox w-60"
+                 className="inputBox w-60"
                   />
                 <button
                   // onClick={this.onSubmitSignin}
@@ -98,8 +104,15 @@ function InsertEmail() {
                   Send code</button>
         
              
-              </form>
+                </form>
+                {
+                    error ? <div className='errorMessag'>{ error}</div>:''
+                }
+                 {
+                    emailRejected ? <div className='errorMessag'>{ emailRejected}</div>:''
+                }
             </div>
+
             </div>
      
   )
