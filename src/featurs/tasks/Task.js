@@ -73,7 +73,7 @@ function Task(props) {
     
     
     return (
-        <div className='container rounded-xl grow-[2]'>            
+        <div className='container rounded-xl'>            
             
       
             <div className='task p-1 lg:p-2 rounded-xl'>
@@ -116,18 +116,11 @@ function Task(props) {
                         <p className='text-start line-clamp-2'>
                             <span className='font-bold text-sm lg:text-xl'>
                                  {
-                                props.task.title+'- '
+                                props.task.title
                   }
 
                             </span>
-                                        <span className='description font-medium text-sm lg:text-lg'
-                                            // onClick={() => setshortDescription(!shortDescription)}
-                                        >
-                 {
-                                                //  shortDescription? ( props.task.note.length>70 ? props.task.note.slice(0,70) +'....':props.task.note):
-                                                props.task.note
-                  }
-                                </span>
+                                        
                                 
                            
               </p>

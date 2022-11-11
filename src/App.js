@@ -21,6 +21,7 @@ import AddTask from './featurs/tasks/AddTask';
 import AddSubTask from './featurs/subTasks/AddSubTask';
 import { useSelector } from 'react-redux';
 import { selectCurrentUsers } from './featurs/user/userSlice';
+import PageNotFound from './featurs/components/PageNotFound';
 
 
  
@@ -77,7 +78,8 @@ function App () {
           <Route path="/subtask" element={userToken?<SubTask />:<LogIn/>} />
           
           <Route path="/addtask" element={userToken?<AddTask />:<LogIn/>} />
-          <Route path="/addsubtask" element={userToken?<AddSubTask/>:<LogIn/>} />
+          <Route path="/addsubtask" element={userToken ? <AddSubTask /> : <LogIn />} />
+          <Route path='*' element ={<PageNotFound/>} />
 
 
           

@@ -13,6 +13,9 @@
     .btn{
         @apply m-4 w-32 h-9 text-white bg-[#3AB0FF] rounded-lg text-center disabled:bg-[#a9d2f0] focus:border-black font-extrabold text-xl
     }
+    .subtaskBtn{
+        @apply m-4 w-32 h-9 text-white bg-[#FFB562] rounded-lg text-center disabled:bg-[#FFB562] disabled:opacity-50 focus:border-black font-extrabold text-xl
+    }
     .iconbg{
         @apply bg-[#F9F2ED] rounded-2xl h-12 p-1 w-12 text-center py-2 px-0 justify-center
     }
@@ -26,7 +29,7 @@
         @apply text-red-600 h-10 text-center
     }
     .task{
-      @apply bg-[#F9F2ED] flex flex-col m-0 lg:mt-1  flex-auto lg:mr-1 h-24 lg:h-28 sm:w-full
+      @apply bg-[#F9F2ED] flex flex-col m-0 lg:mt-1  flex-auto lg:mr-1 h-24 lg:h-28
     }
     .doneUndone{
         @apply w-10 h-8 lg:w-12 lg:h-10 text-sm lg:text-4xl
@@ -59,7 +62,7 @@
         @apply text-[#FFB562] flex mt-1 text-sm lg:text-xl
     }
     .container{
-        @apply flex flex-col max-w-xl bg-[#F9F2ED] justify-between sm:w-full
+        @apply flex flex-col max-w-xl bg-[#F9F2ED] justify-between 
     }
     .checkBox{
       @apply  w-6 h-6 lg:w-7 lg:h-7 border-[#C9B6A9] rounded-lg border-solid border-2 bg-[#FFFFFF]
@@ -68,6 +71,9 @@
         @apply z-40 w-24 h-24 right-8 -top-[30px] text-left
         border-2 absolute
          border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED]
+    }
+    .bigInputBox{
+        @apply w-80 h-10 px-4 py-2 bg-[#F9F2ED] rounded-md  focus:border-[#FFB562] focus:outline-none focus:ring-1 focus:ring-[#FFB562]
     }
 
 }

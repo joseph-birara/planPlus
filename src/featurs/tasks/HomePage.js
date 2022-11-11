@@ -26,7 +26,7 @@ function HomePage() {
     const { userToken } = useSelector(selectCurrentUsers)
     const [search, setsearch] = useState('')
     const { loading } = useSelector(selectCurrentTasks)
-    const [logedIn,setlogedIn]= useState(true)
+    const [logedIn,setlogedIn]= useState(false)
     
     let filterdTasks = ''
    
@@ -43,18 +43,23 @@ function HomePage() {
     useEffect(() => {
         console.log("calculatore is called once");
         const timer2 = setInterval(() => {
-            allTasks?.forEach(task => calculatore({
+            if (allTasks && allTasks.length > 0) {
+                allTasks.forEach(task => calculatore({
                 task: task,
                 changeHandler:changeHandler
             })
 
         
     );
-            allTasks?.map(t => t.subTask?.map(sub => calculatore({
+            }
+            if (allTasks && allTasks.length > 0) {
+               allTasks.map(t => t.subTask?.map(sub => calculatore({
                 task: sub,
                 changeHandler:changeHandlerSubTask
                 
-         })))   
+         })))  
+            }
+              
         }, 10000);
         return ()=>clearInterval(timer2)
       
@@ -67,7 +72,7 @@ function HomePage() {
         
 
        
-       // dispatch(GetAllTasks({ userToken }))
+       //dispatch(GetAllTasks({ userToken }))
         //pushAndSubscribe({userToken:userToken})
       
             

@@ -71,7 +71,7 @@ function SubTask(props) {
     return (
       
       
-        <div className='task ml-[70px] border-t-2 border-[#C9B6A9] lg:h-28'>
+        <div className='task ml-11 lg:ml-[70px] border-t-2 border-[#C9B6A9] lg:h-28'>
             <div className='flex  justify-between'>
                 <div className='flex justify-start'>
                      <div
@@ -94,18 +94,11 @@ function SubTask(props) {
                 
                                     <span className='font-semibold text-xl'  >
                                           {
-                    props.subTask.title +'- '
+                    props.subTask.title 
                   }
                                     </span>                
               
-                                    <span className='description font-medium'
-                                        // onClick={() => setsubShortDescription(!subShortDescription)}
-                                    >
-                {
-                                            // subShortDescription ? (props.subTask.note.length > 70 ? props.subTask.note.slice(0, 70) + '....' : props.subTask.note) :
-                                                props.subTask.note
-                  }
-                        </span>
+                                    
                         </p>
               
               
