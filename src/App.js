@@ -22,6 +22,18 @@ import AddSubTask from './featurs/subTasks/AddSubTask';
 import { useSelector } from 'react-redux';
 import { selectCurrentUsers } from './featurs/user/userSlice';
 import PageNotFound from './featurs/components/PageNotFound';
+import ViewDetail from './featurs/tasks/ViewDetail';
+import FilterCard from './featurs/components/FilterCard';
+import SortCard from './featurs/components/SortCard';
+import NotificationPage from './featurs/components/NotificationPage';
+import Account from './featurs/acconts/Account';
+import Themes from './featurs/acconts/Themes'
+import LanguagePage from './featurs/acconts/LanguagePage';
+import PrivacyPolicyPage from './featurs/acconts/PrivacyPolicyPage';
+import ProfilePage from './featurs/acconts/ProfilePage';
+import TermsOfUsePage from './featurs/acconts/TermsOfUsePage';
+import DeleteAccount from './featurs/acconts/DeleteAccount';
+import SignOutPage from './featurs/acconts/SignOutPage';
 
 
  
@@ -79,7 +91,30 @@ function App () {
           
           <Route path="/addtask" element={userToken?<AddTask />:<LogIn/>} />
           <Route path="/addsubtask" element={userToken ? <AddSubTask /> : <LogIn />} />
-          <Route path='*' element ={<PageNotFound/>} />
+          <Route path='*' element={<PageNotFound />} />
+          <Route path='/viewtask' element={<ViewDetail />} />
+          <Route path='/filter' element={<FilterCard />} />
+          <Route path='/sort' element={<SortCard />} />
+          <Route path='/notify' element={<NotificationPage />} />
+          <Route path='/account' element={<Account />} />
+          <Route path='/theme' element={<Themes />} />
+          <Route path='/language' element={<LanguagePage />} />
+          <Route path='/policy' element={<PrivacyPolicyPage />} />
+          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/terms' element={<TermsOfUsePage />} />
+          <Route path='/deleteAccount' element={<DeleteAccount />} />
+          <Route path='/logout' element={<SignOutPage />} />
+          
+
+
+
+
+
+
+
+
+
+          
 
 
           

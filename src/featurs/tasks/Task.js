@@ -17,6 +17,7 @@ import { selectCurrentUsers } from '../user/userSlice'
 
 import AddSubTask from '../subTasks/AddSubTask'
 import Editask from './Editask'
+import { Link } from 'react-router-dom'
 
 
 
@@ -110,7 +111,12 @@ function Task(props) {
                     </div>:''}
           
                         </div> 
-                         <div className='taskBody'>
+                        <div
+                            
+                            className='taskBody'>
+                            <Link to='/viewtask' state={{
+                                detail:props.task
+                            }}>
                     <div className='flex justify-between flex-wrap'>
                         <div className='titelAndDescription'>
                         <p className='text-start line-clamp-2'>
@@ -131,7 +137,8 @@ function Task(props) {
               
               
                     </div>
-                </div>
+                </Link>
+                        </div>
 
 
                     </div>
@@ -212,7 +219,7 @@ function Task(props) {
                         
                    
             }
-            {upArrow ?
+            {/* {upArrow ?
                 <span>
                 <span onClick={() => setcreateSubtask(!createSubtask)}
                 className='btn'>
@@ -223,7 +230,7 @@ function Task(props) {
                         <AddSubTask task={props.task } handleClick={handleClick} />
                     </div>:''
                 }
-                 </span>: ''}
+                 </span>: ''} */}
             {
                 editForm ?
                     <Editask task={props.task} editHandler={editHandler }/> : ''

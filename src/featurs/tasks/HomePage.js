@@ -18,6 +18,9 @@ import { calculatore } from './Calculatore'
 import { pushAndSubscribe } from '../../Clinet'
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
 import LogOut from '../user/LogOut'
+import { Link } from 'react-router-dom'
+import NotificationIcone from '../../Assets/IconCollection/NotificationIcone'
+import SmallSearchIcon from '../../Assets/IconCollection/SmallSearchIcon'
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -25,6 +28,7 @@ function HomePage() {
     const { allTasks } = useSelector(selectCurrentTasks)
     const { userToken } = useSelector(selectCurrentUsers)
     const [search, setsearch] = useState('')
+    const [showSearch, setshowSearch]=useState(false)
     const { loading } = useSelector(selectCurrentTasks)
     const [logedIn,setlogedIn]= useState(false)
     
@@ -93,45 +97,78 @@ function HomePage() {
     
     return (
       <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
-      <div className='flex flex-auto justify-between items-center mr-10 sm:mr-5 lg:ml-20 lg:mr-24'>
+      <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 items-start'>
                 <div className='md:ml-10'>
-                   {/* { <form>
-                        <input
+                    {showSearch?<form className='flex flex-row'>
+                        <div className='relative'>
+                            <input
                  
                   required
                   value={search}
-                   type='text'
+                   type='search'
                   name="email"
                   id="email"
-                  placeholder="search here "
-                  className="inputBox"
+                  placeholder="Search your list... "
+                            className="inputBox mt-5 rounded-[42px] w-[250px] lg:w-[350px] h-[37px] ml-10 lg:ml-80 pl-11"
+                            onChange={(e)=>setsearch(e.target.value)}
                   
-        />
-                    </form>} */}
-                    {
-                        logedIn?<LogOut/>:''
-                    }
-              <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>
+                            />
+                            <div className='absolute top-[3px]'>
+                            <SmallSearchIcon  />
+                        </div> 
+
+                        </div>
+                        <div
+                            onClick={() => {
+                                setsearch('')
+                                setshowSearch(false)
+                            }}
+                            className='text-[#F87474] mt-6 ml-2 text-xl lg:ml-5 hover:cursor-pointer'>
+                            Cancel
+                        </div>
+                        
+                    </form>:''}
+             {!showSearch?       
+              <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>:''}
           </div>
           <div className='flex  -mr-3 gap-3 m-10 lg:ml-24 sm:items-center lg:w-80 mt-8 '>
              
-                    <div
+                    {!showSearch?<div
+                        
                         className=' iconbg'>
                         
-                <Filter/>
-                    </div>
-                    <div
+<Link to ='/filter'><Filter/></Link>
+                    </div>:""}
+                    {!showSearch?<div
                         className=' iconbg'>
-                <Sorting/>
-              </div>
-                    <div
+              <Link to='/sort' ><Sorting/></Link> 
+              </div>:''}
+                    {!showSearch?<div
+                        onClick={()=>setshowSearch(!showSearch)}
                         className=' iconbg'>
                 <SearchIcon/>
-              </div>
-                    <div onClick={()=>setlogedIn(!logedIn)}
+                    </div>:''}
+                    <div className='flex flex-col gap-1 -mb-10'>
+                        <div
+                        // onClick={() => setlogedIn(!logedIn)}
+                            className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
+                            <Link to='/notify'>
+                                 <NotificationIcone/>
+                            </Link>
+                        
+                
+                        </div>
+                        <div
+                        // onClick={() => setlogedIn(!logedIn)}
                         className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
-                 <AccountIcon/>
+                            <Link to='/account'  >
+                                <AccountIcon />
+                            </Link>  
+                
               </div>
+
+                    </div>
+                    
               
               
           </div>
