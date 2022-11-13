@@ -8,7 +8,9 @@ import {
     EditTask,
     UpdateSubTaskStatus,
     DeleteSubTask,
-    CreateSubTask
+    CreateSubTask,
+    GetAllNotifications,
+    DeleteNotification,
 
 } from "./TaskActions";
 const initialState = {
@@ -23,7 +25,8 @@ const initialState = {
     taskDeleteNote: '',
     subTaskDeleteNote: '',
     taskEdited: '',
-    subTaskEdited:'',
+    subTaskEdited: '',
+    notifications:'',
     
     
 }
@@ -47,10 +50,59 @@ const TasksSlice = createSlice({
 
     },
     extraReducers: {
+        //notification 
+        // get
+        [GetAllNotifications.pending]:(state)=>{
+            state.loading = true;
+             console.log("from notifications slice loading");
+    
+        },
+        [GetAllNotifications.fulfilled]:(state,{payload})=>{
+            
+            state.notifications=payload.data
+            
+            state.loading = false;
+            state.success = true;
+            console.log("from notifications slice accepted");
+            console.log(payload.data.tasks
+            )
+            console.log("from tasks slice accepted");
+                
+        },
+        [GetAllNotifications.rejected]:(state,{payload})=>{
+            state.loading = false;
+            state.error = payload;
+            console.log("from notificationsslice rejected");
+            console.log("this is the payload",payload);
+    
+        },
+        [DeleteNotification.pending]:(state)=>{
+            state.loading = true;
+             console.log("delete loading from tasks slice loading");
+    
+        },
+        [DeleteNotification.fulfilled]:(state,action)=>{
+            
+            
+            
+            state.loading = false;
+            state.success = true;
+            console.log("delete from notification slice accepted");
+            
+            
+                
+        },
+        [DeleteNotification.rejected]:(state,{payload})=>{
+            state.loading = false;
+            state.error = payload;
+            console.log("delete from notification slice rejected");
+            console.log(payload);
+    
+        },
         //get all tasks
         [GetAllTasks.pending]:(state)=>{
             state.loading = true;
-             console.log("from tasks slice loading");
+             console.log("from notification slice loading");
     
         },
         [GetAllTasks.fulfilled]:(state,{payload})=>{

@@ -120,7 +120,7 @@ function Task(props) {
                     <div className='flex justify-between flex-wrap'>
                         <div className='titelAndDescription'>
                         <p className='text-start line-clamp-2'>
-                            <span className='font-bold text-sm lg:text-xl'>
+                            <span className='font-bold text-sm lg:text-lg'>
                                  {
                                 props.task.title
                   }
@@ -161,7 +161,7 @@ function Task(props) {
 
                 
               <div className='starTime text-center  ml-9 lg:ml-14 -mt-11'>
-                        <div className='star'>
+                        <div className='star text-sm'>
                             {
                                 stars.map((item, index) => 
                                     props.task.priority>index?<AiFillStar key={index}/>:<AiOutlineStar key={index}/>
@@ -173,7 +173,7 @@ function Task(props) {
                         <div className='text-[#C9B6A9] text-2xl'>
                             <BsDot/>
                         </div>
-                  <div className='duration'>
+                  <div className='duration text-sm'>
                             {
                                 props.task.duration
                       }
@@ -182,7 +182,7 @@ function Task(props) {
 
                             <BsArrowRightShort className=''/>
                         </div>
-                  < div className='begin'>
+                  < div className='begin text-sm'>
                             {
                                 <Moment format={`${'h'}:mm${"hh">=12?'P':"A"},MMM  DD,'YY`} >
                                     { props.task.dateTime}
@@ -199,7 +199,7 @@ function Task(props) {
                         <div className='text-[#C9B6A9] text-2xl'>
                             <BsDot/>
                         </div>
-                  <div className='category text-console.log(); text-center mb-0 '>
+                  <div className='category  text-center mb-2 text-base'>
                             {
                                 props.task.category
                       }

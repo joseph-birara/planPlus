@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import Moment from 'react-moment'
 import { Link, useLocation } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
 
 function ViewDetail() {
     const location = useLocation() 
-    const {task} = location.state
-    const [detail, setdetail] = useState({})
+    
+  const [detail, setdetail] = useState(location.state.detail)
+  
     useEffect(() => {
       
-    setdetail(task)
-      
+      setdetail(location.state.detail)
+     
+      console.log(location.state.detail,"location insid");
+      console.log(detail,"real state");
     }, [])
     
   return (
@@ -35,13 +39,15 @@ function ViewDetail() {
 
       </div>
       
-     
+     {detail?
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
             <label className='flex items-start text-start  font-bold mb-1' >Task title</label>
             <div className='bigInputBox'>            
-              
+              {
+detail.title
+              }
 
             </div>
            
@@ -55,7 +61,11 @@ function ViewDetail() {
               
                           className="bigInputBox">
                           {
-                              detail.dateTime
+                               <Moment format={`${'h'}:mm${"hh">=12?'P':"A"},DD/MM/YYYY`} >
+                                    { detail.dateTime}
+                                    
+
+                                </Moment>
                           }
           </div>
           
@@ -148,7 +158,7 @@ function ViewDetail() {
                   {
                       detail.subTask && detail.subTask.length>0?<div>
                           <label className='flex items-start text-start  font-bold mb-1' >Subtasks</label>
-                          {detail.subTask.map(sub =><SubTaskInsideAddTask subTask={sub } />)
+                          {detail.subTask.map((sub,index) =><SubTaskInsideAddTask subTask={sub } index={index-1} />)
                           }
           </div>:''
          }
@@ -167,7 +177,7 @@ function ViewDetail() {
         
       </form>
 
-      </div>
+      </div>:"loading....."}
       
      
       

@@ -24,9 +24,9 @@ export const GetAllTasks = createAsyncThunk(
 );
 export const CreateTask = createAsyncThunk(
   "tasks/createTasks",
-  async ({title,note,dateTime,duration,category,priority,reminder,status,userToken} ,{ rejectWithValue }) => {
+  async ({task,subTask,userToken} ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.post(`${constants}/tasks/create`, {title, note, dateTime:new Date(dateTime).toISOString(), duration, category, priority, reminder, status }, {
+      const resp = await axios.post(`${constants}/tasks/create`, {task,subTask}, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       }
@@ -103,7 +103,51 @@ export const UpdateData = createAsyncThunk(
       }
     }
   
+); 
+
+//notification actions
+export const GetAllNotifications = createAsyncThunk(
+  "tasks/alltasks",
+  async ({ userToken }, { rejectWithValue }) => {
+    console.log("aqw",userToken)
+    try {
+      const resp = await axios.get(`${constants}/notification`,{
+         headers: {
+          'content-type': 'text/json',
+           "authorization":`Bearer ${userToken}`
+    }
+      });
+      console.log("get all tasks action",resp);
+      return resp;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
 );
+export const DeleteNotification = createAsyncThunk(
+  "tasks/DeleteTask",
+  async ({_id,userToken} ,{ rejectWithValue }) => {
+    try {
+      const resp = await axios.delete(`${constants}/notification/delete`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+      data: {
+        _id:_id
+      },
+    });
+      console.log(resp);
+      return _id;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+
 
 
 

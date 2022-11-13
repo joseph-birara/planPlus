@@ -18,10 +18,12 @@ const AccountCard = (props) => {
                        
                   </td>
                   <td className='mt-2 text-[#3AB0FF]'>
-                      <Link to={`/${props.path}`}>
-                         <FaGreaterThan/> 
-                      </Link>
-                     
+                     {props.route? <Link to={`/${props.path}`}>
+                        <FaGreaterThan/>
+                      </Link> : <FaGreaterThan
+                              onClick={()=>props.handleSignout()}
+                      /> 
+                     }
                   </td>
               </tr>
               

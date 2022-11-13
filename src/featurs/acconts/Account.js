@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AccountIcon from '../../Assets/IconCollection/AccountIcon'
 import NotificationIcone from '../../Assets/IconCollection/NotificationIcone'
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
@@ -12,6 +12,9 @@ import deleteIcon from '../../Assets/AcountIcons/deleteIcon.svg'
 import signout from '../../Assets/AcountIcons/logOut.svg'
 import logo from '../../TooDoo Logo/TooDoo_logo.svg'
 import copyRight from '../../Assets/AcountIcons/copyRight.svg'
+import  ConfirmationMessage  from '../components/ConfirmationMessage'
+import { logeOutAndNullToken } from '../user/userSlice' 
+import { useDispatch } from 'react-redux'
 
 
 
@@ -23,8 +26,24 @@ import copyRight from '../../Assets/AcountIcons/copyRight.svg'
 
 
 const Account = () => {
+  const [confirm, setconfirm] = useState(false)
+  const dispatch = useDispatch()
+  //reset token during logout
+  const handleYes = () => {
+    dispatch(logeOutAndNullToken())
+  }
+  //back from log out
+  const setWarning = () => {
+    setconfirm(!confirm)
+  }
+  const handleSignout = () => {
+    setconfirm(!confirm)
+  }
   return (
-       <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
+    <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
+      {
+        confirm ? <ConfirmationMessage handleYes={handleYes} setWarning={setWarning } item={"Are you sure you want to sign out ?"} />:''
+      }
       <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 '>
                 <div className='md:ml-10'>
                     
@@ -61,13 +80,13 @@ const Account = () => {
                 <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>
                     
                     
-          <AccountCard icon={profile} name={"Profile"} path={"profile"} /> 
-          <AccountCard icon={language} name={"Language"} path={"language"} /> 
-          <AccountCard icon={theme} name={"Theme"} path={"theme"} /> 
-          <AccountCard icon={privacy} name={"Privace policy"} path={"terms"} /> 
-          <AccountCard icon={terms} name={"Terms of Use"} path={"terms"} /> 
-          <AccountCard icon={deleteIcon} name={"Delete account"} path={"deleteAccount"} /> 
-          <AccountCard icon={signout } name={"Sign out" } path={"logout"} /> 
+          <AccountCard icon={profile} name={"Profile"} path={"profile"} route={ true} /> 
+          <AccountCard icon={language} name={"Language"} path={"language"}  route={ true} /> 
+          <AccountCard icon={theme} name={"Theme"} path={"theme"}  route={ true}/> 
+          <AccountCard icon={privacy} name={"Privace policy"} path={"terms"}  route={ true} /> 
+          <AccountCard icon={terms} name={"Terms of Use"} path={"terms"}  route={ true}/> 
+          <AccountCard icon={deleteIcon} name={"Delete account"} path={"deleteAccount"}  route={ true} /> 
+          <AccountCard icon={signout } name={"Sign out" } path={"logout"}  route={ false} handleSignout={handleSignout} /> 
                     
             </div>
 

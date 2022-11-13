@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import AccountIcon from '../../Assets/IconCollection/AccountIcon'
 import NotificationIcone from '../../Assets/IconCollection/NotificationIcone'
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
+import { GetAllNotifications } from '../tasks/TaskActions'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
+import { selectCurrentUsers } from '../user/userSlice'
 import NotificationCard from './NotificationCard'
 
 
 const NotificationPage = () => {
+  const dispatch = useDispatch()
+  const { userToken } = useSelector(selectCurrentUsers)
+  const {notifications} =useSelector(selectCurrentTasks)
+
+  useEffect(() => {
+    dispatch(GetAllNotifications(userToken))
+   
+  }, [dispatch,userToken])
+  
    return (
       <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
       <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 '>
@@ -42,9 +55,12 @@ const NotificationPage = () => {
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
                 <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>
+           {
+           notifications && notifications.length>0? notifications.forEach((notify => <NotificationCard status={notify.status} title={notify.title} _id={notify._id} />)):"no notification found"
+           
+                    }
                     
-                    
-                   <NotificationCard/> 
+           
                     
             </div>
 

@@ -4,9 +4,11 @@ import Moment from 'react-moment'
 
 function SubTaskInsideAddTask( props) {
   return (
-      <div className='bigInputBox h-[80px] flex border-[1px] border-[#C9B6A980]'>
+      <div className='bigInputBox h-[80px] flex border-[1px] border-[#C9B6A980] mb-6'>
           <div className='pt-3 text-gray-400 h-[80px] -mt-2 -ml-2 w-14  border-r-[1px] border-r-[#C9B6A980] '>
-             subtask one 
+              {
+                  props.index
+            }
           </div>
           <div className=''>
               <p className='text-start mr-1'>

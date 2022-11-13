@@ -8,14 +8,14 @@ import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import ConfirmationMessage from '../components/ConfirmationMessage'
 
 function AddSubTask(props) {
- const [state, setState] = useState({
+ const [subState, setsubState] = useState({
         
     duration: '30 mins',
     priority: 1,
     dateTime: new Date(),     
-      note: '',
-      title: '',
-      reminder:'30 mins'
+    note: '',
+    title: '',
+    reminder:'30 mins'
         
         
         
@@ -28,9 +28,13 @@ function AddSubTask(props) {
   const [falseInput, setfalseInput] = useState('')
   const [showWarning,setshowWarning]=useState(false)
   
-  const { title, note, dateTime, duration,  priority, reminder } = state
-  const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value })
+  const { title, note, dateTime, duration,  priority, reminder } = subState
+  const handleSubChange = (e) => {
+    setsubState({ ...subState, [e.target.name]: e.target.value })
+    
+  }
+  const handleSubYes =
+    () => {
     
   }
   const handleSubmit = async() => {
@@ -64,14 +68,14 @@ function AddSubTask(props) {
   //use efrect to check date time
   // useEffect(() => {
   
-  //   if (props.task.dateTime > state.dateTime || props.task.duration < state.duration ||durationCalculatore(props.task)< durationCalculatore(state) ||new Date()> new Date(state.dateTime)) {
+  //   if (props.task.dateTime > subState.dateTime || props.task.duration < subState.duration ||durationCalculatore(props.task)< durationCalculatore(subState) ||new Date()> new Date(subState.dateTime)) {
   //    setfalseInput("invalid starting time or duration")
   //   }
   //   else {
   //     setfalseInput("")
   //   }
    
-  // }, [state.dateTime,state.duration])
+  // }, [subState.dateTime,subState.duration])
   
   const timeSter=()=>setTimeout(() => {
     seterrOrSuc(true)
@@ -84,7 +88,8 @@ function AddSubTask(props) {
     
     
   }
-  const setWarning =()=> setshowWarning(!showWarning)
+  const setWarning = () => setshowWarning(!showWarning)
+  
   //focus on the input
   useEffect(() => {
         userref.current.focus();
@@ -94,7 +99,7 @@ function AddSubTask(props) {
   return (
     <div className=''>
       {
-        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'subtask'} />:''
+        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'Are you sure you want to cancel this subtask?'} handleYes={handleSubYes} />:''
       }
       <div className='flex flex-col items-center text-xl font-black'>
         <div className='bg-[#F9F2ED] flex  w-8/12 h-11 justify-between items-center p-2 '>
@@ -129,8 +134,8 @@ function AddSubTask(props) {
                  maxLength={32}
                  ref = {userref}
                   required
-                  value={state.title}
-                 onChange={handleChange}
+                  value={subState.title}
+                 onChange={handleSubChange}
                   type="text"
                   name="title"
                   id="title"
@@ -140,7 +145,7 @@ function AddSubTask(props) {
               />
                <div className='h-4 w-4 absolute top-2 right-2 text-center mr-3 text-sm'>
               {
-                state.title.length+"/"+32
+                subState.title.length+"/"+32
               }
             </div>
 
@@ -156,8 +161,8 @@ function AddSubTask(props) {
                  
               required
               
-                  value={state.dateTime}
-          onChange={handleChange}
+                  value={subState.dateTime}
+          onChange={handleSubChange}
                   type="datetime-local"
                   name="dateTime"
           id="dateTime"
@@ -173,7 +178,7 @@ function AddSubTask(props) {
               <select
           required
          
-          onChange={handleChange}
+          onChange={handleSubChange}
           name="duration"
               id="duration"
                 className='bigInputBox w-[150px] pl-2'
@@ -207,7 +212,7 @@ function AddSubTask(props) {
               <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
                <select
           name='reminder'
-              onChange={handleChange}
+              onChange={handleSubChange}
                 className='bigInputBox w-[150px] pl-2'
                 placeholder='eg.30mins'
               >
@@ -242,7 +247,7 @@ function AddSubTask(props) {
         <select
                 name='priority'
                 className='bigInputBox w-[150px] pl-2'
-          onChange={handleChange}>
+          onChange={handleSubChange}>
           
 
           <option>
@@ -274,8 +279,8 @@ function AddSubTask(props) {
             <textarea
                  maxLength={128}
                   required
-                  value={state.note}
-                 onChange={handleChange}
+                  value={subState.note}
+                 onChange={handleSubChange}
                   type="text"
                   name="note"
                   id="note"
@@ -285,7 +290,7 @@ function AddSubTask(props) {
         />
          <div className='h-4 w-4 absolute top-24 right-3 text-center mr-3 text-sm'>
               {
-                state.note.length+"/"+128
+                subState.note.length+"/"+128
               }
             </div>
 
@@ -302,7 +307,7 @@ function AddSubTask(props) {
           
                   // onClick={this.onSubmitSignin}
                   
-                   disabled = {falseInput || !state.dateTime  || !state.duration || !state.priority || !state.reminder || !state.title}
+                   disabled = {falseInput || !subState.dateTime  || !subState.duration || !subState.priority || !subState.reminder || !subState.title}
                  onClick={handleSubmit}
                   type="button" className=" btn">
                   Save subtask</button>
