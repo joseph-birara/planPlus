@@ -8,7 +8,7 @@ import { selectCurrentUsers } from '../user/userSlice'
 const NotificationCard = (props) => {
     const [check, setcheck] = useState(false)
     const dispatch = useDispatch()
-    const {userToken}=useSelector(selectCurrentUsers)
+    const { userToken } = useSelector(selectCurrentUsers)
 
   return (
       <div>
@@ -16,9 +16,10 @@ const NotificationCard = (props) => {
       <div className='bigInputBox h-[60px] flex border-[1px] border-[#C9B6A980] p-0 w-80 lg:w-[410px] rounded-[10px]'>
               <div className='h-[60px] p-2 w-20  border-r-[1px] rounded-l-[10px] border-r-[#C9B6A980] bg-[#C9B6A9] m-0 bg-opacity-25 text-center '>
                   <div onClick={() => {
-                      dispatch(DeleteNotification(props._id,userToken)).then(()=> dispatch(GetAllNotifications(userToken))
-   )
                       setcheck(!check)
+                      dispatch(DeleteNotification({_id:props._id,userToken })).then(()=> dispatch(GetAllNotifications({userToken} )).then(()=>setcheck(false))
+   )
+                      
                   }}>
                        <div
                       

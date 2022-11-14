@@ -90,14 +90,14 @@ function HomePage() {
         filterdTasks =  allTasks.filter(monster => monster.title.toLowerCase().includes(search.toLowerCase()));
          
     }
-    if (location && location.state && location.state.url === 'sort') {
+    // if (location && location.state && location.state.url === 'sort') {
        
-                console.log(filterdTasks,"before sorting");
-                filterdTasks.sort((a, b) => a.priority[0] - b.priority[0]);
-                console.log(filterdTasks,"after sorting");
+    //             console.log(filterdTasks,"before sorting");
+    //             filterdTasks.sort((a, b) => a.priority[0] - b.priority[0]);
+    //             console.log(filterdTasks,"after sorting");
 
             
-    }
+    // }
           
 
     if (loading) {

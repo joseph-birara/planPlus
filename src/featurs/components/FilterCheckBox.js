@@ -9,15 +9,15 @@ const FilterCheckBox = (props) => {
       <div className='relative'>
         <div
                onClick={()=>!props.checkUncheck()}
-          className=' rounded-[5px] h-4 w-4 bg-[#F9F2ED] border-2 border-[#C9B6A980] '></div>
+          className=' rounded-[5px] h-6 w-6 bg-[#F9F2ED] border-2 border-[#C9B6A980] '></div>
         {props.tureFalse?<div >
-                  <img  className='h-3 w-7 absolute top-1 left-1 -mt-1 text-center text-lg' src={newIcon} alt='log'/>
+                  <img  className='h-5 w-8 absolute top-1 left-1 -mt-1 text-center text-lg' src={newIcon} alt='log'/>
 
                 </div>:''}
 
       </div>
           
-          <div className='-mt-[1px] text-sm'>
+          <div className=' text-base'>
               {props.atribute}
           </div> 
     </div>

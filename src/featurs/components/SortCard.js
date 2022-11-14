@@ -35,10 +35,11 @@ const SortCard = () => {
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
          Sort
         </div>
-          <div onClick={() => {
-            dispatch(sortingBypriority())
+          <div
+          //   onClick={() => {
+          //   dispatch(sortingBypriority())
 
-          }}
+          // }}
             className='text-[#F87474] mr-6 text-lg'>
             <Link to='/' state={{
               fromLower: fromLower,

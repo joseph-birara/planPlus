@@ -51,9 +51,8 @@ const UserSlice = createSlice({
     
         },
         [RegisterUser.fulfilled]:(state,{payload})=>{
-            const{email,Token} = payload;
-            state.userInfo={email};
-            state.userToken={Token}
+            state.userInfo=payload.data.email;
+            state.userToken=payload.data.Token
             state.loading = false;
             state.success = true;
             state.RequestMessageForRegister=''

@@ -63,7 +63,7 @@ const NotificationPage = () => {
             <div className='flex justify-center text-center content-center mt-4'>
                 <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>
            {
-           notifications && notifications.length>0? notifications.forEach((notify => <NotificationCard status={notify.status} title={notify.title} _id={notify._id} />)):"no notification found"
+           notifications && notifications.length>0? notifications.map(((notify,index) => <NotificationCard status={notify.status} title={notify.title} _id={notify._id} key={index} />)):"no notification found"
            
                     }
                     

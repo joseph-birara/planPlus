@@ -9,7 +9,7 @@ import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
 import SelectDropDown from '../components/SelectDropDown'
 import AddSubTask from '../subTasks/AddSubTask'
 import ConfirmationMessage from '../components/ConfirmationMessage'
-
+import Select from "react-dropdown-select";
 
 function AddTask() {
     const [state, setState] = useState({
@@ -108,6 +108,7 @@ function AddTask() {
     }
    
   }, [state.dateTime])
+  
   if (showSubTask) {
     return (
       <div className=''>
@@ -150,7 +151,7 @@ function AddTask() {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="eg. Finish market presentation "
+                  placeholder="eg. Finish  market presentation "
           className="bigInputBox"
           
               />
@@ -196,7 +197,9 @@ function AddTask() {
                 placeholder='eg.2hrs'
         >
           
-          
+           <option className='hidden'disabled selected >
+            eg.2hrs
+          </option>
           <option>
             15 mins
           </option>
@@ -344,6 +347,7 @@ function AddTask() {
     </div>
     )
   }
+
   return (
     
     <div className=''>
@@ -419,18 +423,21 @@ function AddTask() {
           <div className='flex justify-between gap-5 '>
             <div>
               <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
-              <select
+              
+              <Select
           required
          
           onChange={handleChange}
           name="duration"
               id="duration"
-                className='bigInputBox w-[150px] pl-2'
+                className='bigInputBox w-[350px] pl-2 appearance-none  '
                 placeholder='eg.2hrs'
         >
           
-          
-          <option>
+           <option className='hidden'disabled selected >
+            eg. 2hrs
+          </option>
+          <option className='appearance-none bg-opacity-0 bg-blue-gray-200 hover:bg-black'>
             15 mins
           </option>
           <option>
@@ -450,7 +457,7 @@ function AddTask() {
             12 hrs
           </option>
 
-            </select>
+            </Select>
             </div>
             <div>
               <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>

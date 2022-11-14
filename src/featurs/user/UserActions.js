@@ -15,7 +15,7 @@ export const RegisterUser = createAsyncThunk(
       // if (resp.data.email) {
       //   navigate('/')
       // }
-      return resp.data;
+      return resp;
     } catch (error) {
       if (error.response && error.response.data.err) {
         return rejectWithValue (error.response.data.err);

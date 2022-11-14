@@ -47,12 +47,12 @@ const TasksSlice = createSlice({
             state.subTaskAdded=''
         },
         sortingBypriority: (state) => {
-            if (state.allTasks && state.allTasks.length > 0) {
-                console.log(state,"before sorting");
-                state.allTasks.sort((a, b) => a.priority[0] - b.priority[0]);
-                console.log(state,"after sorting");
+            // if (state.allTasks && state.allTasks.length > 0) {
+            //     console.log(state,"before sorting");
+            //   return state.allTasks.sort((a, b) => a.priority[0] - b.priority[0]);
+                
 
-            }
+            // }
         }
 
 
@@ -67,7 +67,7 @@ const TasksSlice = createSlice({
         },
         [GetAllNotifications.fulfilled]:(state,{payload})=>{
             
-            state.notifications=payload.data
+            state.notifications=payload.data.notification
             
             state.loading = false;
             state.success = true;

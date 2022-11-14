@@ -11,12 +11,45 @@ import '../../styles.css'
 
 function FilterCard() {
   const arr =["1-very low","2-low","3-medium","4-high","5-very high"]
-  const [minValue, set_minValue] = useState(1);
-  const [maxValue, set_maxValue] = useState(5);
+  const [minValue, set_minValue] = useState(2);
+  const [maxValue, set_maxValue] = useState(4);
+  const [Family, setfamily] = useState(false)
+  const [Shopping, setshoping] = useState(false)
+  const [Education, seteducation] = useState(false)
+  const [Work, setwork] = useState(false)
+  const [all,setall]=useState(false)
+
+  
+  
   const handleInput = (e) => {
 	set_minValue(e.minValue);
 	set_maxValue(e.maxValue);
-};
+  };
+  const checkUncheck = () => {
+    //do sth
+    
+  }
+   const checkUncheckForAll = () => {
+    //do sth
+     seteducation(false)
+     setwork(false)
+     setshoping(false)
+     setfamily(false)
+     setall(!all)
+    
+   }
+  const filterHelperFunCategory = () => {
+    const paraArray = [Family, Work, Education, Shopping]
+    var result = []
+    for (const x of  paraArray) {
+      if (x) {
+        result.push("x")
+      }
+    }
+    console.log(result);
+    return result
+  }
+const categoryResult =filterHelperFunCategory()
   return (
       <div>
         <div className='flex flex-col items-center text-xl font-black'>
@@ -29,8 +62,14 @@ function FilterCard() {
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
          Filter
         </div>
-        <div className='text-[#F87474] mr-6 text-sm hover:cursor-pointer'>
-          Apply
+          <div className='text-[#F87474] mr-6 text-sm hover:cursor-pointer'>
+            <Link to='/' state={{
+              url: 'filter',
+              data:categoryResult
+            }}>
+ Apply
+            </Link>
+         
 
         </div>
         
@@ -45,15 +84,15 @@ function FilterCard() {
               <td className='text-lg font-medium mb-5'>Categories</td>
             </tr>
             <tr>
-              <td><FilterCheckBox atribute={"All"} /></td>
-              <td><FilterCheckBox atribute={ "Education"} /></td>
+              <td onClick={()=>checkUncheckForAll()}><FilterCheckBox atribute={"All"} checkUncheck={checkUncheck } tureFalse={all } /></td>
+              <td onClick={() => seteducation(!Education)}><FilterCheckBox atribute={"Education"} tureFalse={Education} checkUncheck={checkUncheck } /></td>
             </tr>
             <tr>
-              <td><FilterCheckBox atribute={"Work"} /></td>
-              <td><FilterCheckBox atribute={ "Shopping"} /></td>
+              <td onClick={()=>setwork(!Work)}><FilterCheckBox atribute={"Work"} tureFalse={Work } checkUncheck={checkUncheck }/></td>
+              <td onClick={()=>setshoping(!Shopping)}><FilterCheckBox atribute={ "Shopping"} tureFalse={Shopping } checkUncheck={checkUncheck }/></td>
             </tr>
             <tr>
-              <td><FilterCheckBox atribute={ "Family"} /></td>
+              <td onClick={()=>setfamily(!Family)}><FilterCheckBox atribute={ "Family"} tureFalse={Family } checkUncheck={checkUncheck }/></td>
              
             </tr>
             
@@ -66,7 +105,7 @@ function FilterCard() {
                   </table>
                   
         </div>
-        <table className='w-72 -mt-3'>
+        <table className='w-72 -mt-3 text-xl'>
           <tbody>
             <tr>
               <td>
@@ -81,17 +120,18 @@ function FilterCard() {
        
        
         <MultiRangeSlider
-          minValue={minValue}
-			maxValue={maxValue}
+        minValue={minValue}
+			  maxValue={maxValue}
 			onInput={(e) => {
 				handleInput(e);
           }}
-          className='w-80 bg-[#C9B6A9] border-0 bg-opacity-0 text-sm ml-7 mt-3' min={1}
+          className='w-80 bg-[#C9B6A9] border-0 bg-opacity-0  ml-4 mt-3 text-base' min={1}
           max={5}
           step={1}
           style={{ border: 'none', boxShadow: 'none', textShadow:'none' }}
           ruler={false}
           label={true}
+          labels={["l-very low","5-very high"]}
           barLeftColor="#C9B6A9"
           barInnerColor="#FFB562"
           barRightColor="#C9B6A9"
