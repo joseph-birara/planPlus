@@ -67,16 +67,14 @@ function Register() {
     
 
     useEffect(() => {
-        userref.current.focus();
+        // userref.current.focus();
     }, []) 
   useEffect(() => {
     if (RequestMessageForRegister) {
       setError(RequestMessageForRegister)
     }
   },[RequestMessageForRegister])
-if (loading) {
-  return <LoadingSpiner/>
-}
+
   return (
     <div className='flex flex-col m-16 items-center gap-2'>
           <img  src={TooDoo_logo} alt='logo' className='m-10 h-12' />

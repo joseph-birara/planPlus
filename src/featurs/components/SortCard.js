@@ -1,10 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import FilterCheckBox from './FilterCheckBox'
+import {sortingBypriority} from '../tasks/TaskSlice'
+import { useDispatch } from 'react-redux'
 
 const SortCard = () => {
+  const [fromLower, setfromLower] = useState(false)
+  const [fromhigher, setfromhigher] = useState(false)
+  const dispatch = useDispatch()
+
+  
+  const checkUncheck = () => {
+    setfromLower(true)
+    setfromhigher(false)
+
+  }
+  const checkUncheckForFromHigher = () => {
+    setfromhigher(true)
+    setfromLower(false)
+
+  }
+
   return (
     <div>
          <div className='flex flex-col items-center text-xl font-black'>
@@ -14,11 +32,24 @@ const SortCard = () => {
     <Link to='/'><LeftArraw /> 
     </Link>
         </div> 
-        <div className='text-center text-sm  justify-center mt-2 mr-6 lg:mr-10'>
+        <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
          Sort
         </div>
-        <div className='text-[#F87474] mr-6 text-sm'>
-          Apply
+          <div onClick={() => {
+            dispatch(sortingBypriority())
+
+          }}
+            className='text-[#F87474] mr-6 text-lg'>
+            <Link to='/' state={{
+              fromLower: fromLower,
+              fromhigher: fromhigher,
+              url:'sort'
+
+            }}>
+              Apply
+
+            </Link>
+          
 
         </div>
         
@@ -33,7 +64,7 @@ const SortCard = () => {
                       </tr>
                       <tr className=''>
                           <td className=''>
-                              <FilterCheckBox atribute={`1(very low)`}/>
+                <FilterCheckBox atribute={`1(very low)`} checkUncheck={checkUncheck } tureFalse={fromLower} />
                               
                               
                           </td>
@@ -45,9 +76,10 @@ const SortCard = () => {
                           <td className='mt-5'>
                              
                           </td>
-                      </tr><tr className=''>
+            </tr>
+            <tr className=''>
                           <td className=''>
-                              <FilterCheckBox atribute={`5(very high)`}/>
+                <FilterCheckBox atribute={`5(very high)`} checkUncheck={checkUncheckForFromHigher} tureFalse={ fromhigher} />
                               
                               
                           </td>

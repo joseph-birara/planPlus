@@ -103,3 +103,90 @@ export const ResetNewPassword = createAsyncThunk(
     }
   }
 );
+
+//account actions
+export const DeleteUserAccount = createAsyncThunk(
+  "profile/DeleteUserAccount",
+  async ({reason,userToken} ,{ rejectWithValue }) => {
+    try {
+      const resp = await axios.delete(`${constants}/profile/delete`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+      data: {
+        reason:reason
+      },
+    });
+      console.log(resp);
+      return ;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+export const GetProfileInfo = createAsyncThunk(
+  "profile/GetProfileInfo",
+  async ({ userToken }, { rejectWithValue }) => {
+    
+    try {
+      const resp = await axios.get(`${constants}/profile`,{
+         headers: {
+          'content-type': 'text/json',
+           "authorization":`Bearer ${userToken}`
+    }
+      });
+      console.log("get all notification action",resp);
+      return resp;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+export const UpdateProfile = createAsyncThunk(
+  "profile/UpdateProfile",
+  async ({formData,userToken} ,{ rejectWithValue }) => {
+    try {
+      const resp = await axios.patch(`${constants}/profile/update`,formData,{
+        
+      headers: {
+          Authorization: `Bearer ${userToken}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+      console.log(resp);
+      return ;
+    } catch (error) {
+      
+        return rejectWithValue(error.err);
+      }
+    }
+  
+);
+export const ChangePassword = createAsyncThunk(
+  "profile/ChangePassword",
+  async ({  password,userToken }, { rejectWithValue }) => {
+    try {
+      //post req to check credentials
+      const resp = await axios.patch(`${constants}/profile/changePassword`, {  password },{
+        
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      }
+    });
+      console.log(resp.data);
+
+      return resp.data;
+    } catch (error) {
+      console.log(error.response.data.err);
+      if (error.response && error.response.data.err) {
+        return rejectWithValue(error.response.data.err);
+      } else {
+        return rejectWithValue(error.err);
+      }
+    }
+  }
+);

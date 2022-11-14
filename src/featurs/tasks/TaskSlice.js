@@ -46,6 +46,14 @@ const TasksSlice = createSlice({
         subTaskcreateMessage: (state) => {
             state.subTaskAdded=''
         },
+        sortingBypriority: (state) => {
+            if (state.allTasks && state.allTasks.length > 0) {
+                console.log(state,"before sorting");
+                state.allTasks.sort((a, b) => a.priority[0] - b.priority[0]);
+                console.log(state,"after sorting");
+
+            }
+        }
 
 
     },
@@ -64,7 +72,7 @@ const TasksSlice = createSlice({
             state.loading = false;
             state.success = true;
             console.log("from notifications slice accepted");
-            console.log(payload.data.tasks
+            console.log(payload.data
             )
             console.log("from tasks slice accepted");
                 
@@ -304,5 +312,5 @@ const TasksSlice = createSlice({
 
 
 export const selectCurrentTasks = state => state.Task
-export const {empity,taskEditMessage,subTaskEditMessage,subTaskcreateMessage} =TasksSlice.actions
+export const {empity,taskEditMessage,subTaskEditMessage,subTaskcreateMessage,sortingBypriority} =TasksSlice.actions
 export default TasksSlice.reducer

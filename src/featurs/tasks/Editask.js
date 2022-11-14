@@ -1,6 +1,6 @@
 import React, {  useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import { selectCurrentUsers } from '../user/userSlice'
 import { GetAllTasks, UpdateData } from './TaskActions'
@@ -9,7 +9,10 @@ import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
 
 
 
-function Editask(props) {
+function Editask() { 
+  const location = useLocation()
+  const [task, settask] = useState(location.state.detail)
+  
     
   const dispatch = useDispatch()
   const { userToken } = useSelector(selectCurrentUsers)
@@ -17,19 +20,21 @@ function Editask(props) {
   const [falseInput,setfalseInput]=useState('')
   const [errOrSuc, seterrOrSuc] = useState(true)
   const userref = useRef();
+  const navigate = useNavigate()
+  const [nochange,setnochange]=useState(true)
   
 
     
     
     const [state, setState] = useState({
-        category: props.task.category,
-        duration:props.task.duration,
-        priority:props.task.priority,
-       dateTime: new Date(new Date(props.task.dateTime).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19)  ,                           
-      status: props.task.status,
-      note:props.task.note,
-      title: props.task.title,
-      reminder:props.task.reminder
+        category: task.category,
+        duration:task.duration,
+        priority:task.priority,
+       dateTime: new Date(new Date(task.dateTime).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19)  ,                           
+      status: task.status,
+      note:task.note,
+      title: task.title,
+      reminder:task.reminder
         
         
         
@@ -74,19 +79,22 @@ function Editask(props) {
   const { title, note, dateTime, duration, category, priority, reminder, status } = state
   //changes state when inpute change
   const handleChange = (e) => {
-    setState({...state,[e.target.name]:e.target.value})
+    setState({ ...state, [e.target.name]: e.target.value })
+    setnochange(false)
   }
   const handleSubmit = async() => {
-    await dispatch(UpdateData({ _id: props.task._id, title, note, dateTime, duration, category, priority, reminder, status, userToken }))
+    await dispatch(UpdateData({ _id: task._id, title, note, dateTime, duration, category, priority, reminder, status, userToken }))
       .then(() => {
         dispatch(GetAllTasks({ userToken }))
         modify()
+       
+
       })
-      console.log(props.task._id);
-      props.editHandler()
+      console.log(task._id);
+      
   }
     
-   if(props.task._id) 
+   if(task._id) 
   {return (
     
     <div className=''>
@@ -98,10 +106,13 @@ function Editask(props) {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          Add a new task
+         Update a task
         </div>
-        <div className='text-[#F87474] mr-6'>
-          Cancel
+           <div className='text-[#F87474] mr-6'>
+             <Link to={location.state.url}>
+                Cancel
+             </Link>
+         
 
         </div>
         
@@ -310,10 +321,10 @@ function Editask(props) {
 
           </div>
            </div>
-           <div>
+           {task.subTask ?<div>
             <label className='flex items-start text-start  font-bold mb-1' >Subtasks</label>
-            <SubTaskInsideAddTask subTask={state.subtask } />
-          </div>
+            {task.subTask.map((sub,index)=><SubTaskInsideAddTask subTask={sub } index={index+1} />)}
+          </div>:''}
          
          
           
@@ -321,16 +332,21 @@ function Editask(props) {
         
         
       
-          <span className='flex gap-6 justify-between'>
-             
-        <button
+           <span className='flex gap-6 justify-between'>
+             <Link to={location.state.url} state={{
+               detail: state
+             }}
+             >
+               <button
           
                   // onClick={this.onSubmitSignin}
                   
-                   disabled = {falseInput || !state.dateTime || !state.catagory || !state.duration || !state.priority || !state.reminder || !state.title}
+                   disabled = {nochange ||falseInput || !state.dateTime || !state.duration || !state.reminder || !state.title}
                  onClick={handleSubmit}
                   type="button" className=" btn">
                   Update task</button>
+             </Link>
+        
         </span>
        
         

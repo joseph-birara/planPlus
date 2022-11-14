@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
+import { RiHome2Line } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import AccountIcon from '../../Assets/IconCollection/AccountIcon'
 import NotificationIcone from '../../Assets/IconCollection/NotificationIcone'
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
@@ -15,7 +17,7 @@ const NotificationPage = () => {
   const {notifications} =useSelector(selectCurrentTasks)
 
   useEffect(() => {
-    dispatch(GetAllNotifications(userToken))
+    dispatch(GetAllNotifications({userToken}))
    
   }, [dispatch,userToken])
   
@@ -32,14 +34,19 @@ const NotificationPage = () => {
                     <div className='flex flex-col gap-1 mt-11'>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
-                         <NotificationIcone/>
+             className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
+              <Link to='/'>
+              <RiHome2Line className='text-white text-3xl text-center'/>
+            </Link>
+                        
                 
                         </div>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
                         className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
-                         <AccountIcon/>
+             <Link to='/account'>
+               <AccountIcon />
+             </Link>  
                 
               </div>
 

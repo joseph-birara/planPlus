@@ -18,7 +18,7 @@ import { calculatore } from './Calculatore'
 import { pushAndSubscribe } from '../../Clinet'
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
 import LogOut from '../user/LogOut'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import NotificationIcone from '../../Assets/IconCollection/NotificationIcone'
 import SmallSearchIcon from '../../Assets/IconCollection/SmallSearchIcon'
 
@@ -30,7 +30,9 @@ function HomePage() {
     const [search, setsearch] = useState('')
     const [showSearch, setshowSearch]=useState(false)
     const { loading } = useSelector(selectCurrentTasks)
-    const [logedIn,setlogedIn]= useState(false)
+    const [logedIn, setlogedIn] = useState(false)
+    const location = useLocation()
+    console.log("from home ",location);
     
     let filterdTasks = ''
    
@@ -76,7 +78,7 @@ function HomePage() {
         
 
        
-       //dispatch(GetAllTasks({ userToken }))
+       dispatch(GetAllTasks({ userToken }))
         //pushAndSubscribe({userToken:userToken})
       
             
@@ -87,7 +89,15 @@ function HomePage() {
         
         filterdTasks =  allTasks.filter(monster => monster.title.toLowerCase().includes(search.toLowerCase()));
          
-     }
+    }
+    if (location && location.state && location.state.url === 'sort') {
+       
+                console.log(filterdTasks,"before sorting");
+                filterdTasks.sort((a, b) => a.priority[0] - b.priority[0]);
+                console.log(filterdTasks,"after sorting");
+
+            
+    }
           
 
     if (loading) {

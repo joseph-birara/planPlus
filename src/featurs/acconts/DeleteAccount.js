@@ -1,9 +1,22 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
+import { DeleteUserAccount } from '../user/UserActions'
+import { logeOutAndNullToken, selectCurrentUsers } from '../user/userSlice'
 
 const DeleteAccount = () => {
-  const [reason,setreason ]=useState('')
+  const [reason, setreason] = useState('')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const {userToken}=useSelector(selectCurrentUsers)
+  const handleDelete = () => {
+    dispatch(DeleteUserAccount({ reason, userToken })).then(() => {
+      dispatch(logeOutAndNullToken())
+      navigate('/login')
+    })
+    
+  }
   return (
     <div>
       <div className='flex flex-col items-center text-xl font-black'>
@@ -50,7 +63,9 @@ const DeleteAccount = () => {
               }
             </div>
         </div> 
-        <div className='btn w-40 ml-20 bg-[#F87474] h-10 text-center mt-8 pt-1'>Delete account</div>
+        <div
+          onClick={handleDelete}
+          className='btn w-40 ml-20 bg-[#F87474] h-10 text-center mt-8 pt-1 hover:cursor-pointer'>Delete account</div>
 
           </div>
     </div>

@@ -4,7 +4,11 @@ import {
     Login,
     ResetNewPassword,
     EmailForCode,
-    SendCode
+    SendCode,
+    DeleteUserAccount,
+    GetProfileInfo,
+    UpdateProfile,
+    ChangePassword,
 
 } from "./UserActions";
 
@@ -21,7 +25,8 @@ const initialState = {
     RequestMessageForLogIn: '',
     RequestMessageForRegister: '',
     emailRejected: '',
-    codeRejected:''
+    codeRejected: '',
+    profileInfo:'',
 }
 
 const UserSlice = createSlice({
@@ -146,7 +151,83 @@ const UserSlice = createSlice({
         [ResetNewPassword.rejected]:(state,{payload}) =>{
             state.loading = false;
             state.error = payload
-        }
+        },
+         [DeleteUserAccount.pending]:(state) =>{
+            state.loading = true;
+            state.error = null
+            console.log("deleting loading ....");
+        },
+        [DeleteUserAccount.fulfilled]:(state,{payload}) =>{
+            
+            
+            console.log("delete account accepted");
+            
+        },
+        [DeleteUserAccount.rejected]:(state,{payload}) =>{
+            console.log("rejected");
+        },
+         [GetProfileInfo.pending]:(state)=>{
+            state.loading = true;
+             console.log("from get profile  slice loading");
+    
+        },
+        [GetProfileInfo.fulfilled]:(state,{payload})=>{
+            
+            state.profileInfo=payload.data
+            
+            state.loading = false;
+            
+            console.log("from profile slice accepted,=",payload.data);
+            
+                
+        },
+        [GetProfileInfo.rejected]:(state,{payload})=>{
+            state.loading = false            
+            console.log("from profile info rejected");
+           
+    
+        },
+        [UpdateProfile.pending]:(state)=>{
+            state.loading = true;
+             console.log("from get profile  slice loading");
+    
+        },
+        [UpdateProfile.fulfilled]:(state,{payload})=>{           
+            
+            
+            state.loading = false;
+            
+            console.log("from profile slice accepted");
+            
+                
+        },
+        [UpdateProfile.rejected]:(state,{payload})=>{
+            state.loading = false            
+            console.log("from profile info rejected");
+           
+    
+        },
+        [ChangePassword.pending]:(state)=>{
+            state.loading = true;
+             console.log("from get profile  slice loading");
+    
+        },
+        [ChangePassword.fulfilled]:(state,{payload})=>{           
+            
+            
+            state.loading = false;
+            
+            console.log("from profile slice accepted");
+            
+                
+        },
+        [ChangePassword.rejected]:(state,{payload})=>{
+            state.loading = false            
+            console.log("from profile info rejected");
+           
+    
+        },
+
 
 
 

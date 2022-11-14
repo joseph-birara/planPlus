@@ -571,7 +571,7 @@ function AddTask() {
           {subtask && subtask.length>0?<div>
             <label className='flex items-start text-start  font-bold mb-1' >Subtasks</label>
             {
-              subtask.forEach(sub=> <SubTaskInsideAddTask subTask={sub } />)
+              subtask.map((sub,index)=> <SubTaskInsideAddTask subTask={sub } index={index+1} />)
             }
            
           </div>:''}

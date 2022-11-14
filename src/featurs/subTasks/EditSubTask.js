@@ -1,14 +1,15 @@
 import React, {  useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import ConfirmationMessage from '../components/ConfirmationMessage'
 import { GetAllTasks, UpdateSubTaskData } from '../tasks/TaskActions'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
 import { selectCurrentUsers } from '../user/userSlice'
 
-function EditSubTask(props) {
-    
+function EditSubTask() {
+  const location = useLocation()
+  const [task, settask] = useState(location.state.detail)
     const dispatch = useDispatch()
   const { userToken } = useSelector(selectCurrentUsers)
   const {subTaskEdited} =useSelector(selectCurrentTasks)
@@ -18,13 +19,13 @@ function EditSubTask(props) {
     
     const [state, setState] = useState({
         
-        duration:props.task.duration,
-        priority:props.task.priority,
-       dateTime: props.task.dateTime,
-      status: props.task.status,
-      note:props.task.note,
-      title: props.task.title,
-      reminder:props.task.reminder
+        duration:task.duration,
+        priority:task.priority,
+       dateTime: new Date(new Date(task.dateTime).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19),
+      status: task.status,
+      note:task.note,
+      title: task.title,
+      reminder:task.reminder
         
         
         
@@ -35,9 +36,9 @@ function EditSubTask(props) {
     setState({...state,[e.target.name]:e.target.value})
   }
   const handleSubmit = async() => {
-    await dispatch(UpdateSubTaskData({ _id: props.task._id, title, note, dateTime, duration, priority, reminder, status, userToken })) 
+    await dispatch(UpdateSubTaskData({  _id: task._id, title, note, dateTime, duration,  priority, reminder, status, userToken } )) 
     .then(()=>dispatch(GetAllTasks({ userToken })))
-      props.editHandler()
+      
   }
   //function to identify hours or mins
   const durationCalculatore = (xyz) => {
@@ -52,22 +53,22 @@ function EditSubTask(props) {
     return addition +( new Date(xyz.dateTime).getTime())
   }
     //set and unset false inpute
-  useEffect(() => {
+  // useEffect(() => {
   
-    if (props.task.dateTime > state.dateTime || props.task.duration < state.duration ||durationCalculatore(props.task)< durationCalculatore(state)||new Date()> new Date(state.dateTime)) {
-     setfalseInput("invalid starting time or duration")
-    }
-    else {
-      setfalseInput("")
-    }
+  //   if (task.dateTime > state.dateTime || task.duration < state.duration ||durationCalculatore(task)< durationCalculatore(state)||new Date()> new Date(state.dateTime)) {
+  //    setfalseInput("invalid starting time or duration")
+  //   }
+  //   else {
+  //     setfalseInput("")
+  //   }
    
-  }, [state.dateTime,state.duration,])
+  // }, [state.dateTime,state.duration,])
   //focus on the input
   useEffect(() => {
         userref.current.focus();
   }, [])
   const setWarning =()=>setshowWarning(!showWarning)
-   if(props.task._id) 
+   if(task._id) 
   {return (
     <div className=''>
       {
@@ -81,7 +82,7 @@ function EditSubTask(props) {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          Add a subtask
+          Update sub tassk
         </div>
           <div
             onClick={()=>setshowWarning(!showWarning)}

@@ -17,7 +17,7 @@
         @apply m-4 w-32 h-9 text-white bg-[#FFB562] rounded-lg text-center disabled:bg-[#FFB562] disabled:opacity-50 focus:border-black font-extrabold text-xl
     }
     .iconbg{
-        @apply bg-[#F9F2ED] rounded-2xl h-11 p-1 w-11 text-center py-2 px-0 justify-center
+        @apply bg-[#F9F2ED] rounded-xl h-11 p-1 w-11 text-center py-2 px-0 justify-center
     }
     .homeLogo{
         @apply  m-12 ml-1 lg:ml-16 h-12 
@@ -77,3 +77,4 @@
     }
 
 }
+

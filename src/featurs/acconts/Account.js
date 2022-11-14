@@ -15,7 +15,9 @@ import copyRight from '../../Assets/AcountIcons/copyRight.svg'
 import  ConfirmationMessage  from '../components/ConfirmationMessage'
 import { logeOutAndNullToken } from '../user/userSlice' 
 import { useDispatch } from 'react-redux'
-
+import homeImage from '../../Assets/AcountIcons/homeImage.png'
+import {RiHome2Line} from 'react-icons/ri'
+import { Link } from 'react-router-dom'
 
 
 
@@ -55,14 +57,22 @@ const Account = () => {
                     <div className='flex flex-col gap-1 mt-11'>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
-                         <NotificationIcone/>
+            className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-1'>
+            <Link to='/'>
+              <RiHome2Line className='text-white text-3xl text-center'/>
+            </Link>
+                        
                 
                         </div>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
-                         <AccountIcon/>
+            className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-1'>
+            <Link to='/notify'>
+              <NotificationIcone/>
+
+            </Link>
+           
+             
                 
               </div>
 

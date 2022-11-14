@@ -34,6 +34,8 @@ import ProfilePage from './featurs/acconts/ProfilePage';
 import TermsOfUsePage from './featurs/acconts/TermsOfUsePage';
 import DeleteAccount from './featurs/acconts/DeleteAccount';
 import SignOutPage from './featurs/acconts/SignOutPage';
+import Editask from './featurs/tasks/Editask';
+import EditSubTask from './featurs/subTasks/EditSubTask';
 
 
  
@@ -104,6 +106,15 @@ function App () {
           <Route path='/terms' element={<TermsOfUsePage />} />
           <Route path='/deleteAccount' element={<DeleteAccount />} />
           <Route path='/logout' element={<SignOutPage />} />
+          <Route path='/editTask' element={<Editask />} />
+          <Route path='/editSubtask' element={<EditSubTask />} />
+          
+
+
+          
+          
+
+          
           
 
 

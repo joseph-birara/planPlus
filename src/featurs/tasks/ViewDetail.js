@@ -31,7 +31,13 @@ function ViewDetail() {
           View details
         </div>
         <div className='text-[#F87474] mr-6'>
-         Edit
+           
+            <Link to='/editTask' state={{
+              detail: detail,
+              url:'/viewtask'
+            }}>
+               Edit
+                            </Link>
 
         </div>
         
@@ -158,7 +164,7 @@ detail.title
                   {
                       detail.subTask && detail.subTask.length>0?<div>
                           <label className='flex items-start text-start  font-bold mb-1' >Subtasks</label>
-                          {detail.subTask.map((sub,index) =><SubTaskInsideAddTask subTask={sub } index={index-1} />)
+                          {detail.subTask.map((sub,index) =><SubTaskInsideAddTask subTask={sub } index={index+1} />)
                           }
           </div>:''
          }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 function EditDeleteCancel(props) {
@@ -16,7 +17,13 @@ function EditDeleteCancel(props) {
         <div
           onClick={()=>props.editHandler()}
           className=' hover:cursor-pointer mb-2'>
+          <Link to={`/${props.parent?'editTask':'editSubtask'}`} state={{
+              detail: props.task,
+              url:'/'
+          }}>
              Edit task
+            </Link>
+            
           </div>
         <div
           onClick={() =>props.deleteHandler()          

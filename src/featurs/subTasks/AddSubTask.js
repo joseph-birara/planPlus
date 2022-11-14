@@ -65,17 +65,17 @@ function AddSubTask(props) {
   }
     return addition +( new Date(xyz.dateTime).getTime())
   }
-  //use efrect to check date time
-  // useEffect(() => {
+ // use efrect to check date time
+  useEffect(() => {
   
-  //   if (props.task.dateTime > subState.dateTime || props.task.duration < subState.duration ||durationCalculatore(props.task)< durationCalculatore(subState) ||new Date()> new Date(subState.dateTime)) {
-  //    setfalseInput("invalid starting time or duration")
-  //   }
-  //   else {
-  //     setfalseInput("")
-  //   }
+    if (props.task.dateTime > subState.dateTime || props.task.duration < subState.duration ||durationCalculatore(props.task)< durationCalculatore(subState) ||new Date()> new Date(subState.dateTime)) {
+     setfalseInput("invalid starting time or duration")
+    }
+    else {
+      setfalseInput("")
+    }
    
-  // }, [subState.dateTime,subState.duration])
+  }, [subState.dateTime,subState.duration])
   
   const timeSter=()=>setTimeout(() => {
     seterrOrSuc(true)

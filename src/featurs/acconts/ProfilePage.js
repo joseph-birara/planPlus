@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AccountIcon from '../../Assets/IconCollection/AccountIcon'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
@@ -7,27 +7,72 @@ import {AiOutlineUpload} from 'react-icons/ai'
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel'
 import Icons from '../../Assets/IconCollection/Icons'
 import {FiEdit2} from 'react-icons/fi'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectCurrentUsers } from '../user/userSlice'
+import { ChangePassword, GetProfileInfo, UpdateProfile } from '../user/UserActions'
 
 const ProfilePage = () => {
-    const [editName, seteditName] = useState(false)
-    const [editPhone, seteditPhone] = useState(false)
+  const dispatch = useDispatch()
+  const [editName, seteditName] = useState(false)
+  const [editPhone, seteditPhone] = useState(false)
+  const {userToken,profileInfo} = useSelector(selectCurrentUsers)
+  useEffect(() => {
+   dispatch(GetProfileInfo({userToken}))
 
     
-    const [showAndHide ,setshowAndHide ]=useState(false)
-    const [state, setstate] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        gender: '',
-        dateOfBirth: '',
+  }, [])
+  
+    
+
+    
+  const [showAndHide, setshowAndHide] = useState(false)
+  const [image, setImage] = useState('')
+  // console.log(profileInfo,"from profile page");
+  var dt = new Date();
+
+// dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+  
+  const [state, setstate] = useState({
+      
+        fullName:profileInfo?profileInfo.fullName:'',
+        phoneNumber: profileInfo?profileInfo.phoneNumber:'',
+        email: profileInfo?profileInfo.email:'',
+        gender: profileInfo?profileInfo.gender:'',
+    DoB: profileInfo ? profileInfo.DoB : '',
+        img:profileInfo ? profileInfo.img:'',
         password: '',
         confirmPassword:''
         
 
-    })
+  })
+  // console.log(state,"state in profile");
     const handleChange = (e) => {
-    setstate({...state,[e.target.name]:e.target.value})
-}
+   setstate({...state,[e.target.name]:e.target.value})
+    }
+  const { fullName, phoneNumber, gender,DoB, password } = state
+ 
+  
+ 
+  
+  const submitHandler = (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(); 
+    formData.append('img', image)
+    formData.append('fullName', fullName)
+    formData.append('phoneNumber', phoneNumber)
+    formData.append('gender', gender)
+    
+    
+    formData.append('DoB',DoB)
+    // console.log(formData,"form data");
+    dispatch(UpdateProfile({ formData, userToken }))
+    if (state.password && state.confirmPassword && state.confirmPassword === state.password) {
+      dispatch(ChangePassword({  password,userToken }))
+    }
+  }
+  
+  
   return (
       <div className='  '>
           <div className='flex flex-col items-center text-xl font-black'>
@@ -40,7 +85,9 @@ const ProfilePage = () => {
         <div className='text-center text-sm  justify-center mt-2 mr-6 lg:mr-10'>
          Profile
         </div>
-        <div className='text-[#3AB0FF] mr-6 text-lg'>
+          <div
+            onClick={submitHandler}
+            className='text-[#3AB0FF] mr-6 text-lg hover:cursor-pointer'>
          save
 
         </div>
@@ -50,11 +97,18 @@ const ProfilePage = () => {
           </div> 
           <div className='text-2xl font-black   flex flex-col justify-center ml-[41%] lg:ml-[47%]'>
               <div className='bg-[#F9F2ED] w-[65px] h-[70px] rounded-xl mt-5 text-center '>
-                  <img className='mt-2' src={accountIcon} alt='log'/>
+                  <img className={` ${state.img?'w-full h-full rounded-xl':'mt-2'} `} src={state.img?state.img:accountIcon} alt='log'/>
              </div>
                   
-               <label className='bg-[#3AB0FF] w-[80px] h-7 rounded-[4px] text-sm flex text-white gap-2 text-center p-1 items-center mt-4 -ml-2' for="upload-photo"><AiOutlineUpload className='text-white text-lg'/> Upload</label>
-<input className='opacity-0 -z-10' type="file" name="photo" id="upload-photo" />
+               <label className='bg-[#3AB0FF] w-[80px] h-7 rounded-[4px] text-sm flex text-white gap-2 text-center p-1 items-center mt-4 -ml-2' htmlFor="upload-photo"><AiOutlineUpload className='text-white text-lg'/> Upload</label>
+        <input
+          filename={image} 
+          onChange={e => setImage(e.target.files[0])} 
+          type="file" 
+          accept="image/*"
+          
+         
+          className='opacity-0 -z-10'   name="file" id="upload-photo" />
                 
           </div>
          <div className='flex flex-col items-center text-start'>
@@ -63,11 +117,11 @@ const ProfilePage = () => {
           <input
                 
                   required
-                  value={state.name}
+                  value={state.fullName}
                  onChange={handleChange}
                   type='text'
-                  name="name"
-                  id="name"
+                  name="fullName"
+                  id="fullName"
                   placeholder="Full name"
                           className="inputBox"
                           disabled={!editName}
@@ -84,11 +138,11 @@ const ProfilePage = () => {
           <input
                 
                   required
-                  value={state.phone}
+                  value={state.phoneNumber}
                  onChange={handleChange}
                   type='text'
-                  name="phone"
-                  id="phone"
+                  name="phoneNumber"
+                  id="phoneNumber"
                   placeholder=" Phone number "
                           className="inputBox"
                           disabled={!editPhone}
@@ -105,11 +159,11 @@ const ProfilePage = () => {
           <input
                 
                   required
-                  value={state.dateOfBirth}
+                  value={state.email}
                  onChange={handleChange}
                   type='text'
-                  name="dateOfBirth"
-                          id="password"
+                  name="email"
+                          id="email"
                           disabled
                   placeholder="email"
             className="inputBox bg-[#C9B6A9] bg-opacity-50"
@@ -121,11 +175,12 @@ const ProfilePage = () => {
             <div>
              
               <select
-          required
+                required
+                value={state.gender}
          
           onChange={handleChange}
-          name="duration"
-              id="duration"
+          name="gender"
+              id="gender"
                 className='bigInputBox w-[120px] lg:w-[136px] pl-2'
                 placeholder='eg.2hrs'
         >
@@ -147,7 +202,9 @@ const ProfilePage = () => {
             <div>
               
                <input
-          name='reminder'
+                name='DoB'
+                value={state.DoB ? new Date(new Date(state.DoB).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19) : ''}
+                type='datetime-local'
               onChange={handleChange}
                 className='bigInputBox w-[120px] lg:w-[136px] pl-2'
                 placeholder='DoB'
@@ -187,10 +244,10 @@ const ProfilePage = () => {
           <input
                 
                   required
-                  value={state.password}
+                  value={state.confirmPassword}
                  onChange={handleChange}
                   type={showAndHide ===false? "password":"text"}
-                  name="password"
+                  name="confirmPassword"
                   id="password"
                   placeholder=" Confirm Password "
             className="inputBox"

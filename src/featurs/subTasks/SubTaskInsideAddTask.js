@@ -1,13 +1,14 @@
 import React from 'react'
 import { BsArrowRightShort, BsDot } from 'react-icons/bs'
 import Moment from 'react-moment'
+var converter = require('number-to-words');
 
 function SubTaskInsideAddTask( props) {
   return (
       <div className='bigInputBox h-[80px] flex border-[1px] border-[#C9B6A980] mb-6'>
-          <div className='pt-3 text-gray-400 h-[80px] -mt-2 -ml-2 w-14  border-r-[1px] border-r-[#C9B6A980] '>
-              {
-                  props.index
+          <div className='pt-3 font-[50] h-[80px] -mt-2 -ml-2 w-[72px]  border-r-[1px] border-r-[#C9B6A980] text-sm text-gray-500'>
+             SUBTASK {
+                converter.toWords( props.index).toUpperCase() 
             }
           </div>
           <div className=''>

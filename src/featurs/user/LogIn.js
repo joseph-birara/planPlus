@@ -66,16 +66,14 @@ function LogIn() {
     
 
     useEffect(() => {
-        userref.current.focus();
+         userref.current.focus();
     }, []) 
   useEffect(() => {
     if (RequestMessageForLogIn) {
       setError(RequestMessageForLogIn)
     }
   },[RequestMessageForLogIn])
-  if (loading) {
-  return <LoadingSpiner/>
-}
+  
   return (
     <div className='flex flex-col m-12 items-center gap-1 mt-20'>
       

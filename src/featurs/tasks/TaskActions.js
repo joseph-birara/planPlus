@@ -107,9 +107,9 @@ export const UpdateData = createAsyncThunk(
 
 //notification actions
 export const GetAllNotifications = createAsyncThunk(
-  "tasks/alltasks",
+  "notification",
   async ({ userToken }, { rejectWithValue }) => {
-    console.log("aqw",userToken)
+    
     try {
       const resp = await axios.get(`${constants}/notification`,{
          headers: {
@@ -117,7 +117,7 @@ export const GetAllNotifications = createAsyncThunk(
            "authorization":`Bearer ${userToken}`
     }
       });
-      console.log("get all tasks action",resp);
+      console.log("get all notification action",resp);
       return resp;
     } catch (error) {
       
@@ -127,7 +127,7 @@ export const GetAllNotifications = createAsyncThunk(
   
 );
 export const DeleteNotification = createAsyncThunk(
-  "tasks/DeleteTask",
+  "notification/DeleteNotification",
   async ({_id,userToken} ,{ rejectWithValue }) => {
     try {
       const resp = await axios.delete(`${constants}/notification/delete`, {
@@ -232,27 +232,26 @@ export const CreateSubTask = createAsyncThunk(
 //update subtask all parametrs
 
 
-export const UpdateSubTaskData = createAsyncThunk(
-  "subTasks/update",
-  async ({ _id, task, title, note, dateTime, duration, priority, reminder, status, reminderStatus, userToken }, { rejectWithValue }) => {
-        console.log("update sub task subtask action");
 
+export const UpdateSubTaskData = createAsyncThunk(
+  "subTasks/UpdateSubTaskData",
+  async ({ _id, title, note, dateTime, duration, priority, reminder, status, userToken } ,{ rejectWithValue }) => {
     try {
-      const resp = await axios.put(`${constants}/subTasks/update`,{_id,task,title,note,dateTime:new Date(dateTime).toISOString(),duration,priority,reminder,status,reminderStatus},{
-        headers: {
-          'content-type': 'text/json',
-          "authorization": `Bearer ${userToken}`
-        }
-      });
+      const resp = await axios.patch(`${constants}/subTasks/update`,{_id,title,note,dateTime:new Date(dateTime).toISOString(),duration,priority,reminder,status},{
+        
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      }
+    });
       console.log(resp);
-      return resp;
+      return;
     } catch (error) {
       
         return rejectWithValue(error.err);
       }
     }
   
-);
+); 
 
 //get the subtask to be edited
 
