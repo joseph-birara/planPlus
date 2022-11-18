@@ -87,7 +87,7 @@ function Task(props) {
                         className='doneUndone'>
                         {props.task.status==='Done'?
                             <div
-                                className='absolute ml-3 mt-1'>
+                                className='absolute ml-3 mt-2'>
                             <DoneUndone/>
                             </div>:''
                         }
@@ -120,7 +120,7 @@ function Task(props) {
                     <div className='flex justify-between flex-wrap'>
                         <div className='titelAndDescription'>
                         <p className='text-start line-clamp-2'>
-                            <span className='font-bold text-sm lg:text-lg'>
+                            <span className='font-bold text-base lg:text-lg opacity-75'>
                                  {
                                 props.task.title
                   }
@@ -161,7 +161,7 @@ function Task(props) {
 
                 
               <div className='starTime text-center  ml-9 lg:ml-14 -mt-11'>
-                        <div className='star text-sm'>
+                        <div className='star text-sm lg:text-lg'>
                             {
                                 stars.map((item, index) => 
                                     props.task.priority>index?<AiFillStar key={index}/>:<AiOutlineStar key={index}/>
@@ -173,16 +173,16 @@ function Task(props) {
                         <div className='text-[#C9B6A9] text-2xl'>
                             <BsDot/>
                         </div>
-                  <div className='duration text-sm'>
+                  <div className='duration text-base'>
                             {
                                 props.task.duration
                       }
                         </div>
-                        <div className='mt-1 text-xl'>
+                        <div className='mt-[2px] text-xl'>
 
                             <BsArrowRightShort className=''/>
                         </div>
-                  < div className='begin text-sm'>
+                  < div className='begin text-xs md:text-base lg:text-base mt-1 md:mt-0 lg:mt-0'>
                             {
                                 <Moment format={`${'h'}:mm${"hh">=12?'P':"A"},MMM  DD,'YY`} >
                                     { props.task.dateTime}
@@ -199,7 +199,7 @@ function Task(props) {
                         <div className='text-[#C9B6A9] text-2xl'>
                             <BsDot/>
                         </div>
-                  <div className='category  text-center mb-2 text-base'>
+                  <div className='category  text-center mb-2 text-sm lg:text-base'>
                             {
                                 props.task.category
                       }

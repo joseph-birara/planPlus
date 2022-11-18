@@ -17,19 +17,19 @@
         @apply m-4 w-32 h-9 text-white bg-[#FFB562] rounded-lg text-center disabled:bg-[#FFB562] disabled:opacity-50 focus:border-black font-extrabold text-xl
     }
     .iconbg{
-        @apply bg-[#F9F2ED] rounded-xl h-11 p-1 w-11 text-center py-2 px-0 justify-center
+        @apply bg-[#F9F2ED] rounded-[15px] h-[50px] p-1 w-[50px] text-center pt-3 px-0 justify-center text-lg
     }
     .homeLogo{
-        @apply  m-12 ml-1 lg:ml-16 h-12 
+        @apply  m-8 ml-1 lg:ml-1 h-12 
     }
     .addTask{
-        @apply text-white text-center bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-8 lg:right-36 lg:bottom-12 inline-flex items-center justify-center
+        @apply text-white text-center bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-7 lg:right-36 lg:bottom-12 inline-flex items-center justify-center
     }
     .errorMessag{
         @apply text-red-600 h-10 text-center
     }
     .task{
-      @apply bg-[#F9F2ED] flex flex-col m-0 lg:mt-1  flex-auto lg:mr-1 h-24 lg:h-28
+      @apply bg-[#F9F2ED] bg-opacity-50 flex flex-col m-0 lg:mt-1  flex-auto lg:mr-1 h-24 lg:h-28
     }
     .doneUndone{
         @apply w-10 h-8 lg:w-12 lg:h-10 text-sm lg:text-4xl
@@ -54,7 +54,7 @@
     .editDeleteCancel{
         @apply z-40 w-28 h-28 right-4 -top-[60px] text-left
         border-2 absolute
-         border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED] lg:right-3 lg:-top-[75px]
+         border-[#C9B6A9] rounded flex-col  mr-1 bg-[#F9F2ED] lg:right-5 lg:-top-[70px]
           
 
     }
@@ -62,7 +62,7 @@
         @apply text-[#FFB562] flex mt-1 text-sm lg:text-xl
     }
     .container{
-        @apply flex flex-col max-w-xl bg-[#F9F2ED] justify-between 
+        @apply flex flex-col w-screen md:w-[500px] lg:w-[600px] bg-[#F9F2ED] bg-opacity-50 justify-between 
     }
     .checkBox{
       @apply  w-6 h-6 lg:w-7 lg:h-7 border-[#C9B6A9] rounded-lg border-solid border-2 bg-[#FFFFFF]

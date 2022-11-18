@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import ConfirmationMessage from '../components/ConfirmationMessage'
+import DropDown from '../components/DropDown'
 import { GetAllTasks, UpdateSubTaskData } from '../tasks/TaskActions'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
 import { selectCurrentUsers } from '../user/userSlice'
@@ -30,15 +31,47 @@ function EditSubTask() {
         
         
     })
+  //state to to swich drop down
+  const [swichersFortaskEdit, setswichersFortaskEdit] = useState({
+    taskReminder: false,
+    taskPriority: false,
+    taskDuration: false,
+    
+    
+  })
+  const switchDuration = () => {
+    setswichersFortaskEdit({...swichersFortaskEdit,taskDuration:!swichersFortaskEdit.taskDuration})
+  }
+  const switchPriority = () => {
+    setswichersFortaskEdit({...swichersFortaskEdit,taskPriority:!swichersFortaskEdit.taskPriority})
+  }
+  const switchReminder = () => {
+    setswichersFortaskEdit({...swichersFortaskEdit,taskReminder:!swichersFortaskEdit.taskReminder})
+  }
+  const state_duration_Updater=(someValue) => {
+                 setState({...state,duration:someValue})
+  }
+  const state_priority_Updater=(someValue) => {
+                 setState({...state,priority:someValue})
+  }
+  
+  const state_reminder_Updater=(someValue) => {
+                 setState({...state,reminder:someValue})
+                }
+  
 
   const { title, note, dateTime, duration, priority, reminder,status } = state
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
   const handleSubmit = async() => {
-    await dispatch(UpdateSubTaskData({  _id: task._id, title, note, dateTime, duration,  priority, reminder, status, userToken } )) 
+    await dispatch(UpdateSubTaskData({  _id: task._id, title, note, dateTime, duration,  priority:priority[0], reminder, status, userToken } )) 
     .then(()=>dispatch(GetAllTasks({ userToken })))
       
+  }
+  /// for confirmation
+  const handleSubYes = () => {
+    //
   }
   //function to identify hours or mins
   const durationCalculatore = (xyz) => {
@@ -72,10 +105,10 @@ function EditSubTask() {
   {return (
     <div className=''>
       {
-        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'changes'} />:''
+        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'Are you sure you want to cancel this subtask?'} handleYes={handleSubYes} pathProp={''} />:''
       }
       <div className='flex flex-col items-center text-xl font-black'>
-        <div className='bg-[#F9F2ED] flex  w-8/12 h-11 justify-between items-center p-2 '>
+        <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
     <Link to='/'><LeftArraw />
@@ -148,64 +181,31 @@ function EditSubTask() {
           <div className='flex justify-between gap-5'>
             <div>
               <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
-              <select
-          required
+               <DropDown
+          
          
-          onChange={handleChange}
-          name="duration"
-              id="duration"
-                className='bigInputBox w-[150px] pl-2'
-                placeholder='eg.2hrs'
-        >
-          
-          
-          <option>
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>
-           
-           <option>
-            1 hrs
-          </option>
-           <option>
-            2 hrs
-          </option>
-           <option>
-            6 hrs
-          </option>
-           <option>
-            12 hrs
-          </option>
-
-            </select>
+                place='eg. 2hrs'
+                swichTata={ switchDuration}
+                tata={swichersFortaskEdit.taskDuration}
+                realValue={state.duration}
+                 setValuesOfSelect={state_duration_Updater}
+                data={["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]}
+               
+        />
             </div>
             <div>
               <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
-               <select
-          name='reminder'
-              onChange={handleChange}
-                className='bigInputBox w-[150px] pl-2'
-                placeholder='eg.30mins'
-              >
-                
-              
+              <DropDown
           
-          <option >
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>         
-          
-          <option>
-            1 hrs
-          </option>
-          <option>
-           2 hrs
-          </option>
-        </select>
+         
+                place='eg.30 mins'
+                swichTata={switchReminder}
+                tata={swichersFortaskEdit.taskReminder}
+                realValue={state.reminder}
+                setValuesOfSelect={state_reminder_Updater}
+                data={["15 mins", "30 mins", "1 hrs", "2 hrs"]}
+               
+        />   
             </div>
            
         
@@ -217,30 +217,16 @@ function EditSubTask() {
             <div className='-ml-40'>
               <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
                
-        <select
-                name='priority'
-                className='bigInputBox w-[150px] pl-2'
-          onChange={handleChange}>
-          
-
-          <option>
-            1-Very low
-          </option>
-
-          <option >
-            2-Low
-          </option>
-          
-          <option>
-            3-Midium
-          </option>
-          <option>
-           4-High
-          </option>
-          <option>
-            5-Very high
-          </option>
-        </select>
+       <DropDown        
+         
+                place='eg.1-very low'
+                swichTata={switchPriority}
+                tata={swichersFortaskEdit.taskPriority}
+                realValue={state.priority}
+                setValuesOfSelect={state_priority_Updater}
+                data={["1-very low", "2-low", "3-midium", "4-high","5-very high"]}
+               
+        /> 
         
 
             </div>

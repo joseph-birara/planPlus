@@ -76,6 +76,9 @@ function LogIn() {
   
   return (
     <div className='flex flex-col m-12 items-center gap-1 mt-20'>
+      {
+        loading?<div className='mt-10 z-50'><LoadingSpiner/></div>:''
+      }
       
           <img  src={TooDoo_logo} alt='logo' className='m-8 h-12' />
           <h1 className='text-center text-3xl font-black'>
@@ -141,7 +144,10 @@ function LogIn() {
         
              
       </form>
-      <p className='text-sm -mt-2'> New to TooDoo? <span className='text-[#3AB0FF]'><Link to ='/register'>Register</Link></span></p>
+      <p className='text-sm -mt-2'> New to TooDoo? <span className='text-[#3AB0FF]'><Link to='/register'>Register</Link></span></p>
+       {
+        loading?<div className='mt-10 z-50'><LoadingSpiner/></div>:''
+      }
       </div>
   )
 }

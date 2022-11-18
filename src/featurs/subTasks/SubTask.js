@@ -71,7 +71,7 @@ function SubTask(props) {
     return (
       
       
-        <div className='task ml-11 lg:ml-[70px] border-t-2 border-[#C9B6A9] lg:h-28'>
+        <div className='task ml-11 lg:ml-[70px] border-t-[5px] border-[#F9F2ED] lg:h-28 border-t-opacity-100 -mt-1'>
             <div className='flex  justify-between'>
                 <div className='flex justify-start'>
                      <div
@@ -117,7 +117,7 @@ function SubTask(props) {
             </div>
             
           
-             <div className='starTime text-center ml-8 mt-2'>
+             <div className='starTime text-center ml-8 mt-3'>
                     <div className='star'>
                         {
                                 subStars.map((item, index) => 
@@ -128,7 +128,7 @@ function SubTask(props) {
                      <div className='text-[#C9B6A9] text-2xl'>
                             <BsDot/>
                         </div>
-                  <div className='duration'>
+                  <div className='duration mt-1 lg:mt-0'>
                             {
                                 props.subTask.duration
                       }
@@ -137,7 +137,7 @@ function SubTask(props) {
 
                             <BsArrowRightShort className=''/>
                         </div>
-                  < div className='begin'>
+                  < div className='begin mt-[6px] lg:mt-0'>
                        {
                             
                              <Moment format={`${'h'}:mm${"hh">=12?'P':"A"},MMM  DD,'YY`} >

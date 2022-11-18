@@ -32,7 +32,7 @@ function HomePage() {
     const { loading } = useSelector(selectCurrentTasks)
     const [logedIn, setlogedIn] = useState(false)
     const location = useLocation()
-    console.log("from home ",location);
+    
     
     let filterdTasks = ''
    
@@ -84,20 +84,45 @@ function HomePage() {
             
     }, [userToken])
 
-
+//for searching 
     if (allTasks) {
         
         filterdTasks =  allTasks.filter(monster => monster.title.toLowerCase().includes(search.toLowerCase()));
          
     }
-    // if (location && location.state && location.state.url === 'sort') {
-       
-    //             console.log(filterdTasks,"before sorting");
-    //             filterdTasks.sort((a, b) => a.priority[0] - b.priority[0]);
-    //             console.log(filterdTasks,"after sorting");
+//for filter
+    if (location && location.state  && location.state.url === 'filter') {
+        console.log("filtering , by ");
+        console.log("befor", filterdTasks);
+        if (location.state.category) {
+            filterdTasks = filterdTasks.filter(x => x.category === location.state.category) 
+        }
+        if (location.state.status) {
+            filterdTasks = filterdTasks.filter(x => x.status === location.state.status) 
+        }
+        if (location.state.minValue &&location.state.maxValue) {
+            filterdTasks = filterdTasks.filter(x => x.priority >=location.state.minValue && x.priority<=location.state.maxValue) 
+        }
+        
+        
+        console.log("afterr",filterdTasks);
 
             
-    // }
+    }
+    if (location && location.state && location.state.url === 'sort' && location.state.fromLower) {
+        console.log(location,"from lower");
+        filterdTasks = filterdTasks.sort((a, b) => (a.priority > b.priority) ? 1 : ((b.priority > a.priority) ? -1 : 0))
+        filterdTasks.map(sub=>sub.subTask.sort((a, b) => (a.priority > b.priority) ? 1 : ((b.priority > a.priority) ? -1 : 0)))
+
+    }
+    if (location && location.state && location.state.url === 'sort' && location.state.fromhigher) {
+        console.log(location,"from higher");
+        filterdTasks = filterdTasks.sort((a, b) => (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0))
+        filterdTasks.map(sub=>sub.subTask.sort((a, b) => (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0)))
+
+     }
+
+
           
 
     if (loading) {
@@ -106,8 +131,8 @@ function HomePage() {
     }
     
     return (
-      <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
-      <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 items-start'>
+      <div className=' mt-5 lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
+      <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-20 items-start'>
                 <div className='md:ml-10'>
                     {showSearch?<form className='flex flex-row'>
                         <div className='relative'>
@@ -141,7 +166,7 @@ function HomePage() {
              {!showSearch?       
               <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>:''}
           </div>
-          <div className='flex  -mr-3 gap-3 m-10 lg:ml-24 sm:items-center lg:w-80 mt-8 '>
+          <div className='flex  -mr-3 gap-3 m-10 lg:ml-28 sm:items-center lg:w-80 mt-8 '>
              
                     {!showSearch?<div
                         
@@ -184,7 +209,7 @@ function HomePage() {
           </div>
           
             </div>
-            <div className='text-center text-2xl font-black -mt-12 ml-0 sm:-ml-14'>
+            <div className='text-center text-3xl font-black -mt-12 ml-0'>
                 Your TooDoo
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
@@ -192,13 +217,15 @@ function HomePage() {
                     
                     
                     
-                    {
+                    {allTasks && allTasks.length>0?
                       filterdTasks &&filterdTasks.length>0?
                          filterdTasks.map((data ,i)=> 
                         <Task  task={ data } key = {i} />
                  
                     )
-                            : <div>
+                            :<div className='text-center w-56 font-thin text-xl -ml-10 text-gray-500'>
+               No tasks found with your filter
+          </div>:  <div>
                                 <HomePageImage />
                     <div className='text-center w-56 font-thin text-xl -ml-10 text-gray-500'>
                Get started by creating your very first task.

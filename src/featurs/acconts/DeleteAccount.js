@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
+import ConfirmationMessage from '../components/ConfirmationMessage'
 import { DeleteUserAccount } from '../user/UserActions'
 import { logeOutAndNullToken, selectCurrentUsers } from '../user/userSlice'
 
@@ -9,7 +10,8 @@ const DeleteAccount = () => {
   const [reason, setreason] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {userToken}=useSelector(selectCurrentUsers)
+  const { userToken } = useSelector(selectCurrentUsers)
+  const [showWarning,setshowWarning] = useState(false)
   const handleDelete = () => {
     dispatch(DeleteUserAccount({ reason, userToken })).then(() => {
       dispatch(logeOutAndNullToken())
@@ -39,6 +41,9 @@ const DeleteAccount = () => {
     </div>
 
       </div>
+       {
+        showWarning?<ConfirmationMessage setWarning ={setshowWarning} item ={'Are you sure you want to delet your account?'} handleYes={handleDelete} pathProp={'login'}/>:''
+      }
       <div className='text-start mt-5 w-[360px] ml-[30%] lg:ml-[40%] mb-10'>
         please note that after deleting your account, you'l not be able to acces your data
       </div>
@@ -64,7 +69,7 @@ const DeleteAccount = () => {
             </div>
         </div> 
         <div
-          onClick={handleDelete}
+           onClick={()=>setshowWarning(!showWarning)}
           className='btn w-40 ml-20 bg-[#F87474] h-10 text-center mt-8 pt-1 hover:cursor-pointer'>Delete account</div>
 
           </div>

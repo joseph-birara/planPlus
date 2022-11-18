@@ -36,6 +36,7 @@ import DeleteAccount from './featurs/acconts/DeleteAccount';
 import SignOutPage from './featurs/acconts/SignOutPage';
 import Editask from './featurs/tasks/Editask';
 import EditSubTask from './featurs/subTasks/EditSubTask';
+import DropDown from './featurs/components/DropDown';
 
 
  
@@ -108,6 +109,8 @@ function App () {
           <Route path='/logout' element={<SignOutPage />} />
           <Route path='/editTask' element={<Editask />} />
           <Route path='/editSubtask' element={<EditSubTask />} />
+          <Route path='/drop' element={<DropDown />} />
+          
           
 
 

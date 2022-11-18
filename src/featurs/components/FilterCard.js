@@ -10,14 +10,28 @@ import '../../styles.css'
 
 
 function FilterCard() {
-  const arr =["1-very low","2-low","3-medium","4-high","5-very high"]
-  const [minValue, set_minValue] = useState(2);
-  const [maxValue, set_maxValue] = useState(4);
+  //caption to be shown in the range slider
+  const arr = ["1-very low", "2-low", "3-medium", "4-high", "5-very high"]
+  //values of slider
+  const [minValue, set_minValue] = useState(1);
+  const [maxValue, set_maxValue] = useState(5);
+  //check uncheck for the five categories and statuses
   const [Family, setfamily] = useState(false)
   const [Shopping, setshoping] = useState(false)
   const [Education, seteducation] = useState(false)
   const [Work, setwork] = useState(false)
-  const [all,setall]=useState(false)
+  const [all, setall] = useState(false)
+  const [overdue, setOverdue] = useState(false)
+  const [done , setDone] = useState(false)
+  const [inProgress, setInProgress] = useState(false)
+  const [canceled, setCanceld] = useState(false)
+  const [allStatuses, setAllStatuses] = useState(false)
+  const [upcoming,setUpcoming]=useState(false)
+
+  //end results to be sent to the state of the hopage
+  const [endResult, setendResult] = useState('')
+  const [endStatus, setEndStatus] = useState('')
+  
 
   
   
@@ -38,18 +52,13 @@ function FilterCard() {
      setall(!all)
     
    }
-  const filterHelperFunCategory = () => {
-    const paraArray = [Family, Work, Education, Shopping]
-    var result = []
-    for (const x of  paraArray) {
-      if (x) {
-        result.push("x")
-      }
-    }
-    console.log(result);
-    return result
+  
+  const filterSender = (xyz) => {
+  setendResult(xyz)
   }
-const categoryResult =filterHelperFunCategory()
+  
+  
+
   return (
       <div>
         <div className='flex flex-col items-center text-xl font-black'>
@@ -62,10 +71,14 @@ const categoryResult =filterHelperFunCategory()
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
          Filter
         </div>
-          <div className='text-[#F87474] mr-6 text-sm hover:cursor-pointer'>
+          <div className='text-[#F87474] mr-6 text-lg hover:cursor-pointer'>
             <Link to='/' state={{
               url: 'filter',
-              data:categoryResult
+              category: endResult,
+              minValue: minValue,
+              maxValue: maxValue,
+              status:endStatus
+              
             }}>
  Apply
             </Link>
@@ -84,15 +97,70 @@ const categoryResult =filterHelperFunCategory()
               <td className='text-lg font-medium mb-5'>Categories</td>
             </tr>
             <tr>
-              <td onClick={()=>checkUncheckForAll()}><FilterCheckBox atribute={"All"} checkUncheck={checkUncheck } tureFalse={all } /></td>
-              <td onClick={() => seteducation(!Education)}><FilterCheckBox atribute={"Education"} tureFalse={Education} checkUncheck={checkUncheck } /></td>
+              <td
+                onClick={() => {
+                  filterSender("")
+                  checkUncheckForAll()
+                }}>
+                <FilterCheckBox
+                  atribute={"All"}
+                  checkUncheck={checkUncheck}
+                  tureFalse={all}
+                />
+              </td>
+              <td
+                onClick={() => {
+                  
+                  filterSender("Education")
+                  seteducation(!Education)
+                }}
+              >
+                <FilterCheckBox
+                  atribute={"Education"}
+                  tureFalse={Education}
+                  checkUncheck={checkUncheck}
+                />
+              </td>
             </tr>
             <tr>
-              <td onClick={()=>setwork(!Work)}><FilterCheckBox atribute={"Work"} tureFalse={Work } checkUncheck={checkUncheck }/></td>
-              <td onClick={()=>setshoping(!Shopping)}><FilterCheckBox atribute={ "Shopping"} tureFalse={Shopping } checkUncheck={checkUncheck }/></td>
+              <td
+                onClick={() => {
+                  filterSender("Work")
+                  setwork(!Work)
+                }}
+              >
+                <FilterCheckBox
+                  atribute={"Work"}
+                  tureFalse={Work}
+                  checkUncheck={checkUncheck}
+                />
+              </td>
+              <td
+                onClick={() => {
+                  filterSender("Shopping")
+                  setshoping(!Shopping)
+                }}
+              >
+                <FilterCheckBox
+                  atribute={"Shopping"}
+                  tureFalse={Shopping}
+                  checkUncheck={checkUncheck}
+                />
+              </td>
             </tr>
             <tr>
-              <td onClick={()=>setfamily(!Family)}><FilterCheckBox atribute={ "Family"} tureFalse={Family } checkUncheck={checkUncheck }/></td>
+              <td
+                onClick={() => {
+                  filterSender("Family")
+                  setfamily(!Family)
+                }}
+              >
+                <FilterCheckBox
+                  atribute={"Family"}
+                  tureFalse={Family}
+                  checkUncheck={checkUncheck}
+                />
+              </td>
              
             </tr>
             
@@ -150,16 +218,83 @@ const categoryResult =filterHelperFunCategory()
               <td className='text-xl font-medium mb-5'>Statuses</td>
             </tr>
             <tr>
-              <td><FilterCheckBox atribute={"All"} /></td>
-              <td><FilterCheckBox atribute={ "Overdue"} /></td>
+              <td
+                onClick={() => {
+                  setEndStatus("")
+                  setAllStatuses(!allStatuses)
+                }}
+              >
+                <FilterCheckBox
+                  atribute={"All"}
+                  checkUncheck={checkUncheck}
+                  tureFalse={allStatuses}
+
+                  
+                />
+              </td>
+              <td
+                onClick={() => {
+                  setEndStatus("Overdue")
+                  setOverdue(!overdue)
+                }}
+              >
+                <FilterCheckBox
+                  atribute={"Overdue"}
+                  checkUncheck={checkUncheck}
+                   tureFalse={overdue}
+                />
+              </td>
             </tr>
             <tr>
-              <td><FilterCheckBox atribute={"Upcoming"} /></td>
-              <td><FilterCheckBox atribute={ "Canceled"} /></td>
+              <td
+                onClick={() => {
+                  setEndStatus("Upcoming")
+                  setUpcoming(!upcoming)
+                }}
+              >
+                <FilterCheckBox
+                  atribute={"Upcoming"}
+                  checkUncheck={checkUncheck}
+                   tureFalse={upcoming}
+                />
+              </td>
+              <td
+                onClick={() => {
+                  setEndStatus("Canceled")
+                  setCanceld(!canceled)
+                }}
+              ><FilterCheckBox
+                atribute={"Canceled"}
+                  checkUncheck={checkUncheck}
+                   tureFalse={canceled}
+              />
+              </td>
             </tr>
             <tr>
-              <td><FilterCheckBox atribute={"In progress"} /></td>
-              <td><FilterCheckBox atribute={ "Done"} /></td>
+              <td
+                onClick={() => {
+                  setEndStatus("In progress")
+                  setInProgress(!inProgress)
+                }}
+              >
+                <FilterCheckBox
+                atribute={"In progress"}
+                  checkUncheck={checkUncheck}
+                   tureFalse={inProgress}
+              />
+              </td>
+              <td
+                onClick={() => {
+                  setEndStatus("Done")
+                  setDone(!done)
+                }}
+              >
+                <FilterCheckBox
+                checkUncheck={checkUncheck}
+                  atribute={"Done"}
+                   tureFalse={done}
+              />
+              </td>
              
             </tr>
             

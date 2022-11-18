@@ -66,7 +66,7 @@ const ProfilePage = () => {
     
     formData.append('DoB',DoB)
     // console.log(formData,"form data");
-    dispatch(UpdateProfile({ formData, userToken }))
+    dispatch(UpdateProfile({ formData, userToken })).then(()=>dispatch(GetProfileInfo({userToken})))
     if (state.password && state.confirmPassword && state.confirmPassword === state.password) {
       dispatch(ChangePassword({  password,userToken }))
     }
@@ -76,13 +76,13 @@ const ProfilePage = () => {
   return (
       <div className='  '>
           <div className='flex flex-col items-center text-xl font-black'>
-        <div className='bg-[#F9F2ED] flex  w-9/12 h-11 justify-between items-center p-2 '>
+        <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
     <Link to='/account'><LeftArraw /> 
     </Link>
         </div> 
-        <div className='text-center text-sm  justify-center mt-2 mr-6 lg:mr-10'>
+        <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
          Profile
         </div>
           <div
@@ -203,10 +203,10 @@ const ProfilePage = () => {
               
                <input
                 name='DoB'
-                value={state.DoB ? new Date(new Date(state.DoB).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19) : ''}
+                value={state.DoB ? new Date(state.DoB).toString().slice(4, 21):"DoB"}
                 type='datetime-local'
               onChange={handleChange}
-                className='bigInputBox w-[120px] lg:w-[136px] pl-2'
+              className='bigInputBox w-[120px] lg:w-[136px] pl-2'
                 placeholder='DoB'
               >
                 

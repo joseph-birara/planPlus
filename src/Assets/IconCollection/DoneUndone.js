@@ -5,7 +5,7 @@ function DoneUndone() {
       <div>
           <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="37.034"
+              width="33.034"
               height="30.92"
               viewBox="0 0 49.034 37.92">
               

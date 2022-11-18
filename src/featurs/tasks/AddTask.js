@@ -6,42 +6,115 @@ import { CreateTask, GetAllTasks } from './TaskActions'
 import { selectCurrentTasks, empity } from './TaskSlice'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
-import SelectDropDown from '../components/SelectDropDown'
+import DropDown from '../components/DropDown'
 import AddSubTask from '../subTasks/AddSubTask'
 import ConfirmationMessage from '../components/ConfirmationMessage'
-import Select from "react-dropdown-select";
+import Moment from 'react-moment'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import timePickerIccon from '../../Assets/IconCollection/timePicker.svg'
+
 
 function AddTask() {
+   const [taskDateTime,setTaskDateTime]=useState('')
     const [state, setState] = useState({
-        catagory: 'Others',
-        duration: '30 mins',
-        priority: '1',
-      dateTime: new Date(),
-      status: 'Upcoming',
-      note: '',
-      title: '',
-      reminder: '30 mins',
-           
+       dateTime: taskDateTime,
+       status: 'Upcoming',
+       note: '',
+      title: '',           
     })
+  //task duration handlers
+  //duration swich swichs true and false
+  //setvalue set changes the value in the drop down
+  //
+  const [durationSwitch,setDurationSwich] = useState(false)
+  const swichTataDuration = () => {
+    setDurationSwich(!durationSwitch)
+  }
+  const [taskDuration, setTaskDuration] = useState('')
+  const setValuesOfSelectDuration = (someData) => {
+    setTaskDuration(someData)
+    
+  }
+  //categories handlers 
+  const [taskCategory, setTaskCategory] = useState('')
+  const setValuesOfSelectCategory = (someData) => {
+    setTaskCategory(someData)    
+  }
+  const [categorySwitch,setCategorySwich] = useState(false)
+  const swichTataCategory = () => {
+    setCategorySwich(!categorySwitch)
+  }
+  
+  //reminder handlers
+  const [taskReminder, setTaskReminder] = useState('')
+  const setValuesOfSelectReminder = (someData) => {
+    setTaskReminder(someData)    
+  }
+  const [reminderSwitch,setReminderSwich] = useState(false)
+  const swichTataRemider = () => {
+    setReminderSwich(!reminderSwitch)
+  }
+  //priority dropdown handlers
+  const [taskPriority, setTaskPriority] = useState('')
+  const setValuesOfSelectPriority = (someData) => {
+   setTaskPriority(someData)    
+  }
+  const [prioritySwitch,setPrioritySwich] = useState(false)
+  const swichTataPriority = () => {
+   setPrioritySwich(!prioritySwitch)
+  }
+
+  //suntaskd states
+  
+  // duration handler
+  const [subtaskdurationSwitch,setSubTaskDurationSwich] = useState(false)
+  const swichSubtaskTataDuration = () => {
+    setSubTaskDurationSwich(!subtaskdurationSwitch)
+  }
+  const [subtaskDuration, setSubtaskTaskDuration] = useState('')
+  const setValuesOfSelectSubtaskDuration = (someData) => {
+    setSubtaskTaskDuration(someData)
+    
+  }
+  
+  //reminder handlers
+  const [subTaskReminder, setsubTaskReminder] = useState('')
+  const setValuesOfSelectSubTaskReminder = (someData) => {
+    setsubTaskReminder(someData)    
+  }
+  const [subTaskreminderSwitch,setSubTaskReminderSwich] = useState(false)
+  const swichsubTaskTataRemider = () => {
+    setSubTaskReminderSwich(!subTaskreminderSwitch)
+  }
+  //priority dropdown handlers
+  const [subTaskPriority, setsubTaskPriority] = useState('')
+  const setValuesOfSelectSubTaskPriority = (someData) => {
+   setsubTaskPriority(someData)    
+  }
+  const [subTaskprioritySwitch,setSubTaskPrioritySwich] = useState(false)
+  const swichsubTaskTataPriority = () => {
+   setSubTaskPrioritySwich(!subTaskprioritySwitch)
+  }
+  const [subdateTime,setDatetime]=useState('')
    const [subState, setsubState] = useState({
         
-    duration: '30 mins',
-    priority: 1,
-    dateTime: new Date(),     
+    duration:subtaskDuration?subtaskDuration: '30 mins',
+    priority:subTaskPriority?subTaskPriority: 1,
+    dateTime:'',     
     note: '',
     title: '',
-    reminder:'30 mins'
-        
-        
-        
+    reminder:subTaskReminder?subTaskReminder: '30 mins'
+    
    })
-  const [subtask,setsubtask]=useState([])
+  // sub task state handlers 
+  
+  const [subtask, setsubtask] = useState([])
+  
   const handleSubChange = (e) => {
     setsubState({ ...subState, [e.target.name]: e.target.value })
     
   }
-  
-  
   const userref = useRef();
   const navigate = useNavigate()
   const {taskeCreated} = useSelector(selectCurrentTasks)
@@ -50,9 +123,9 @@ function AddTask() {
   const dispatch = useDispatch()
   const [errOrSuc, seterrOrSuc] = useState(true)
   const [falseInput, setfalseInput] = useState('')
-  const [showWarning,setshowWarning]=useState(false)
+  const [showWarning, setshowWarning] = useState(false)
   
-  const { title, note, dateTime, duration, category, priority, reminder } = state
+  const { title, note, dateTime } = state
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
@@ -86,7 +159,21 @@ function AddTask() {
     
             }
   const handleSubmit = async() => {
-   await dispatch(CreateTask({ task:{title, note, dateTime:new Date(dateTime).toISOString(), duration, category, priority:priority[0], reminder},subTask:subtask, userToken }))
+    await dispatch(CreateTask(
+      {
+        task:
+        {
+          title,
+          note,
+          dateTime: new Date(dateTime).toISOString(),
+          duration: taskDuration ? taskDuration : "30 mins",
+          category: taskCategory ? taskCategory : 'Others',
+          priority: taskPriority ? taskPriority[0] : 1,
+          reminder: taskReminder ? taskReminder : '30 mins'
+        },
+        subTask: subtask,
+        userToken
+      }))
      .then(() => dispatch(GetAllTasks({ userToken }))).then(() => {
       modify()
      })
@@ -95,7 +182,8 @@ function AddTask() {
     //focus on the input
   useEffect(() => {
         userref.current.focus();
-    }, [])        
+  }, [])  
+   
     
     //set and unset false inpute
   useEffect(() => {
@@ -108,15 +196,16 @@ function AddTask() {
     }
    
   }, [state.dateTime])
+ console.log(state);
   
   if (showSubTask) {
     return (
       <div className=''>
       {
-        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'Are you sure you want to cancel this subtask?'} handleYes={handleSubYes} />:''
+        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'Are you sure you want to cancel this subtask?'} handleYes={handleSubYes} pathProp={'addtask'}/>:''
       }
       <div className='flex flex-col items-center text-xl font-black'>
-        <div className='bg-[#F9F2ED] flex  w-8/12 h-11 justify-between items-center p-2 '>
+        <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
     <Link to='/'><LeftArraw />
@@ -168,85 +257,62 @@ function AddTask() {
           </div>
           <div>
             <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
-            
-        <input
+             <DatePicker
+                selected={subdateTime}
+                value={subdateTime}
+
                  
-              required
+             
               
-                  value={subState.dateTime}
-          onChange={handleSubChange}
+                  
+          onChange={date=>setsubState({...subState,dateTime:date})}
                   type="datetime-local"
                   name="dateTime"
           id="dateTime"
           
-                  placeholder="eg. 10:00AM;20/10/2022 "
-          className="bigInputBox"
+                 placeholderText="eg. 10:00AM;20/10/2022 "
+                
+                minDate={new Date(state.dateTime)}
+                showYearDropdown
+            scrollableYearDropdown
+            showTimeSelect={true}
+            dropdownMode={'select'}
+            controls={['calendar']}
+                className="bigInputBox"
+                customInput={<div className='bigInputBox flex justify-between'>
+                {
+                 subState.dateTime?subState.dateTime.toString().slice(4,21): "eg. 10:00AM;20/10/2022 "
+                }
+                <img className='w-4' src={timePickerIccon} alt='time' /></div>}
+          
           
         />
+              
           </div>
           <div className='flex justify-between gap-5'>
             <div>
               <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
-              <select
-          required
-         
-          onChange={handleSubChange}
-          name="duration"
-              id="duration"
-                className='bigInputBox w-[150px] pl-2'
-                placeholder='eg.2hrs'
-        >
-          
-           <option className='hidden'disabled selected >
-            eg.2hrs
-          </option>
-          <option>
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>
-           
-           <option>
-            1 hrs
-          </option>
-           <option>
-            2 hrs
-          </option>
-           <option>
-            6 hrs
-          </option>
-           <option>
-            12 hrs
-          </option>
-
-            </select>
+              <DropDown
+                place='eg. 2hrs'
+                swichTata={swichSubtaskTataDuration}
+                tata={subtaskdurationSwitch}
+                realValue={subtaskDuration}
+                setValuesOfSelect={setValuesOfSelectSubtaskDuration}
+                data={["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]}
+               
+        />
             </div>
             <div>
               <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
-               <select
-          name='reminder'
-              onChange={handleSubChange}
-                className='bigInputBox w-[150px] pl-2'
-                placeholder='eg.30mins'
-              >
-                
-              
-          
-          <option >
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>         
-          
-          <option>
-            1 hrs
-          </option>
-          <option>
-           2 hrs
-          </option>
-        </select>
+               <DropDown        
+                place='eg.30 mins'
+                swichTata={swichsubTaskTataRemider}
+                tata={subTaskreminderSwitch}
+                realValue={subTaskReminder}
+                setValuesOfSelect={setValuesOfSelectSubTaskReminder}
+                data={["15 mins", "30 mins", "1 hrs", "2 hrs"]}
+               
+        />    
             </div>
            
         
@@ -258,30 +324,16 @@ function AddTask() {
             <div className='-ml-40'>
               <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
                
-        <select
-                name='priority'
-                className='bigInputBox w-[150px] pl-2'
-          onChange={handleSubChange}>
-          
-
-          <option>
-            1-Very low
-          </option>
-
-          <option >
-            2-Low
-          </option>
-          
-          <option>
-            3-Midium
-          </option>
-          <option>
-           4-High
-          </option>
-          <option>
-            5-Very high
-          </option>
-        </select>
+        <DropDown        
+         
+                place='eg.1-very low'
+                swichTata={swichsubTaskTataPriority}
+                tata={subTaskprioritySwitch}
+                realValue={subTaskPriority}
+                setValuesOfSelect={setValuesOfSelectSubTaskPriority}
+                data={["1-very low", "2-low", "3-midium", "4-high","5-very high"]}
+               
+        /> 
         
 
             </div>
@@ -321,14 +373,15 @@ function AddTask() {
           
                   onClick={subtaskAdder}
                   
-                   disabled = {falseInput || !subState.dateTime  || !subState.duration || !subState.priority || !subState.reminder || !subState.title}
+                   disabled = { !subState.dateTime || !subState.title}
                 
                   type="button" className=" btn">
                   Save subtask</button>
         </span>
        
         
-      </form>
+          </form>
+         
 
       </div>
       
@@ -352,7 +405,7 @@ function AddTask() {
     
     <div className=''>
       <div className='flex flex-col items-center text-xl font-black'>
-        <div className='bg-[#F9F2ED] flex  w-9/12 h-11 justify-between items-center p-2 '>
+        <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
     <Link to='/'><LeftArraw /> 
@@ -405,18 +458,31 @@ function AddTask() {
           <div>
             <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
             
-        <input
-                 
-              required
+      <  DatePicker
+                selected={taskDateTime}
+                value={taskDateTime}                
+             
               
-                  value={state.dateTime}
-          onChange={handleChange}
+                  
+          onChange={date=>setState({...state,dateTime:date})}
                   type="datetime-local"
                   name="dateTime"
           id="dateTime"
           
-                  placeholder="eg. 10:00AM;20/10/2022 "
-          className="bigInputBox"
+                 placeholderText="eg. 10:00AM;20/10/2022 "
+                
+                minDate={new Date()}
+                showYearDropdown
+            scrollableYearDropdown
+            showTimeSelect={true}
+            dropdownMode={'select'}
+            controls={['calendar']}
+              className="bigInputBox"
+              customInput={<div className='bigInputBox flex justify-between'>
+                {
+                 state.dateTime?state.dateTime.toString().slice(4,21): "eg. 10:00AM;20/10/2022 "
+                }
+                <img className='w-4' src={timePickerIccon} alt='time' /></div>}
           
         />
           </div>
@@ -424,66 +490,38 @@ function AddTask() {
             <div>
               <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
               
-              <Select
-          required
-         
-          onChange={handleChange}
-          name="duration"
-              id="duration"
-                className='bigInputBox w-[350px] pl-2 appearance-none  '
-                placeholder='eg.2hrs'
-        >
+              <DropDown
           
-           <option className='hidden'disabled selected >
-            eg. 2hrs
-          </option>
-          <option className='appearance-none bg-opacity-0 bg-blue-gray-200 hover:bg-black'>
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>
+         
+                place='eg. 2hrs'
+                swichTata={swichTataDuration}
+                tata={durationSwitch}
+                realValue={taskDuration}
+                setValuesOfSelect={setValuesOfSelectDuration}
+                data={["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]}
+               
+        />
+          
            
-           <option>
-            1 hrs
-          </option>
-           <option>
-            2 hrs
-          </option>
-           <option>
-            6 hrs
-          </option>
-           <option>
-            12 hrs
-          </option>
 
-            </Select>
+            
             </div>
             <div>
               <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
-               <select
-          name='reminder'
-              onChange={handleChange}
-                className='bigInputBox w-[150px]  pl-2'
-                placeholder='eg.30mins'
-              >
-                
+               <DropDown
+          
+         
+                place='eg.30 mins'
+                swichTata={swichTataRemider}
+                tata={reminderSwitch}
+                realValue={taskReminder}
+                setValuesOfSelect={setValuesOfSelectReminder}
+                data={["15 mins", "30 mins", "1 hrs", "2 hrs"]}
+               
+        />              
               
           
-          <option >
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>         
-          
-          <option>
-            1 hrs
-          </option>
-          <option>
-           2 hrs
-          </option>
-        </select>
+        
             </div>
            
         
@@ -493,59 +531,34 @@ function AddTask() {
           <div className='flex justify-between gap-5 '>
             <div>
               <label className='flex items-start text-start  font-bold mb-1' >Category</label>
-              <select
-          name='category'
-                onChange={handleChange}
-                className='bigInputBox w-[150px]  pl-2'
-              >
+              <DropDown
           
-          <option>
-            Others
-          </option>
-
-          <option >
-            Family
-          </option>
+         
+                place='eg.Work'
+                swichTata={swichTataCategory}
+                tata={categorySwitch}
+                realValue={taskCategory}
+                setValuesOfSelect={setValuesOfSelectCategory}
+                data={["Others", "Family", "Work", "Education","Shopping"]}
+               
+        /> 
           
-          <option>
-            Work
-          </option>
-          <option>
-            Education
-          </option>
-          <option>
-            Shopping
-          </option>
-        </select>
+         
 
             </div>
             <div>
               <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
                
-        <select
-                name='priority'
-                className='bigInputBox w-[150px]  pl-2'
-          onChange={handleChange}>
-          
-
-          <option>
-            1-Very low
-          </option>
-
-          <option >
-            2-Low
-          </option>
-          
-          <option>
-            3-Midium
-          </option>
-          <option>
-           4-High
-          </option>
-          <option>
-            5-Very high
-          </option>
-        </select>
+       <DropDown        
+         
+                place='eg.5-very high'
+                swichTata={swichTataPriority}
+                tata={prioritySwitch}
+                realValue={taskPriority}
+                setValuesOfSelect={setValuesOfSelectPriority}
+                data={["1-very low", "2-low", "3-midium", "4-high","5-very high"]}
+               
+        /> 
         
 
             </div>
@@ -594,14 +607,14 @@ function AddTask() {
                    onClick={()=>setshowSubTask(!showSubTask)}
                   
                   
-                  disabled = {falseInput || !state.dateTime || !state.catagory || !state.duration || !state.priority || !state.reminder || !state.title}
+                  disabled = {falseInput || !state.dateTime ||  !state.title}
                   type="button" className=" subtaskBtn ">
                  add subtask</button>
         <button
           
                   // onClick={this.onSubmitSignin}
                   
-                   disabled = {falseInput || !state.dateTime || !state.catagory || !state.duration || !state.priority || !state.reminder || !state.title}
+                   disabled = {falseInput || !state.dateTime  || !state.title}
                  onClick={handleSubmit}
                   type="button" className=" btn">
                   Save Task</button>
@@ -618,12 +631,12 @@ function AddTask() {
         </div>:''
       } */}
        
-        {
+        {/* {
         falseInput ? <div className='errorMessag'>
          { falseInput}
         </div>:''
       }
-      
+       */}
     
     </div>
   )

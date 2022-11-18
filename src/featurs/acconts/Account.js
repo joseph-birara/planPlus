@@ -44,7 +44,7 @@ const Account = () => {
   return (
     <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
       {
-        confirm ? <ConfirmationMessage handleYes={handleYes} setWarning={setWarning } item={"Are you sure you want to sign out ?"} />:''
+        confirm ? <ConfirmationMessage handleYes={handleYes} setWarning={setWarning} item={"Are you sure you want to sign out ?"} pathProp={'login' } />:''
       }
       <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 '>
                 <div className='md:ml-10'>

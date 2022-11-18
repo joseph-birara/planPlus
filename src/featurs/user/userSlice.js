@@ -61,7 +61,8 @@ const UserSlice = createSlice({
         },
         [RegisterUser.rejected]:(state,{payload})=>{
             state.loading = false;
-            state.RequestMessageForRegister = "registration failed , try again";
+            state.RequestMessageForRegister = "Email is already taken"
+            console.log(state.RequestMessageForRegister,"payload.err");
             console.log(payload);
             
     
@@ -86,8 +87,9 @@ const UserSlice = createSlice({
         },
         [Login.rejected]:(state,{payload}) =>{
             state.loading = false;
-            state.RequestMessageForLogIn = "log in rejected, try again"
-            console.log("log in rejected =", payload);
+            state.RequestMessageForLogIn = payload
+            console.log(state.RequestMessageForRegister,payload);
+            
         },
         //email for reset user password
         [EmailForCode.pending]:(state) =>{

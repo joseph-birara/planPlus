@@ -26,7 +26,9 @@ const initialState = {
     subTaskDeleteNote: '',
     taskEdited: '',
     subTaskEdited: '',
-    notifications:'',
+    notifications: '',
+    languageChange: true,
+    
     
     
 }
@@ -53,6 +55,10 @@ const TasksSlice = createSlice({
                 
 
             // }
+        },
+        languageChangeFunction: (state) => {
+            state.languageChange = !state.languageChange
+            console.log("being called");
         }
 
 
@@ -115,7 +121,8 @@ const TasksSlice = createSlice({
         },
         [GetAllTasks.fulfilled]:(state,{payload})=>{
             
-            state.allTasks=payload.data.tasks
+            state.allTasks = payload.data.tasks.sort((a, b) => (a.dateTime > b.dateTime) ? 1 : ((b.dateTime > a.dateTime) ? -1 : 0))
+            state.allTasks.map(sub=>sub.subTask.sort((a, b) => (a.dateTime > b.dateTime) ? 1 : ((b.dateTime > a.dateTime) ? -1 : 0)))
             
             state.loading = false;
             state.success = true;
@@ -180,7 +187,7 @@ const TasksSlice = createSlice({
         },
         //update status of a task by id
         [UpdateStatus.pending]:(state)=>{
-            state.loading = true;
+            
             console.log("UpdateStatus loading from tasks slice loading");
             
     
@@ -231,7 +238,7 @@ const TasksSlice = createSlice({
         
         //update status of a subtask by id
         [UpdateSubTaskStatus.pending]:(state)=>{
-            state.loading = true;
+           
              console.log("UpdateSubTaskStatus loading from tasks slice loading");
     
         },
@@ -312,5 +319,5 @@ const TasksSlice = createSlice({
 
 
 export const selectCurrentTasks = state => state.Task
-export const {empity,taskEditMessage,subTaskEditMessage,subTaskcreateMessage,sortingBypriority} =TasksSlice.actions
+export const {empity,taskEditMessage,subTaskEditMessage,subTaskcreateMessage,sortingBypriority,languageChangeFunction} =TasksSlice.actions
 export default TasksSlice.reducer

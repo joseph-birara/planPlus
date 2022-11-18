@@ -180,7 +180,10 @@ function Register() {
         
              
       </form>
-      <p className='text-sm -mt-4'> Already have an account? <span className='text-[#3AB0FF]'><Link to ='/login'>Log in</Link></span></p>
+      <p className='text-sm -mt-4'> Already have an account? <span className='text-[#3AB0FF]'><Link to='/login'>Log in</Link></span></p>
+       {
+        loading?<div className='mt-10 z-50'><LoadingSpiner/></div>:''
+      }
       </div>
   )
 }

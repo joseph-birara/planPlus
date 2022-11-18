@@ -6,13 +6,14 @@ import {selectCurrentTasks, subTaskcreateMessage} from '../tasks/TaskSlice'
 import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import ConfirmationMessage from '../components/ConfirmationMessage'
+import Moment from 'react-moment'
 
 function AddSubTask(props) {
  const [subState, setsubState] = useState({
         
     duration: '30 mins',
     priority: 1,
-    dateTime: new Date(),     
+    dateTime:'',     
     note: '',
     title: '',
     reminder:'30 mins'

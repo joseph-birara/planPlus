@@ -26,21 +26,18 @@ const SortCard = () => {
   return (
     <div>
          <div className='flex flex-col items-center text-xl font-black'>
-        <div className='bg-[#F9F2ED] flex  w-9/12 h-11 justify-between items-center p-2 '>
+        <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
     <Link to='/'><LeftArraw /> 
     </Link>
         </div> 
-        <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
+        <div className='text-center text-xl  justify-center mt-2 mr-6 lg:mr-10'>
          Sort
         </div>
           <div
-          //   onClick={() => {
-          //   dispatch(sortingBypriority())
-
-          // }}
-            className='text-[#F87474] mr-6 text-lg'>
+          
+            className='text-[#F87474] mr-6 text-xl'>
             <Link to='/' state={{
               fromLower: fromLower,
               fromhigher: fromhigher,
@@ -61,7 +58,7 @@ const SortCard = () => {
               <div className='flex flex-col gap-4 w-80  mt-5 items-center text-start mb-10'>
                   <table className='w-72'>
             <tr className='mb-5'>
-              <td className='text-xl font-medium mb-5'>Priorities</td>
+              <td className='text-xl font-bold mb-5'>Priorities</td>
                       </tr>
                       <tr className=''>
                           <td className=''>
@@ -69,9 +66,9 @@ const SortCard = () => {
                               
                               
                           </td>
-                          <td className='flex justify-start mt-4 text-sm gap-1 -ml-3'>
-                              <BsArrowRightShort className='-ml-44 text-xl -mt-1' />
-                             <span className='-mt-1'>5(very high)</span>  
+                          <td className='flex justify-start mt-4 text-sm gap-2'>
+                              <BsArrowRightShort className='-ml-[165px] text-xl ' />
+                             <span className=' text-base -mt-[1px]'>5(very high)</span>  
                               
                           </td>
                           <td className='mt-5'>
@@ -84,9 +81,9 @@ const SortCard = () => {
                               
                               
                           </td>
-                          <td className='flex justify-start mt-4 text-sm gap-1 -ml-3'>
-                              <BsArrowRightShort className='-ml-44 text-xl -mt-1' />
-                             <span className='-mt-1'>1(very low)</span>  
+                          <td className='flex justify-start mt-4 text-sm gap-2 '>
+                              <BsArrowRightShort className='-ml-[165px] text-xl' />
+                             <span className='text-base -mt-[1px]'>1(very low)</span>  
                               
                           </td>
                           <td className='mt-5'>
