@@ -14,6 +14,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Timer from './Timer';
 import { unwrapResult } from '@reduxjs/toolkit';
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
+import { selectCurrentTasks } from '../tasks/TaskSlice';
+import translate from '../../Assets/translationLanguga';
 
 
 
@@ -23,7 +25,8 @@ function EnterCode() {
   const userref = useRef();
   const [timer, setTimer] = useState(60); 
   const dispatch = useDispatch()
-  const { emailForReset,codeRejected,loading } = useSelector(selectCurrentUsers);
+  const { emailForReset, codeRejected, loading } = useSelector(selectCurrentUsers);
+  const {languageChange }=useSelector(selectCurrentTasks)
   const navigate = useNavigate();
   const [flag, setfalg] = useState(false)
   const [error, setError] = useState(null);
@@ -105,7 +108,7 @@ const resetTimer = function () {
 
     <div className='flex flex-col mt-40 items-center gap-4 text-sm'>
       <div className='text-bold text-2xl font-semibold mb-12 w-72 text-center'>
-        Enter code below
+       {languageChange?translate.enterCode.eng:translate.enterCode.tg}
 
         </div>
          {
@@ -152,13 +155,14 @@ const resetTimer = function () {
             timer > wid ? <Timer timeAndSec={ `${timer}sec`} /> : <span
                 className='-mt-5'>
                 <span>
-Didn't get code?
+                  {languageChange?translate.didNotGet.eng:translate.didNotGet.tg}
+
               <span className='text-start'>
 
                 </span>
             <span
               className='text-[#3AB0FF] hover:cursor-pointer font-bold'
-              onClick={resetTimer}> Resend
+              onClick={resetTimer}> {languageChange?translate.resend:translate.resend.tg}
             </span>
                 </span>
               
@@ -181,7 +185,7 @@ Didn't get code?
                 //   onClick={this.handleSubmit}
         type="button"
         className="btn font-bold "
-      > Submit</button>
+          > {languageChange?translate.submit.eng:translate.submit.tg }</button>
       </div> 
         
       </div>

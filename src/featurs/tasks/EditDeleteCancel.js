@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { selectCurrentTasks } from '../tasks/TaskSlice';
+import translate from '../../Assets/translationLanguga';
+import { useSelector } from 'react-redux';
 
 
 function EditDeleteCancel(props) {
   
-  
+  const {languageChange} = useSelector(selectCurrentTasks)
   
   return (
     <div className={`${props.parent?'editDeleteCancel':'editDeleteCancelForSubTask'}`}>
@@ -12,7 +15,9 @@ function EditDeleteCancel(props) {
         <div
           onClick={() =>props.cancelHandler('Canceled')}
           className=' hover:cursor-pointer mb-2'>
-              Cancel task
+              {
+            languageChange?translate.cancelTask.eng:translate.cancelTask.tg
+             }
           </div>
         <div
           onClick={()=>props.editHandler()}
@@ -21,7 +26,9 @@ function EditDeleteCancel(props) {
               detail: props.task,
               url:'/'
           }}>
-             Edit task
+            {
+            languageChange?translate.editTask.eng:translate.editTask.tg
+             }
             </Link>
             
           </div>
@@ -29,7 +36,9 @@ function EditDeleteCancel(props) {
           onClick={() =>props.deleteHandler()          
           }
           className=' hover:cursor-pointer'>
-              Delete task
+          {
+            languageChange?translate.deleteTask.eng:translate.deleteTask.tg
+             }
           </div>
 
       </div>

@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import FilterCheckBox from './FilterCheckBox'
 import {sortingBypriority} from '../tasks/TaskSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
 
 const SortCard = () => {
+    const {languageChange} = useSelector(selectCurrentTasks)
+
   const [fromLower, setfromLower] = useState(false)
   const [fromhigher, setfromhigher] = useState(false)
   const dispatch = useDispatch()
@@ -33,7 +37,9 @@ const SortCard = () => {
     </Link>
         </div> 
         <div className='text-center text-xl  justify-center mt-2 mr-6 lg:mr-10'>
-         Sort
+         {
+                languageChange?translate.sort.eng:translate.sort.tg
+         }
         </div>
           <div
           
@@ -44,7 +50,9 @@ const SortCard = () => {
               url:'sort'
 
             }}>
-              Apply
+              {
+                languageChange?translate.apply.eng:translate.apply.tg
+         }
 
             </Link>
           

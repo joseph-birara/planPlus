@@ -11,11 +11,14 @@ import { BsDot,BsArrowRightShort } from 'react-icons/bs'
 import Moment from 'react-moment'
 import { selectCurrentUsers } from '../user/userSlice'
 import EditSubTask from './EditSubTask'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
+import translate from '../../Assets/translationLanguga';
 
 
 
 
 function SubTask(props) {
+    const {languageChange} = useSelector(selectCurrentTasks)
     const [edit, setedit] = useState(false)
     const subStars = [1, 2, 3, 4, 5]
     const { userToken } = useSelector(selectCurrentUsers)

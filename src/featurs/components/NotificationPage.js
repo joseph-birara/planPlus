@@ -10,12 +10,15 @@ import { selectCurrentTasks } from '../tasks/TaskSlice'
 import { selectCurrentUsers } from '../user/userSlice'
 import NotificationCard from './NotificationCard'
 import homeImage from '../../Assets/AcountIcons/home.svg'
+import translate from '../../Assets/translationLanguga'
 
 
 
 
 
 const NotificationPage = () => {
+    const {languageChange} = useSelector(selectCurrentTasks)
+
   const dispatch = useDispatch()
   const { userToken } = useSelector(selectCurrentUsers)
   const {notifications} =useSelector(selectCurrentTasks)
@@ -63,7 +66,9 @@ const NotificationPage = () => {
           
             </div>
             <div className='text-center text-2xl font-black -mt-12 -ml-32 lg:-ml-0'>
-                Notifications
+         {
+           languageChange?translate.notifications.eng:translate.notifications.tg
+                }
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
                 <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>

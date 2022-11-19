@@ -8,9 +8,12 @@ import { selectCurrentTasks, taskEditMessage } from './TaskSlice'
 import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
 import DropDown from '../components/DropDown'
 
+import translate from '../../Assets/translationLanguga';
+
 
 
 function Editask() { 
+  const {languageChange} = useSelector(selectCurrentTasks)
   const location = useLocation()
   const [task, settask] = useState(location.state.detail)
   
@@ -149,11 +152,15 @@ function Editask() {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-         Update a task
+             {
+               languageChange?translate.updateTask.eng:translate.updateTask.tg
+         }
         </div>
            <div className='text-[#F87474] mr-6'>
              <Link to={location.state.url}>
-                Cancel
+                {
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
              </Link>
          
 
@@ -169,7 +176,7 @@ function Editask() {
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Task title</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.title.eng:translate.title.tg }</label>
             <div className='relative'>
               <input
                  maxLength={32}
@@ -180,7 +187,7 @@ function Editask() {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="eg. Finish market presentation "
+                  placeholder={ languageChange?translate.taskTitlePlace.eng:translate.taskTitlePlace.tg}
           className="bigInputBox"
           
               />
@@ -196,7 +203,7 @@ function Editask() {
 
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.dateAndTime.eng:translate.dateAndTime.tg }</label>
             
         <input
                  
@@ -208,37 +215,37 @@ function Editask() {
                   name="dateTime"
           id="dateTime"
           
-                  placeholder="eg. 10:00AM;20/10/2022 "
+                  placeholder={ languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg}
           className="bigInputBox"
           
         />
           </div>
           <div className='flex justify-between gap-5 '>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
+              <label className='flex items-start text-start  font-bold mb-1 ' >{languageChange?translate.duration.eng:translate.duration.tg}</label>
               <DropDown
           
          
-                place='eg. 2hrs'
+                place={languageChange?translate.durationPlace.eng:translate.durationPlace.tg}
                 swichTata={ switchDuration}
                 tata={swichersFortaskEdit.taskDuration}
                 realValue={state.duration}
                  setValuesOfSelect={state_duration_Updater}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]}
+                data={languageChange?translate.durationData.eng:translate.durationData.tg}
                
         />
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.reminder.eng:translate.reminder.tg }</label>
               <DropDown
           
          
-                place='eg.30 mins'
+                 place={languageChange?translate.reminderPlace.eng:translate.reminderPlace.tg }
                 swichTata={switchReminder}
                 tata={swichersFortaskEdit.taskReminder}
                 realValue={state.reminder}
                 setValuesOfSelect={state_reminder_Updater}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs"]}
+               data={languageChange?translate.reminderData.eng:translate.reminderData.tg}
                
         />              
              
@@ -250,31 +257,31 @@ function Editask() {
           </div>
           <div className='flex justify-between gap-5 '>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Category</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.category.eng:translate.category.tg}</label>
              <DropDown
           
          
-                place='eg.Work'
+               place={languageChange?translate.categoryplace.eng:translate.categoryplace.tg}
                 swichTata={switchCatagory}
                 tata={swichersFortaskEdit.taskCatagory}
                 realValue={state.category}
                 setValuesOfSelect={state_category_Updater}
-                data={["Others", "Family", "Work", "Education","Shopping"]}
+                data={languageChange?translate.categoryData.eng:translate.categoryData.tg}
                
         /> 
 
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.priority.eng:translate.priority.tg}</label>
                
         <DropDown        
          
-                place='eg.1-very low'
+                 place={languageChange?translate.priorityplace.eng:translate.priorityplace.tg}
                 swichTata={switchPriority}
                 tata={swichersFortaskEdit.taskPriority}
                 realValue={state.priority}
                 setValuesOfSelect={state_priority_Updater}
-                data={["1-very low", "2-low", "3-midium", "4-high","5-very high"]}
+                 data={languageChange?translate.priorityData.eng:translate.priorityData.tg}
                
         /> 
         
@@ -283,7 +290,7 @@ function Editask() {
             
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Note</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.note.eng:translate.note.tg}</label>
             <div className='relative'>
             <textarea
                  maxLength={128}
@@ -293,7 +300,7 @@ function Editask() {
                   type="text"
                   name="note"
                   id="note"
-                  placeholder="eg. This is a high priority task that needs to be done right to avoid any delays"
+                   placeholder={languageChange?translate.noteplace.eng:translate.noteplace.tg}
           className="bigInputBox h-32 "
           
         />
@@ -306,7 +313,7 @@ function Editask() {
           </div>
            </div>
            {task.subTask ?<div>
-            <label className='flex items-start text-start  font-bold mb-1' >Subtasks</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.subtasks.eng:translate.subtasks.tg }</label>
             {task.subTask.map((sub,index)=><SubTaskInsideAddTask subTask={sub } index={index+1} />)}
           </div>:''}
          
@@ -328,7 +335,7 @@ function Editask() {
                    disabled = {nochange}
                  onClick={handleSubmit}
                   type="button" className=" btn">
-                  Update task</button>
+                  {languageChange?translate.updateTask.eng:translate.updateTask.tg }</button>
              </Link>
         
         </span>

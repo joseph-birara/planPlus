@@ -14,11 +14,12 @@ import logo from '../../TooDoo Logo/TooDoo_logo.svg'
 import copyRight from '../../Assets/AcountIcons/copyRight.svg'
 import  ConfirmationMessage  from '../components/ConfirmationMessage'
 import { logeOutAndNullToken } from '../user/userSlice' 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import homeImage from '../../Assets/AcountIcons/home.svg'
 import { Link } from 'react-router-dom'
 import note from '../../Assets/IconCollection/note.svg'
-
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
 
 
 
@@ -28,6 +29,7 @@ import note from '../../Assets/IconCollection/note.svg'
 
 
 const Account = () => {
+  const {languageChange} = useSelector(selectCurrentTasks)
   const [confirm, setconfirm] = useState(false)
   const dispatch = useDispatch()
   //reset token during logout
@@ -44,7 +46,7 @@ const Account = () => {
   return (
     <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
       {
-        confirm ? <ConfirmationMessage handleYes={handleYes} setWarning={setWarning} item={"Are you sure you want to sign out ?"} pathProp={'login' } />:''
+        confirm ? <ConfirmationMessage handleYes={handleYes} setWarning={setWarning} item={languageChange?translate.sureSignout.eng:translate.sureSignout.tg} pathProp={'login' } />:''
       }
       <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 '>
                 <div className='md:ml-10'>
@@ -84,19 +86,19 @@ const Account = () => {
           
           </div>
          <div className='text-center text-2xl font-black -mt-12 -ml-32 lg:-ml-0'>
-                My Account
+               {languageChange?translate.myaccount.eng:translate.myaccount.tg}
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
                 <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>
                     
                     
-          <AccountCard icon={profile} name={"Profile"} path={"profile"} route={ true} /> 
-          <AccountCard icon={language} name={"Language"} path={"language"}  route={ true} /> 
-          <AccountCard icon={theme} name={"Theme"} path={"theme"}  route={ true}/> 
-          <AccountCard icon={privacy} name={"Privace policy"} path={"terms"}  route={ true} /> 
-          <AccountCard icon={terms} name={"Terms of Use"} path={"terms"}  route={ true}/> 
-          <AccountCard icon={deleteIcon} name={"Delete account"} path={"deleteAccount"}  route={ true} /> 
-          <AccountCard icon={signout } name={"Sign out" } path={"logout"}  route={ false} handleSignout={handleSignout} /> 
+          <AccountCard icon={profile} name={languageChange?translate.profile.eng:translate.profile.tg} path={"profile"} route={ true} /> 
+          <AccountCard icon={language} name={languageChange?translate.languge.eng:translate.languge.tg} path={"language"}  route={ true} /> 
+          <AccountCard icon={theme} name={languageChange?translate.theme.eng:translate.theme.tg} path={"theme"}  route={ true}/> 
+          <AccountCard icon={privacy} name={languageChange?translate.privacy.eng:translate.privacy.tg} path={"terms"}  route={ true} /> 
+          <AccountCard icon={terms} name={languageChange?translate.terms.eng:translate.terms.tg} path={"terms"}  route={ true}/> 
+          <AccountCard icon={deleteIcon} name={languageChange?translate.deleteAccount.eng:translate.deleteAccount.tg} path={"deleteAccount"}  route={ true} /> 
+          <AccountCard icon={signout } name={languageChange?translate.signout.eng:translate.signout.tg}route={ false} handleSignout={handleSignout} /> 
                     
             </div>
 

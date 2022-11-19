@@ -7,33 +7,26 @@ import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import ConfirmationMessage from '../components/ConfirmationMessage'
 import Moment from 'react-moment'
+import translate from '../../Assets/translationLanguga';
+import DatePicker from "react-datepicker";
+import timePickerIccon from '../../Assets/IconCollection/timePicker.svg'
+import DropDown from '../components/DropDown'
+
 
 function AddSubTask(props) {
- const [subState, setsubState] = useState({
-        
-    duration: '30 mins',
-    priority: 1,
-    dateTime:'',     
-    note: '',
-    title: '',
-    reminder:'30 mins'
-        
-        
-        
- })
+ 
   const userref = useRef();
   const {subTaskAdded} = useSelector(selectCurrentTasks)
-  const {userToken} = useSelector(selectCurrentUsers)
+  const { userToken } = useSelector(selectCurrentUsers)
+  const {languageChange} = useSelector(selectCurrentTasks)
   const dispatch = useDispatch()
   const [errOrSuc, seterrOrSuc] = useState(true)
   const [falseInput, setfalseInput] = useState('')
-  const [showWarning,setshowWarning]=useState(false)
+  const [showWarning, setshowWarning] = useState(false)
+  const [subdateTime,setDatetime]=useState('')
   
-  const { title, note, dateTime, duration,  priority, reminder } = subState
-  const handleSubChange = (e) => {
-    setsubState({ ...subState, [e.target.name]: e.target.value })
-    
-  }
+  
+  
   const handleSubYes =
     () => {
     
@@ -96,26 +89,75 @@ function AddSubTask(props) {
         userref.current.focus();
     }, [])
     
+   //suntaskd states
+  
+  // duration handler
+  const [subtaskdurationSwitch,setSubTaskDurationSwich] = useState(false)
+  const swichSubtaskTataDuration = () => {
+    setSubTaskDurationSwich(!subtaskdurationSwitch)
+  }
+  const [subtaskDuration, setSubtaskTaskDuration] = useState('')
+  const setValuesOfSelectSubtaskDuration = (someData) => {
+    setSubtaskTaskDuration(someData)
     
+  }
+  
+  //reminder handlers
+  const [subTaskReminder, setsubTaskReminder] = useState('')
+  const setValuesOfSelectSubTaskReminder = (someData) => {
+    setsubTaskReminder(someData)    
+  }
+  const [subTaskreminderSwitch,setSubTaskReminderSwich] = useState(false)
+  const swichsubTaskTataRemider = () => {
+    setSubTaskReminderSwich(!subTaskreminderSwitch)
+  }
+  //priority dropdown handlers
+  const [subTaskPriority, setsubTaskPriority] = useState('')
+  const setValuesOfSelectSubTaskPriority = (someData) => {
+   setsubTaskPriority(someData)    
+  }
+  const [subTaskprioritySwitch,setSubTaskPrioritySwich] = useState(false)
+  const swichsubTaskTataPriority = () => {
+   setSubTaskPrioritySwich(!subTaskprioritySwitch)
+  } 
+  const [subState, setsubState] = useState({
+        
+    duration:subtaskDuration?subtaskDuration: '30 mins',
+    priority:subTaskPriority?subTaskPriority: 1,
+    dateTime:'',     
+    note: '',
+    title: '',
+    reminder:subTaskReminder?subTaskReminder: '30 mins'
+    
+  })
+  const { title, note, dateTime, duration,  priority, reminder } = subState
+  const handleSubChange = (e) => {
+    setsubState({ ...subState, [e.target.name]: e.target.value })
+    
+  }
   return (
-    <div className=''>
+      <div className=''>
       {
-        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'Are you sure you want to cancel this subtask?'} handleYes={handleSubYes} />:''
+        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'Are you sure you want to cancel this subtask?'} handleYes={handleSubYes} pathProp={''}/>:''
       }
       <div className='flex flex-col items-center text-xl font-black'>
-        <div className='bg-[#F9F2ED] flex  w-8/12 h-11 justify-between items-center p-2 '>
+        <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
     <Link to='/'><LeftArraw />
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          Add a subtask
+              {
+                languageChange?translate.addSubtasks.eng:translate.addSubask.tg
+         }
         </div>
           <div
             onClick={()=>setshowWarning(!showWarning)}
             className='text-[#F87474] mr-6'>
-          Cancel
+          {
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
 
         </div>
         
@@ -123,13 +165,11 @@ function AddSubTask(props) {
 
       </div>
       
-      {
-        subTaskAdded?<div className='errorMessag' >{subTaskAdded}</div>:''
-      }
+      
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >subtask title</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.subtitle.eng:translate.subtitle.tg }</label>
             <div className='relative'>
               <input
                  maxLength={32}
@@ -140,7 +180,7 @@ function AddSubTask(props) {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="eg. Finish market presentation "
+                  placeholder={ languageChange?translate.taskTitlePlace.eng:translate.taskTitlePlace.tg}
           className="bigInputBox"
           
               />
@@ -156,84 +196,65 @@ function AddSubTask(props) {
 
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
-            
-        <input
+              <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.dateAndTime.eng:translate.dateAndTime.tg }</label>
+             <DatePicker
+                selected={subdateTime}
+                value={subdateTime}
+
                  
-              required
+             
               
-                  value={subState.dateTime}
-          onChange={handleSubChange}
+                  
+          onChange={date=>setsubState({...subState,dateTime:date})}
                   type="datetime-local"
                   name="dateTime"
           id="dateTime"
           
-                  placeholder="eg. 10:00AM;20/10/2022 "
-          className="bigInputBox"
+                 placeholderText={ languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg}
+                
+                minDate={new Date(props.task.dateTime)}
+                showYearDropdown
+            scrollableYearDropdown
+            showTimeSelect={true}
+            dropdownMode={'select'}
+            controls={['calendar']}
+                className="bigInputBox"
+                customInput={<div className='bigInputBox flex justify-between'>
+                {
+                    subState.dateTime ? subState.dateTime.toString().slice(4, 21) :
+                       languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg
+                
+                }
+                <img className='w-4' src={timePickerIccon} alt='time' /></div>}
+          
           
         />
+              
           </div>
           <div className='flex justify-between gap-5'>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
-              <select
-          required
-         
-          onChange={handleSubChange}
-          name="duration"
-              id="duration"
-                className='bigInputBox w-[150px] pl-2'
-                placeholder='eg.2hrs'
-        >
-          
-          
-          <option>
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>
-           
-           <option>
-            1 hrs
-          </option>
-           <option>
-            2 hrs
-          </option>
-           <option>
-            6 hrs
-          </option>
-           <option>
-            12 hrs
-          </option>
-
-            </select>
+                <label className='flex items-start text-start  font-bold mb-1 ' >{languageChange?translate.duration.eng:translate.duration.tg}</label>
+              <DropDown
+                place={languageChange?translate.durationPlace.eng:translate.durationPlace.tg}
+                swichTata={swichSubtaskTataDuration}
+                tata={subtaskdurationSwitch}
+                realValue={subtaskDuration}
+                setValuesOfSelect={setValuesOfSelectSubtaskDuration}
+                data={languageChange?translate.durationData.eng:translate.durationData.tg}
+               
+        />
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
-               <select
-          name='reminder'
-              onChange={handleSubChange}
-                className='bigInputBox w-[150px] pl-2'
-                placeholder='eg.30mins'
-              >
-                
-              
-          
-          <option >
-            15 mins
-          </option>
-          <option>
-            30 mins
-          </option>         
-          
-          <option>
-            1 hrs
-          </option>
-          <option>
-           2 hrs
-          </option>
-        </select>
+                <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.reminder.eng:translate.reminder.tg }</label>
+               <DropDown        
+                place={languageChange?translate.reminderPlace.eng:translate.reminderPlace}
+                swichTata={swichsubTaskTataRemider}
+                tata={subTaskreminderSwitch}
+                realValue={subTaskReminder}
+                setValuesOfSelect={setValuesOfSelectSubTaskReminder}
+                data={languageChange?translate.reminderData.eng:translate.reminderData.tg}
+               
+        />    
             </div>
            
         
@@ -243,39 +264,25 @@ function AddSubTask(props) {
           <div >
             
             <div className='-ml-40'>
-              <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
+                <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.priority.eng:translate.priority.tg}</label>
                
-        <select
-                name='priority'
-                className='bigInputBox w-[150px] pl-2'
-          onChange={handleSubChange}>
-          
-
-          <option>
-            1-Very low
-          </option>
-
-          <option >
-            2-Low
-          </option>
-          
-          <option>
-            3-Midium
-          </option>
-          <option>
-           4-High
-          </option>
-          <option>
-            5-Very high
-          </option>
-        </select>
+        <DropDown        
+         
+                place={languageChange?translate.priorityplace.eng:translate.priorityplace.tg}
+                swichTata={swichsubTaskTataPriority}
+                tata={subTaskprioritySwitch}
+                realValue={subTaskPriority}
+                setValuesOfSelect={setValuesOfSelectSubTaskPriority}
+                data={languageChange?translate.priorityData.eng:translate.priorityData.tg}
+               
+        /> 
         
 
             </div>
             
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Note</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.note.eng:translate.note.tg}</label>
             <div className='relative'>
             <textarea
                  maxLength={128}
@@ -285,7 +292,7 @@ function AddSubTask(props) {
                   type="text"
                   name="note"
                   id="note"
-                  placeholder="eg. This is a high priority task that needs to be done right to avoid any delays"
+                  placeholder={languageChange?translate.noteplace.eng:translate.noteplace.tg}
           className="bigInputBox h-32 "
           
         />
@@ -306,16 +313,17 @@ function AddSubTask(props) {
              
         <button
           
-                  // onClick={this.onSubmitSignin}
+                  onClick={handleSubmit}
                   
-                   disabled = {falseInput || !subState.dateTime  || !subState.duration || !subState.priority || !subState.reminder || !subState.title}
-                 onClick={handleSubmit}
+                   disabled = { !subState.dateTime || !subState.title}
+                
                   type="button" className=" btn">
-                  Save subtask</button>
+                { languageChange?translate.saveSubtask.eng:translate.saveSubtask.tg}</button>
         </span>
        
         
-      </form>
+          </form>
+         
 
       </div>
       
@@ -332,7 +340,7 @@ function AddSubTask(props) {
       }
       
     </div>
-  )
+    )
 }
 
 

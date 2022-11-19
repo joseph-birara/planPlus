@@ -1,8 +1,11 @@
 import React from 'react'
 import {FaGreaterThan } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
 
 const AccountCard = (props) => {
+  const {languageChange} = useSelector(selectCurrentTasks)
   return (
       <div className='border-b-2 border-[#F9F2ED] w-80 lg:w-84 py-3 h-16 text-lg font-medium'>
       {props.route ? <Link to={`/${props.path}`}>

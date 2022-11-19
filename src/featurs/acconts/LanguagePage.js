@@ -9,9 +9,11 @@ import LangugeCheckIcon from '../../Assets/AcountIcons/LangugeCheckIcon'
 import newIcon from '../../Assets/AcountIcons/checkIcon.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
-import {languageChangeFunction} from '../tasks/TaskSlice'
+import { languageChangeFunction } from '../tasks/TaskSlice'
+import translate from '../../Assets/translationLanguga'
 
 const LanguagePage = () => {
+  
   const { languageChange } = useSelector(selectCurrentTasks)
   console.log(languageChange);
   const [english, setEnglish] = useState(true)
@@ -30,7 +32,7 @@ const LanguagePage = () => {
        { languageChange?"Language":"ቋንቋ"}
         </div>
         <div className='text-[#3AB0FF] mr-6 text-lg'>
-         Save
+        { languageChange?translate.save.eng:translate.save.tg}
 
         </div>
         

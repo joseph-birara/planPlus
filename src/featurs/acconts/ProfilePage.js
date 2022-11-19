@@ -12,8 +12,12 @@ import { selectCurrentUsers } from '../user/userSlice'
 import { ChangePassword, GetProfileInfo, UpdateProfile } from '../user/UserActions'
 
 import moment from 'moment/moment.js'
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
+import DropDown from '../components/DropDown'
 
 const ProfilePage = () => {
+  const {languageChange} = useSelector(selectCurrentTasks)
   const dispatch = useDispatch()
   const [editName, seteditName] = useState(false)
   const [editPhone, seteditPhone] = useState(false)
@@ -74,7 +78,13 @@ const ProfilePage = () => {
     }
   }
   
-  
+  const gender_duration_Updater = (someValue) => {
+    setstate({...state,dender:someValue})
+  }
+  const { tata, setTata } = useState(false)
+  const setTataFunc = () => {
+    setTata(!tata)
+  }
   return (
       <div className='  '>
           <div className='flex flex-col items-center text-xl font-black'>
@@ -85,12 +95,14 @@ const ProfilePage = () => {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-         Profile
+            {
+              languageChange?translate.profile.eng:translate.profile.tg
+         }
         </div>
           <div
             onClick={submitHandler}
             className='text-[#3AB0FF] mr-6 text-lg hover:cursor-pointer'>
-         save
+         { languageChange?translate.save.eng:translate.save.tg}
 
         </div>
         
@@ -102,7 +114,8 @@ const ProfilePage = () => {
                   <img className={` ${state.img?'w-full h-full rounded-xl':'mt-2'} `} src={state.img?state.img:accountIcon} alt='log'/>
              </div>
                   
-               <label className='bg-[#3AB0FF] w-[80px] h-7 rounded-[4px] text-sm flex text-white gap-2 text-center p-1 items-center mt-4 -ml-2' htmlFor="upload-photo"><AiOutlineUpload className='text-white text-lg'/> Upload</label>
+               <label className='bg-[#3AB0FF] w-[80px] h-7 rounded-[4px] text-sm flex text-white gap-2 text-center p-1 items-center mt-4 -ml-2' htmlFor="upload-photo"><AiOutlineUpload className='text-white text-lg'/>  { languageChange?translate.upload.eng:translate.upload.tg}
+ </label>
         <input
           filename={image} 
           onChange={e => setImage(e.target.files[0])} 
@@ -124,9 +137,10 @@ const ProfilePage = () => {
                   type='text'
                   name="fullName"
                   id="fullName"
-                  placeholder="Full name"
+                  placeholder=  { languageChange?translate.fullName.eng:translate.fullName.tg}
+
                           className="inputBox"
-                          disabled={!editName}
+                          
             
             
           />
@@ -134,8 +148,8 @@ const ProfilePage = () => {
             seteditName(!editName)
             
           }>
-{ editName ?'':<FiEdit2 className='h-4 w-4 absolute top-2 right-2 text-center mr-1 mt-1 font-extralight'/>}
-                      </div></div>
+{editName?'':<FiEdit2 className='h-4 w-4 absolute top-2 right-2 text-center mr-1 mt-1 font-extralight'/>
+}                      </div></div>
                   <div className='relative'> 
           <input
                 
@@ -145,9 +159,10 @@ const ProfilePage = () => {
                   type='text'
                   name="phoneNumber"
                   id="phoneNumber"
-                  placeholder=" Phone number "
+                  placeholder=  { languageChange?translate.phone.eng:translate.phone.tg}
+
                           className="inputBox"
-                          disabled={!editPhone}
+                          
             
             
           />
@@ -155,10 +170,10 @@ const ProfilePage = () => {
             seteditPhone(!editPhone)
             
           }>
-{ editPhone ?'':<FiEdit2 className='h-4 w-4 absolute top-2 right-2 text-center mr-1 mt-1 font-extralight'/>}
-                      </div></div>
+{editPhone?"":<FiEdit2 className='h-4 w-4 absolute top-2 right-2 text-center mr-1 mt-1 font-extralight'/>
+}                      </div></div>
                   <div className='relative'> 
-          <input
+           <input
                 
                   required
                   value={state.email}
@@ -172,34 +187,26 @@ const ProfilePage = () => {
             
             
           />
+          
          </div>
                   <div className='flex justify-between gap-5 '>
             <div>
              
-              <select
-                required
-                value={state.gender}
+              <DropDown
+          
          
-          onChange={handleChange}
-          name="gender"
-              id="gender"
-                className='bigInputBox w-[120px] lg:w-[136px] pl-2'
-                placeholder='eg.2hrs'
-        >
+                place={ languageChange?translate.gender.eng:translate.gender.tg}
+                swichTata={ setTataFunc}
+                tata={tata}
+                realValue={state.gender}
+                setValuesOfSelect={gender_duration_Updater}
+                data={languageChange?translate.genderData.eng:translate.genderData.tg}
+               
+        />
           
           
-          <option>
-           Gender
-          </option>
-          <option>
-            male
-          </option>
-           
-           <option>
-            female
-          </option>
-           
-            </select>
+          
+          
             </div>
             <div>
               
@@ -231,7 +238,8 @@ const ProfilePage = () => {
                   type={showAndHide ===false? "password":"text"}
                   name="password"
                   id="password"
-                  placeholder=" Password "
+                  placeholder=  { languageChange?translate.password.eng:translate.password.tg}
+
                  className="inputBox"
             
             
@@ -251,7 +259,8 @@ const ProfilePage = () => {
                   type={showAndHide ===false? "password":"text"}
                   name="confirmPassword"
                   id="password"
-                  placeholder=" Confirm Password "
+                  placeholder=  { languageChange?translate.cpassword.eng:translate.cpassword.tg}
+
             className="inputBox"
             
             
@@ -263,7 +272,7 @@ const ProfilePage = () => {
 
                       </div></div>
                   <div className='text-xs ml-4 lg:ml-2'>
-                      Leave the password field empity if you don't want to change your password
+                     { languageChange?translate.leaveEmty.eng:translate.leaveEmty.tg}
                   </div>
                   
               </form>

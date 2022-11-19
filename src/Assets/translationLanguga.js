@@ -1,7 +1,7 @@
 const translate =
 {
     'save': {
-        'tg': '',
+        'tg': 'አቐምጥ',
         'eng':'Save'
     }
     ,
@@ -16,6 +16,10 @@ const translate =
     'cancel': {
         'tg': 'ሰርዝ',
         'eng':'Cancel'
+    },
+    'upload': {
+        'tg': 'ስቐል',
+        'eng':'Upload'
     },
     'delete': {
         'tg': 'ሰርዝ',
@@ -44,6 +48,10 @@ const translate =
     "register": {
         "tg": "ተመዝገብ",
         "eng":"Register"
+    },
+    "resend": {
+        "tg": "ዳግማይ ልኣኽ",
+        "eng":"Resend"
     },
     "createAccount": {
         "tg": "ምሳና ኣካውንት ፍጠሩ",
@@ -93,6 +101,10 @@ const translate =
         "tg": "ንኡስ ዕማም",
         "eng":"Add subtask"
     },
+    "subtasks": {
+        "tg": "ንኡስ ዕማም",
+        "eng":"Subtasks"
+    },
     "submit": {
         "tg": "አረክብ",
         "eng":"Submit"
@@ -105,13 +117,19 @@ const translate =
         "tg": "ኮድ ኣይተርኸበን?",
         "eng":"Didn't get code?  "
     },
-    "resend": {
-        "tg": "ዳግማይ ልኣኽ",
-        "eng":"Resend "
-    },
+    
+    
     "creatNewpassword": {
         "tg": "ሓድሽ ምልክት ቃል ፍጠር",
         "eng":"Create new password "
+    },
+    "noTasks": {
+        "tg": "ምስ ፍልተርካ ዝኾነ ዕማማት ኣይተረኽበን።",
+        "eng":"No tasks found with your filter "
+    },
+    "yourTodo": {
+        "tg": "ናቶም ዕማም",
+        "eng":"Your TooDoo"
     },
     "newPassword": {
         "tg": "ሓድሽ ምልክት ቃል",
@@ -225,7 +243,7 @@ const translate =
     },
     "viewdetail": {
         "tg": "ዝርዝር ርአ",
-        "eng":"Veiw detail"
+        "eng":"Veiw details"
     },
     "apply": {
         "tg": "ኣተግብር",
@@ -323,6 +341,10 @@ const translate =
         "tg": "ብርሃን",
         "eng":"Light"
     },
+    "saveSubtask": {
+        "tg": "ንኡስ ዕማም ዓቅብ",
+        "eng":"Save subtask"
+    },
     "pleasnot": {
         "tg": "በጃኹም ኣስተውዕል ድሕሪ ምድምሳስ ኣካውንትኩም፡ ዳታኹም ክትረኽቡ ከምዘይትኽእሉ ኢኹም።",
         "eng":"please note that after deleting your account, you'l not be able to acces your data"
@@ -330,6 +352,99 @@ const translate =
     "sureSignout": {
         "tg": "ርግጸኛ ዲኻ ክትወጽእ ከም እትደሊ?",
         "eng":"Are you sure you want sign out?"
+    },
+    "cancelTask": {
+        "tg": "ሰርዝ ዕማም",
+        "eng":"cancel task"
+    },
+    "deleteTask": {
+        "tg": "ዕማም ደምስስ",
+        "eng":"delete task"
+    },
+    "editTask": {
+        "tg": "ዕማም ኣርትዕ",
+        "eng":"edit task"
+    },
+    "edit": {
+        "tg": "አዕርይ",
+        "eng":"Edit"
+    },
+    "reason": {
+        "tg": "ምኽንያት ምድምሳስ ኣካውንት ሃብ",
+        "eng":"provide reason for account deletion"
+    },
+    "deletFaild": {
+        "tg": "ምድምሳስ ኣካውንት ፈሺሉ!",
+        "eng":"Account deletion failed!"
+    },
+    "leaveEmty": {
+        "tg": "ምልክት ቃልካ ክትቅይር እንተዘይደሊኻ ነቲ ናይ ምልክት ቃል ቦታ ባዶ ግደፎ",
+        "eng":"Leave the password field empty if you don't want to change your passwo"
+    },
+    "genderData": {
+        "tg": ["ተባ","ኣነ"],
+        "eng":["male","female"]
+    },
+    "sub": {
+        "tg":"ንኡስ ዕማም" ,
+        "eng":"SUBTASK"
+    },
+    "statusData": {
+       "all": {
+        "tg":"ኩሎም" ,
+        "eng":"All"
+        },
+        "upcoming": {
+        "tg":"ኣብ ቀረባ እዋን" ,
+        "eng":"Upcoming"
+        },
+        "overdue": {
+        "tg":"ግዜኡ ዝሓለፈ" ,
+        "eng":"Overdue"
+        },
+        "inProgress": {
+        "tg":"ኣብ መስርሕ ዘሎ" ,
+        "eng":"In progress"
+        },
+        "canceled": {
+        "tg":"ተሰሪዙ" ,
+        "eng":"Canceled"
+        },
+        "done": {
+        "tg":"ዝተሰርሐ" ,
+        "eng":"Done"
+    },
+    },
+    "categoryAttributeData": {
+       "all": {
+        "tg":"ኩሎም" ,
+        "eng":"All"
+        },
+        "work": {
+        "tg":"ስራሕ" ,
+        "eng":"Work"
+        },
+        "family": {
+        "tg":"ስድራ" ,
+        "eng":"Family"
+        },
+        "education": {
+        "tg":"ትምህርቲ" ,
+        "eng":"Education"
+        },
+        "shopping": {
+        "tg":"ምዕዳግ" ,
+        "eng":"Shopping"
+        },
+        
+    },
+    "slider": {
+        "tg":["1-ኣዝዩ ትሑት","5-ኣዝዩ ልዑል"] ,
+        "eng":["1-very low","5-very high"]
+    },
+    "404": {
+        "tg":"404 ገጽ ኣይተረኽበን። ",
+        "eng":"404 page not found" 
     },
     
 

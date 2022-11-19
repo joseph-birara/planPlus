@@ -7,8 +7,10 @@ import DropDown from '../components/DropDown'
 import { GetAllTasks, UpdateSubTaskData } from '../tasks/TaskActions'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
 import { selectCurrentUsers } from '../user/userSlice'
+import translate from '../../Assets/translationLanguga';
 
 function EditSubTask() {
+  const {languageChange} = useSelector(selectCurrentTasks)
   const location = useLocation()
   const [task, settask] = useState(location.state.detail)
     const dispatch = useDispatch()
@@ -115,12 +117,16 @@ function EditSubTask() {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          Update sub tassk
+             {
+               languageChange?translate.updateSubask.eng:translate.updateSubask.tg
+          }
         </div>
           <div
             onClick={()=>setshowWarning(!showWarning)}
             className='text-[#F87474] mr-6'>
-          Cancel
+         {
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
 
         </div>
         
@@ -134,7 +140,7 @@ function EditSubTask() {
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >subtask title</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.subtitle.eng:translate.subtitle.tg }</label>
             <div className='relative'>
               <input
                  maxLength={32}
@@ -145,7 +151,7 @@ function EditSubTask() {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="eg. Finish market presentation "
+                  placeholder={ languageChange?translate.taskTitlePlace.eng:translate.taskTitlePlace.tg}
           className="bigInputBox"
           
               />
@@ -161,7 +167,7 @@ function EditSubTask() {
 
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.dateAndTime.eng:translate.dateAndTime.tg }</label>
             
         <input
                  
@@ -180,7 +186,7 @@ function EditSubTask() {
           </div>
           <div className='flex justify-between gap-5'>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
+              <label className='flex items-start text-start  font-bold mb-1 ' >{languageChange?translate.duration.eng:translate.duration.tg}</label>
                <DropDown
           
          
@@ -189,12 +195,12 @@ function EditSubTask() {
                 tata={swichersFortaskEdit.taskDuration}
                 realValue={state.duration}
                  setValuesOfSelect={state_duration_Updater}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]}
+                data={languageChange?translate.durationData.eng:translate.durationData.tg}
                
         />
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.reminder.eng:translate.reminder.tg }</label>
               <DropDown
           
          
@@ -203,7 +209,7 @@ function EditSubTask() {
                 tata={swichersFortaskEdit.taskReminder}
                 realValue={state.reminder}
                 setValuesOfSelect={state_reminder_Updater}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs"]}
+                 data={languageChange?translate.reminderData.eng:translate.reminderData.tg}
                
         />   
             </div>
@@ -215,16 +221,16 @@ function EditSubTask() {
           <div >
             
             <div className='-ml-40'>
-              <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.priority.eng:translate.priority.tg}</label>
                
        <DropDown        
          
-                place='eg.1-very low'
+               place={languageChange?translate.priorityplace.eng:translate.priorityplace.tg}
                 swichTata={switchPriority}
                 tata={swichersFortaskEdit.taskPriority}
                 realValue={state.priority}
                 setValuesOfSelect={state_priority_Updater}
-                data={["1-very low", "2-low", "3-midium", "4-high","5-very high"]}
+                 data={languageChange?translate.priorityData.eng:translate.priorityData.tg}
                
         /> 
         
@@ -233,7 +239,7 @@ function EditSubTask() {
             
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Note</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.note.eng:translate.note.tg}</label>
             <div className='relative'>
             <textarea
                  maxLength={128}
@@ -243,7 +249,7 @@ function EditSubTask() {
                   type="text"
                   name="note"
                   id="note"
-                  placeholder="eg. This is a high priority task that needs to be done right to avoid any delays"
+                   placeholder={languageChange?translate.noteplace.eng:translate.noteplace.tg}
           className="bigInputBox h-32 "
           
         />
@@ -269,7 +275,7 @@ function EditSubTask() {
                    disabled = {falseInput || !state.dateTime  || !state.duration || !state.priority || !state.reminder || !state.title}
                  onClick={handleSubmit}
                   type="button" className=" btn">
-                  update subtask</button>
+               { languageChange?translate.updateSubask.eng:translate.updateSubask.tg}</button>
         </span>
        
         

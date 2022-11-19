@@ -11,10 +11,12 @@ import validEmail from '../../GlobalVariabls/EmailValidation';
 import Checkbox from '../../Assets/IconCollection/Checkbox';
 import { unwrapResult } from '@reduxjs/toolkit'
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
-
+import translate from '../../Assets/translationLanguga';
+import { selectCurrentTasks } from '../tasks/TaskSlice';
 function Register() {
   const [error, setError] = useState(null);
   const userref = useRef();
+  const {languageChange }=useSelector(selectCurrentTasks)
   
   const [password, setpassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
@@ -82,7 +84,7 @@ function Register() {
               TooDoo
           </h1>
           <h3 className='mt-12 text-2xl  font-medium'>
-             Create an account with us
+             {languageChange?translate.createAccount.eng:translate.createAccount.tg}
       </h3>
       {
         error ? <div className='errorMessag'>
@@ -102,7 +104,7 @@ function Register() {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Your email "
+                  placeholder={languageChange?translate.email.eng:translate.email.tg}
           className="inputBox"
           onClick={(e) =>setError('')}
         />
@@ -115,7 +117,7 @@ function Register() {
                   type={showAndHide ===false? "password":"text"}
                   name="password"
                   id="password"
-                  placeholder=" Password "
+                  placeholder={languageChange?translate.password.eng:translate.password.tg}
             className="inputBox"
             onClick={(e) =>setError('')}
             
@@ -138,7 +140,7 @@ function Register() {
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="Confirm password "
+                  placeholder={languageChange?translate.cpassword.eng:translate.cpassword.tg}
           className="inputBox"
           onClick={(e) =>setError('')}
                   />
@@ -176,11 +178,11 @@ function Register() {
                   disabled = {!email || password.length<8 ||!agrement ||confirmPassword !==password}
                  onClick={handleSubmit}
                   type="button" className=" btn">
-                  Sign up</button>
+          { languageChange?translate.sign.eng:translate.sign.tg}</button>
         
              
       </form>
-      <p className='text-sm -mt-4'> Already have an account? <span className='text-[#3AB0FF]'><Link to='/login'>Log in</Link></span></p>
+      <p className='text-sm -mt-4'> {languageChange ? translate.already.eng : translate.already.tg} <span className='text-[#3AB0FF]'><Link to='/login'>{languageChange?translate.login.eng:translate.login.tg }</Link></span></p>
        {
         loading?<div className='mt-10 z-50'><LoadingSpiner/></div>:''
       }

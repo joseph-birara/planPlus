@@ -18,6 +18,8 @@ import { selectCurrentUsers } from '../user/userSlice'
 import AddSubTask from '../subTasks/AddSubTask'
 import Editask from './Editask'
 import { Link } from 'react-router-dom'
+import { selectCurrentTasks } from '../tasks/TaskSlice';
+import translate from '../../Assets/translationLanguga';
 
 
 
@@ -32,7 +34,7 @@ function Task(props) {
     
     const { userToken } = useSelector(selectCurrentUsers)
     
-
+const {languageChange} = useSelector(selectCurrentTasks)
 
     //delet
 

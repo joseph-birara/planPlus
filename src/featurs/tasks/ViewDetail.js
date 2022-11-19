@@ -3,8 +3,11 @@ import Moment from 'react-moment'
 import { Link, useLocation } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
-
+import { selectCurrentTasks } from '../tasks/TaskSlice';
+import translate from '../../Assets/translationLanguga';
+import { useSelector } from 'react-redux'
 function ViewDetail() {
+  const {languageChange} = useSelector(selectCurrentTasks)
     const location = useLocation() 
     
   const [detail, setdetail] = useState(location.state.detail)
@@ -28,7 +31,9 @@ function ViewDetail() {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          View details
+         {
+               languageChange?translate.viewdetail.eng:translate.viewdetail.tg
+         }
         </div>
         <div className='text-[#F87474] mr-6'>
            
@@ -36,7 +41,9 @@ function ViewDetail() {
               detail: detail,
               url:'/viewtask'
             }}>
-               Edit
+              {
+                    languageChange?translate.edit.eng:translate.edit.tg
+               }
                             </Link>
 
         </div>
@@ -49,7 +56,7 @@ function ViewDetail() {
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Task title</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.title.eng:translate.title.tg }</label>
             <div className='bigInputBox'>            
               {
 detail.title
@@ -61,7 +68,7 @@ detail.title
 
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.dateAndTime.eng:translate.dateAndTime.tg }</label>
             
         <div              
               
@@ -79,7 +86,7 @@ detail.title
           </div>
           <div className='flex justify-between gap-5 '>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
+              <label className='flex items-start text-start  font-bold mb-1 ' >{languageChange?translate.duration.eng:translate.duration.tg}</label>
               <div
           
          
@@ -96,7 +103,7 @@ detail.title
             </div>
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.reminder.eng:translate.reminder.tg }</label>
                <div
           
                 className='bigInputBox w-[150px]  pl-2'
@@ -117,7 +124,7 @@ detail.title
           </div>
           <div className='flex justify-between gap-5 '>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Category</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.category.eng:translate.category.tg}</label>
               <div
          
                 className='bigInputBox w-[150px]  pl-2'
@@ -130,7 +137,7 @@ detail.title
 
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.priority.eng:translate.priority.tg}</label>
                
         <div
                 
@@ -148,7 +155,7 @@ detail.title
             
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Note</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.note.eng:translate.note.tg}</label>
             
             <div
                  
@@ -163,7 +170,7 @@ detail.title
            </div>
                   {
                       detail.subTask && detail.subTask.length>0?<div>
-                          <label className='flex items-start text-start  font-bold mb-1' >Subtasks</label>
+                          <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.subtasks.eng:translate.subtasks.tg }</label>
                           {detail.subTask.map((sub,index) =><SubTaskInsideAddTask subTask={sub } index={index+1} />)
                           }
           </div>:''

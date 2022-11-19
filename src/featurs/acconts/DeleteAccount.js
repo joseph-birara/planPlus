@@ -6,8 +6,12 @@ import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
 import DeleteAccountConfirm from '../components/DeleteAccountConfirm'
 import { DeleteUserAccount } from '../user/UserActions'
 import { logeOutAndNullToken, selectCurrentUsers } from '../user/userSlice'
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
 
 const DeleteAccount = () => {
+  const {languageChange} = useSelector(selectCurrentTasks)
+  
   const [reason, setreason] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -35,7 +39,7 @@ const DeleteAccount = () => {
     </Link>
         </div> 
         <div className='text-center   justify-center mt-2 mr-6 lg:mr-10 text-lg'>
-         Delete account
+         {languageChange?translate.deleteAccount.eng:translate.deleteAccount.tg}
         </div>
         <div className='text-[#3AB0FF] mr-6 text-lg'>
           {
@@ -51,7 +55,7 @@ const DeleteAccount = () => {
         showWarning?<DeleteAccountConfirm setWarning ={setshowWarning} item ={'Are you sure you want to delet your account?'} handleYes={handleDelete}/>:''
       }
       <div className='text-start mt-5 w-[360px] ml-[30%] lg:ml-[40%] mb-10'>
-        please note that after deleting your account, you'l not be able to acces your data
+        {languageChange?translate.pleasnot.eng:translate.pleasnot.tg}
       </div>
       <div className='relative ml-[30%] lg:ml-[40%]'>
             <textarea
@@ -62,7 +66,7 @@ const DeleteAccount = () => {
                   type="text"
                   name="note"
                   id="note"
-                  placeholder="provide reason for account deletion"
+                  placeholder={languageChange?translate.reason.eng:translate.reason.tg}
           className="bigInputBox h-32  rounded-xl w-[360px]"
           
         />
@@ -76,11 +80,11 @@ const DeleteAccount = () => {
         </div> 
         <div
            onClick={()=>setshowWarning(!showWarning)}
-          className='btn w-40 ml-20 bg-[#F87474] h-10 text-center mt-8 pt-1 hover:cursor-pointer'>Delete account</div>
+          className='btn w-40 ml-20 bg-[#F87474] h-10 text-center mt-8 pt-1 hover:cursor-pointer'>{languageChange?translate.deleteAccount.eng:translate.deleteAccount.tg}</div>
 
       </div>
       {
-        deleting==="rejected"?<h2>deleting account faild!</h2>:''
+        deleting==="rejected"?<h2>{languageChange?translate.deletFaild.eng:translate.deletFaild.tg}</h2>:''
       }
       {
        deleting==="loading"?<div className='mt-10 z-50'><LoadingSpiner/></div>:''

@@ -1,7 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Warning from '../../Assets/IconCollection/Warning'
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
 
 const DeleteAccountConfirm = (props) => {
+  const {languageChange} = useSelector(selectCurrentTasks)
   return (
       <div>
           <div className=' absolute bg-[#000000] w-screen h-screen bg-opacity-50 z-40 top-0 bottom-0'>
@@ -12,12 +16,16 @@ const DeleteAccountConfirm = (props) => {
         <span
           onClick={()=>props.handleYes()}
           className='font-semibold mr-4'>
-         Yes
+              {
+                languageChange?translate.yes.eng:translate.yes.tg
+         }
         </span>
         <span
           className='text-blue-600 hover:cursor-pointer'
             onClick={()=>props.setWarning()}
-        > No
+        >  {
+                languageChange?translate.no.eng:translate.no.tg
+         }
         </span>
               </div>
           </div>

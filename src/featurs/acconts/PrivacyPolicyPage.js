@@ -1,8 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
 
 const PrivacyPolicyPage = () => {
+  const {languageChange} = useSelector(selectCurrentTasks)
   return (
     <div>
       <div className='flex flex-col items-center text-xl font-black'>
@@ -13,7 +17,9 @@ const PrivacyPolicyPage = () => {
     </Link>
         </div> 
         <div className='text-center   justify-center mt-2 mr-6 lg:mr-10 text-lg'>
-         Privacy policy
+            {
+              languageChange?translate.privacy.eng:translate.privacy.tg
+        }
         </div>
         <div className='text-[#3AB0FF] mr-6 text-lg'>
           {

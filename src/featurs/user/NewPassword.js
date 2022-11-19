@@ -9,11 +9,14 @@ import Icons from '../../Assets/IconCollection/Icons';
 import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import { unwrapResult } from '@reduxjs/toolkit';
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
+import { selectCurrentTasks } from '../tasks/TaskSlice';
+import translate from '../../Assets/translationLanguga';
 
 
 function NewPassword() {
     const [error, setError] = useState(null);
   const userref = useRef();
+  const {languageChange }=useSelector(selectCurrentTasks)
   
   const [password, setpassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
@@ -67,7 +70,7 @@ function NewPassword() {
               TooDoo
           </h1>
           <h3 className='mt-12 text-2xl mb-4 font-medium'>
-              Create new password
+             {languageChange?translate.creatNewpassword.eng:translate.creatNewpassword.tg}
       </h3>
       {
         error ? <div className='errorMessag'>
@@ -88,7 +91,7 @@ function NewPassword() {
                    type={showAndHide ===false? "password":"text"}
                   name="email"
                   id="email"
-                  placeholder="New password "
+                  placeholder={languageChange?translate.newPassword:translate.newPassword.tg}
                   className="inputBox"
                   onClick={(e) =>setError('')}
         />
@@ -107,7 +110,8 @@ function NewPassword() {
                   type="password"
                   name="email"
                   id="email"
-                  placeholder="confirm password "
+                  placeholder={languageChange?translate.cpassword.eng:translate.cpassword.tg}
+
           className="inputBox"
           onClick={(e) =>setError('')}
                   />
@@ -117,7 +121,7 @@ function NewPassword() {
                   disabled = {!password || !confirmPassword ||password !== confirmPassword}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
-                  Save</button>
+          { languageChange?translate.save.eng:translate.save.tg}</button>
         
              
               </form>

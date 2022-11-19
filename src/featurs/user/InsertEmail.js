@@ -9,12 +9,15 @@ import validEmail from '../../GlobalVariabls/EmailValidation';
 import LeftArraw from '../../Assets/IconCollection/LeftArraw';
 import { unwrapResult } from '@reduxjs/toolkit';
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
+import { selectCurrentTasks } from '../tasks/TaskSlice';
+import translate from '../../Assets/translationLanguga';
 
 
 
 function InsertEmail() {
     const [error, setError] = useState(null);
     const userref = useRef();
+    const {languageChange }=useSelector(selectCurrentTasks)
     
     const [email, setEmail] = useState('');
     const dispatch = useDispatch();
@@ -78,10 +81,10 @@ function InsertEmail() {
               TooDoo
           </h1>
           <h3 className='mt-12 text-xl font-semibold'>
-              Forgot password?
+             {languageChange ? translate.forget.eng : translate.forget.tg}
           </h3>
           <p className='m-3 w-60 text-center'>
-              A password reset code will be sent to your email.
+              {languageChange ? translate.resetCode:translate.resetCode.tg}
           </p>
           <form className="m-1 flex flex-col gap-4 text-center items-center">
         
@@ -95,7 +98,7 @@ function InsertEmail() {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Your email "
+                   placeholder={languageChange?translate.email.eng:translate.email.tg}
                  className="inputBox w-60"
                   />
                 <button
@@ -104,7 +107,7 @@ function InsertEmail() {
                   disabled = {!email ||!validateEmail(email) }
                  onClick={handleSubmit}
                   type="button" className="btn mt-8 font-bold text-xl">
-                  Send code</button>
+                        {languageChange ? translate.sendCode.eng:translate.sendCode.tg }</button>
         
              
                 </form>

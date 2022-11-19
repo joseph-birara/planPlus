@@ -14,8 +14,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import timePickerIccon from '../../Assets/IconCollection/timePicker.svg'
 
+import translate from '../../Assets/translationLanguga';
+
 
 function AddTask() {
+  const {languageChange} = useSelector(selectCurrentTasks)
    const [taskDateTime,setTaskDateTime]=useState('')
     const [state, setState] = useState({
        dateTime: taskDateTime,
@@ -212,12 +215,16 @@ function AddTask() {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          Add a subtask
+              {
+                languageChange?translate.addSubtasks.eng:translate.addSubask.tg
+         }
         </div>
           <div
             onClick={()=>setshowWarning(!showWarning)}
             className='text-[#F87474] mr-6'>
-          Cancel
+          {
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
 
         </div>
         
@@ -229,7 +236,7 @@ function AddTask() {
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >subtask title</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.subtitle.eng:translate.subtitle.tg }</label>
             <div className='relative'>
               <input
                  maxLength={32}
@@ -240,7 +247,7 @@ function AddTask() {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="eg. Finish  market presentation "
+                  placeholder={ languageChange?translate.taskTitlePlace.eng:translate.taskTitlePlace.tg}
           className="bigInputBox"
           
               />
@@ -256,7 +263,7 @@ function AddTask() {
 
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.dateAndTime.eng:translate.dateAndTime.tg }</label>
              <DatePicker
                 selected={subdateTime}
                 value={subdateTime}
@@ -270,7 +277,7 @@ function AddTask() {
                   name="dateTime"
           id="dateTime"
           
-                 placeholderText="eg. 10:00AM;20/10/2022 "
+                 placeholderText={ languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg}
                 
                 minDate={new Date(state.dateTime)}
                 showYearDropdown
@@ -281,7 +288,9 @@ function AddTask() {
                 className="bigInputBox"
                 customInput={<div className='bigInputBox flex justify-between'>
                 {
-                 subState.dateTime?subState.dateTime.toString().slice(4,21): "eg. 10:00AM;20/10/2022 "
+                    subState.dateTime ? subState.dateTime.toString().slice(4, 21) :
+                       languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg
+                
                 }
                 <img className='w-4' src={timePickerIccon} alt='time' /></div>}
           
@@ -291,26 +300,26 @@ function AddTask() {
           </div>
           <div className='flex justify-between gap-5'>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
+                <label className='flex items-start text-start  font-bold mb-1 ' >{languageChange?translate.duration.eng:translate.duration.tg}</label>
               <DropDown
-                place='eg. 2hrs'
+                place={languageChange?translate.durationPlace.eng:translate.durationPlace.tg}
                 swichTata={swichSubtaskTataDuration}
                 tata={subtaskdurationSwitch}
                 realValue={subtaskDuration}
                 setValuesOfSelect={setValuesOfSelectSubtaskDuration}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]}
+                data={languageChange?translate.durationData.eng:translate.durationData.tg}
                
         />
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
+                <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.reminder.eng:translate.reminder.tg }</label>
                <DropDown        
-                place='eg.30 mins'
+                place={languageChange?translate.reminderPlace.eng:translate.reminderPlace}
                 swichTata={swichsubTaskTataRemider}
                 tata={subTaskreminderSwitch}
                 realValue={subTaskReminder}
                 setValuesOfSelect={setValuesOfSelectSubTaskReminder}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs"]}
+                data={languageChange?translate.reminderData.eng:translate.reminderData.tg}
                
         />    
             </div>
@@ -322,16 +331,16 @@ function AddTask() {
           <div >
             
             <div className='-ml-40'>
-              <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
+                <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.priority.eng:translate.priority.tg}</label>
                
         <DropDown        
          
-                place='eg.1-very low'
+                place={languageChange?translate.priorityplace.eng:translate.priorityplace.tg}
                 swichTata={swichsubTaskTataPriority}
                 tata={subTaskprioritySwitch}
                 realValue={subTaskPriority}
                 setValuesOfSelect={setValuesOfSelectSubTaskPriority}
-                data={["1-very low", "2-low", "3-midium", "4-high","5-very high"]}
+                data={languageChange?translate.priorityData.eng:translate.priorityData.tg}
                
         /> 
         
@@ -340,7 +349,7 @@ function AddTask() {
             
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Note</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.note.eng:translate.note.tg}</label>
             <div className='relative'>
             <textarea
                  maxLength={128}
@@ -350,7 +359,7 @@ function AddTask() {
                   type="text"
                   name="note"
                   id="note"
-                  placeholder="eg. This is a high priority task that needs to be done right to avoid any delays"
+                  placeholder={languageChange?translate.noteplace.eng:translate.noteplace.tg}
           className="bigInputBox h-32 "
           
         />
@@ -376,7 +385,7 @@ function AddTask() {
                    disabled = { !subState.dateTime || !subState.title}
                 
                   type="button" className=" btn">
-                  Save subtask</button>
+                { languageChange?translate.saveSubtask.eng:translate.saveSubtask.tg}</button>
         </span>
        
         
@@ -412,10 +421,14 @@ function AddTask() {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-          Add a new task
+         {
+                languageChange?translate.addTask.eng:translate.addTask.tg
+         }
         </div>
         <div className='text-[#F87474] mr-6'>
-          Cancel
+          {
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
 
         </div>
         
@@ -429,7 +442,7 @@ function AddTask() {
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Task title</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.title.eng:translate.title.tg }</label>
             <div className='relative'>
               <input
                  maxLength={32}
@@ -440,7 +453,7 @@ function AddTask() {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="eg. Finish market presentation "
+                   placeholder={ languageChange?translate.taskTitlePlace.eng:translate.taskTitlePlace.tg}
           className="bigInputBox"
           
               />
@@ -456,7 +469,7 @@ function AddTask() {
 
           </div>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Date & time</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.dateAndTime.eng:translate.dateAndTime.tg }</label>
             
       <  DatePicker
                 selected={taskDateTime}
@@ -469,7 +482,7 @@ function AddTask() {
                   name="dateTime"
           id="dateTime"
           
-                 placeholderText="eg. 10:00AM;20/10/2022 "
+                 placeholderText={ languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg}
                 
                 minDate={new Date()}
                 showYearDropdown
@@ -480,7 +493,7 @@ function AddTask() {
               className="bigInputBox"
               customInput={<div className='bigInputBox flex justify-between'>
                 {
-                 state.dateTime?state.dateTime.toString().slice(4,21): "eg. 10:00AM;20/10/2022 "
+                 state.dateTime?state.dateTime.toString().slice(4,21): languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg
                 }
                 <img className='w-4' src={timePickerIccon} alt='time' /></div>}
           
@@ -488,17 +501,17 @@ function AddTask() {
           </div>
           <div className='flex justify-between gap-5 '>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1 ' >Duration</label>
+              <label className='flex items-start text-start  font-bold mb-1 ' >{languageChange?translate.duration.eng:translate.duration.tg}</label>
               
               <DropDown
           
          
-                place='eg. 2hrs'
+                place={languageChange?translate.durationPlace.eng:translate.durationPlace.tg}
                 swichTata={swichTataDuration}
                 tata={durationSwitch}
                 realValue={taskDuration}
                 setValuesOfSelect={setValuesOfSelectDuration}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]}
+              data={languageChange?translate.durationData.eng:translate.durationData.tg}
                
         />
           
@@ -507,16 +520,16 @@ function AddTask() {
             
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Reminder</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.reminder.eng:translate.reminder.tg }</label>
                <DropDown
           
          
-                place='eg.30 mins'
+                place={languageChange?translate.reminderPlace.eng:translate.reminderPlace.tg }
                 swichTata={swichTataRemider}
                 tata={reminderSwitch}
                 realValue={taskReminder}
                 setValuesOfSelect={setValuesOfSelectReminder}
-                data={["15 mins", "30 mins", "1 hrs", "2 hrs"]}
+                data={languageChange?translate.reminderData.eng:translate.reminderData.tg}
                
         />              
               
@@ -530,16 +543,16 @@ function AddTask() {
           </div>
           <div className='flex justify-between gap-5 '>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Category</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.category.eng:translate.category.tg}</label>
               <DropDown
           
          
-                place='eg.Work'
+                place={languageChange?translate.categoryplace.eng:translate.categoryplace.tg}
                 swichTata={swichTataCategory}
                 tata={categorySwitch}
                 realValue={taskCategory}
                 setValuesOfSelect={setValuesOfSelectCategory}
-                data={["Others", "Family", "Work", "Education","Shopping"]}
+                data={languageChange?translate.categoryData.eng:translate.categoryData.tg}
                
         /> 
           
@@ -547,16 +560,15 @@ function AddTask() {
 
             </div>
             <div>
-              <label className='flex items-start text-start  font-bold mb-1' >Priority</label>
+              <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.priority.eng:translate.priority.tg}</label>
                
        <DropDown        
-         
-                place='eg.5-very high'
+         place={languageChange?translate.priorityplace.eng:translate.priorityplace.tg}
                 swichTata={swichTataPriority}
                 tata={prioritySwitch}
                 realValue={taskPriority}
                 setValuesOfSelect={setValuesOfSelectPriority}
-                data={["1-very low", "2-low", "3-midium", "4-high","5-very high"]}
+                data={languageChange?translate.priorityData.eng:translate.priorityData.tg}
                
         /> 
         
@@ -566,7 +578,7 @@ function AddTask() {
           </div>
          
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >Note</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.note.eng:translate.note.tg}</label>
             <div className='relative'>
             <textarea
                  maxLength={128}
@@ -576,7 +588,7 @@ function AddTask() {
                   type="text"
                   name="note"
                   id="note"
-                  placeholder="eg. This is a high priority task that needs to be done right to avoid any delays"
+                  placeholder={languageChange?translate.noteplace.eng:translate.noteplace.tg}
           className="bigInputBox h-32 "
           
         />
@@ -589,7 +601,7 @@ function AddTask() {
           </div>
           </div>
           {subtask && subtask.length>0?<div>
-            <label className='flex items-start text-start  font-bold mb-1' >Subtasks</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.subtasks.eng:translate.subtasks.tg }</label>
             {
               subtask.map((sub,index)=> <SubTaskInsideAddTask subTask={sub } index={index+1} />)
             }
@@ -609,7 +621,7 @@ function AddTask() {
                   
                   disabled = {falseInput || !state.dateTime ||  !state.title}
                   type="button" className=" subtaskBtn ">
-                 add subtask</button>
+              {languageChange ? translate.addSubtasks.eng:translate.addSubtasks.tg}</button>
         <button
           
                   // onClick={this.onSubmitSignin}
@@ -617,7 +629,7 @@ function AddTask() {
                    disabled = {falseInput || !state.dateTime  || !state.title}
                  onClick={handleSubmit}
                   type="button" className=" btn">
-                  Save Task</button>
+              {languageChange?translate.saveTask.eng:translate.saveTask.tg }</button>
         </span>
        
         

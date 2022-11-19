@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import LangugeCheckBox from '../components/LangugeCheckBox'
 import newIcon from '../../Assets/AcountIcons/checkIcon.png'
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
+import { useSelector } from 'react-redux'
 
 
 
 function Themes() {
+  const {languageChange} = useSelector(selectCurrentTasks)
   return (
     <div>
        <div className='flex flex-col items-center text-xl font-black'>
@@ -17,10 +21,10 @@ function Themes() {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-       Theme
+       { languageChange?translate.theme.eng:translate.theme.tg}
         </div>
         <div className='text-[#3AB0FF] mr-6 text-lg'>
-         save
+         { languageChange?translate.save.eng:translate.save.tg}
 
         </div>
         

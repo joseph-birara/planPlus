@@ -6,12 +6,18 @@ import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import MultiRangeSlider from "multi-range-slider-react";
 import '../../styles.css'
+import translate from '../../Assets/translationLanguga'
+import { selectCurrentTasks } from '../tasks/TaskSlice'
+import { useSelector } from 'react-redux';
 
 
 
 function FilterCard() {
+    const {languageChange} = useSelector(selectCurrentTasks)
+
   //caption to be shown in the range slider
-  const arr = ["1-very low", "2-low", "3-medium", "4-high", "5-very high"]
+  const arr =languageChange?translate.priorityData.eng:translate.priorityData.tg
+         
   //values of slider
   const [minValue, set_minValue] = useState(1);
   const [maxValue, set_maxValue] = useState(5);
@@ -69,7 +75,9 @@ function FilterCard() {
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
-         Filter
+         {
+                languageChange?translate.filter.eng:translate.filter.tg
+         }
         </div>
           <div className='text-[#F87474] mr-6 text-lg hover:cursor-pointer'>
             <Link to='/' state={{
@@ -80,7 +88,9 @@ function FilterCard() {
               status:endStatus
               
             }}>
- Apply
+  {
+                languageChange?translate.apply.eng:translate.apply.tg
+         }
             </Link>
          
 
@@ -94,7 +104,9 @@ function FilterCard() {
                   
           <table className='w-72'>
             <tr className='mb-5'>
-              <td className='text-lg font-medium mb-5'>Categories</td>
+              <td className='text-lg font-medium mb-5'> {
+                languageChange?translate.categories.eng:translate.categories.tg
+         }</td>
             </tr>
             <tr>
               <td
@@ -103,7 +115,7 @@ function FilterCard() {
                   checkUncheckForAll()
                 }}>
                 <FilterCheckBox
-                  atribute={"All"}
+                  atribute={languageChange?translate.categoryAttributeData.all.eng:translate.categoryAttributeData.all.tg}
                   checkUncheck={checkUncheck}
                   tureFalse={all}
                 />
@@ -116,7 +128,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                  atribute={"Education"}
+                  atribute={languageChange?translate.categoryAttributeData.education.eng:translate.categoryAttributeData.education.tg}
                   tureFalse={Education}
                   checkUncheck={checkUncheck}
                 />
@@ -130,7 +142,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                  atribute={"Work"}
+                  atribute={languageChange?translate.categoryAttributeData.work.eng:translate.categoryAttributeData.work.tg}
                   tureFalse={Work}
                   checkUncheck={checkUncheck}
                 />
@@ -142,7 +154,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                  atribute={"Shopping"}
+                  atribute={languageChange?translate.categoryAttributeData.shopping.eng:translate.categoryAttributeData.shopping.tg}
                   tureFalse={Shopping}
                   checkUncheck={checkUncheck}
                 />
@@ -156,7 +168,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                  atribute={"Family"}
+                  atribute={languageChange?translate.categoryAttributeData.family.eng:translate.categoryAttributeData.family.tg}
                   tureFalse={Family}
                   checkUncheck={checkUncheck}
                 />
@@ -177,7 +189,9 @@ function FilterCard() {
           <tbody>
             <tr>
               <td>
- Priorities
+  {
+                languageChange?translate.priorities.eng:translate.priorities.tg
+         }
               </td>
               <td>
  
@@ -199,7 +213,7 @@ function FilterCard() {
           style={{ border: 'none', boxShadow: 'none', textShadow:'none' }}
           ruler={false}
           label={true}
-          labels={["l-very low","5-very high"]}
+          labels={languageChange?translate.slider.eng:translate.slider.tg}
           barLeftColor="#C9B6A9"
           barInnerColor="#FFB562"
           barRightColor="#C9B6A9"
@@ -215,7 +229,9 @@ function FilterCard() {
                   
           <table className='w-72'>
             <tr className='mb-2'>
-              <td className='text-xl font-medium mb-5'>Statuses</td>
+              <td className='text-xl font-medium mb-5'> {
+                languageChange?translate.statuses.eng:translate.statuses.tg
+         }</td>
             </tr>
             <tr>
               <td
@@ -225,7 +241,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                  atribute={"All"}
+                  atribute={languageChange?translate.statusData.all.eng:translate.statusData.all.tg}
                   checkUncheck={checkUncheck}
                   tureFalse={allStatuses}
 
@@ -239,7 +255,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                  atribute={"Overdue"}
+                  atribute={languageChange?translate.statusData.overdue.eng:translate.statusData.overdue.tg}
                   checkUncheck={checkUncheck}
                    tureFalse={overdue}
                 />
@@ -253,7 +269,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                  atribute={"Upcoming"}
+                  atribute={languageChange?translate.statusData.upcoming.eng:translate.statusData.upcoming.tg}
                   checkUncheck={checkUncheck}
                    tureFalse={upcoming}
                 />
@@ -264,7 +280,9 @@ function FilterCard() {
                   setCanceld(!canceled)
                 }}
               ><FilterCheckBox
-                atribute={"Canceled"}
+                atribute={
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
                   checkUncheck={checkUncheck}
                    tureFalse={canceled}
               />
@@ -278,7 +296,7 @@ function FilterCard() {
                 }}
               >
                 <FilterCheckBox
-                atribute={"In progress"}
+                atribute={languageChange?translate.statusData.inProgress.eng:translate.statusData.inProgress.tg}
                   checkUncheck={checkUncheck}
                    tureFalse={inProgress}
               />
@@ -291,7 +309,7 @@ function FilterCard() {
               >
                 <FilterCheckBox
                 checkUncheck={checkUncheck}
-                  atribute={"Done"}
+                  atribute={languageChange?translate.statusData.done.eng:translate.statusData.done.tg}
                    tureFalse={done}
               />
               </td>

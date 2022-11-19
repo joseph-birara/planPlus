@@ -108,7 +108,7 @@ function LogIn() {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Your email "
+                   placeholder={languageChange?translate.email.eng:translate.email.tg}
           className="inputBox"
           onClick={(e) =>setError('')}
         />
@@ -121,7 +121,7 @@ function LogIn() {
                   type={showAndHide ===false? "password":"text"}
                   name="password"
                   id="password"
-                  placeholder=" Password "
+                  placeholder={languageChange?translate.password.eng:translate.password.tg}
             className="inputBox"
             onClick={(e) =>setError('')}
             

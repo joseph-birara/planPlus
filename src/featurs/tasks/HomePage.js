@@ -22,7 +22,10 @@ import { Link, useLocation } from 'react-router-dom'
 import NotificationIcone from '../../Assets/IconCollection/NotificationIcone'
 import SmallSearchIcon from '../../Assets/IconCollection/SmallSearchIcon'
 
+import translate from '../../Assets/translationLanguga';
+
 function HomePage() {
+    const {languageChange} = useSelector(selectCurrentTasks)
     const dispatch = useDispatch()
     // const [tasksData, settasksData] = useState('')
     const { allTasks } = useSelector(selectCurrentTasks)
@@ -143,7 +146,7 @@ function HomePage() {
                    type='search'
                   name="email"
                   id="email"
-                  placeholder="Search your list... "
+                  placeholder={languageChange?translate.searchHere.eng:translate.searchHere.tg}
                             className="inputBox mt-5 rounded-[42px] w-[250px] lg:w-[350px] h-[37px] ml-10 lg:ml-80 pl-11"
                             onChange={(e)=>setsearch(e.target.value)}
                   
@@ -159,7 +162,9 @@ function HomePage() {
                                 setshowSearch(false)
                             }}
                             className='text-[#F87474] mt-6 ml-2 text-xl lg:ml-5 hover:cursor-pointer'>
-                            Cancel
+                             {
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
                         </div>
                         
                     </form>:''}
@@ -210,7 +215,9 @@ function HomePage() {
           
             </div>
             <div className='text-center text-3xl font-black -mt-12 ml-0'>
-                Your TooDoo
+                {
+                    languageChange?translate.yourTodo.eng:translate.yourTodo.tg
+               }
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
                 <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>
@@ -224,11 +231,15 @@ function HomePage() {
                  
                     )
                             :<div className='text-center w-56 font-thin text-xl -ml-10 text-gray-500'>
-               No tasks found with your filter
+                                {
+                                    languageChange?translate.noTasks.eng:translate.noTasks.tg
+              }
           </div>:  <div>
                                 <HomePageImage />
                     <div className='text-center w-56 font-thin text-xl -ml-10 text-gray-500'>
-               Get started by creating your very first task.
+                                {
+                                    languageChange?translate.firstTask.eng:translate.firstTask.tg
+               }
           </div> 
                         
                 </div>
