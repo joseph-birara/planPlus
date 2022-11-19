@@ -7,7 +7,7 @@ function Sorting() {
               xmlns="http://www.w3.org/2000/svg" width="32.859"
               height="30.272"
               viewBox="0 0 36.859 34.272"
-              className='w-12 h-7 text-center'
+              className='w-12 h-7 text-center -mt-[2px]'
           >
   <g id="sort-descending" transform="translate(-31.999 447.911)">
     <path id="Path_7" data-name="Path 7" d="M32.88-447.673a1.346,1.346,0,0,0-.745,1.482,1.4,1.4,0,0,0,.851.942c.213.065,3.676.082,11.086.065,10.742-.025,10.783-.025,11-.2a1.156,1.156,0,0,0,.565-1.1,1.156,1.156,0,0,0-.565-1.1c-.221-.172-.254-.172-11.086-.188C35.083-447.779,33.085-447.763,32.88-447.673Z" transform="translate(0 0)" stroke="#000" strokeWidth="0.2"/>

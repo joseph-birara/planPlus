@@ -9,6 +9,10 @@ import { GetAllNotifications } from '../tasks/TaskActions'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
 import { selectCurrentUsers } from '../user/userSlice'
 import NotificationCard from './NotificationCard'
+import homeImage from '../../Assets/AcountIcons/home.svg'
+
+
+
 
 
 const NotificationPage = () => {
@@ -34,18 +38,19 @@ const NotificationPage = () => {
                     <div className='flex flex-col gap-1 mt-11'>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-             className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
+             className='iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-1 w-[45px] h-[45px]'>
               <Link to='/'>
-              <RiHome2Line className='text-white text-3xl text-center'/>
+              <img src={homeImage}  alt='home' className='text-white text-xl text-center -mt-[7px] px-1 w-12 h-8'/>
+            
             </Link>
                         
                 
                         </div>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
+                        className='iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-1 w-[45px] h-[45px]'>
              <Link to='/account'>
-               <AccountIcon />
+               <AccountIcon/>
              </Link>  
                 
               </div>

@@ -11,6 +11,8 @@ import IconsVisiblel from '../../Assets/IconCollection/IconsVisiblel';
 import validEmail from '../../GlobalVariabls/EmailValidation';
 import { unwrapResult } from '@reduxjs/toolkit'
 import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner';
+import { selectCurrentTasks } from '../tasks/TaskSlice';
+import translate from '../../Assets/translationLanguga';
 
 
 
@@ -21,6 +23,7 @@ function LogIn() {
   const [email, setemail] = useState('');
   const dispatch = useDispatch();
   const { loading, RequestMessageForLogIn } = useSelector(selectCurrentUsers);
+  const {languageChange} = useSelector(selectCurrentTasks)
   const [error, setError] = useState('');
   // if (RequestMessageForLogIn) {
   //   setError(RequestMessageForLogIn)
@@ -85,7 +88,7 @@ function LogIn() {
               TooDoo
           </h1>
           <h3 className='mt-14 text-2xl  font-semibold'>
-              Log in to continue
+             {languageChange?translate.logTocontinue.eng:translate.logTocontinue.tg}
       </h3>
       {
         error ? <div className='errorMessag'>
@@ -132,7 +135,7 @@ function LogIn() {
           
           
           </div>
-        <p className='text-right ml-24 justify-end text-sm lg:ml-36'> Forget password? <span className='text-[#3AB0FF]'><Link to ='/insertemail'> Reset</Link></span></p>
+        <p className='text-right ml-24 justify-end text-sm lg:ml-36'>{languageChange ? translate.forget.eng : translate.forget.tg} <span className='text-[#3AB0FF]'><Link to='/insertemail'>{languageChange?translate.reset.eng:translate.reset.tg }</Link></span></p>
         <button
           
                   // onClick={this.onSubmitSignin}
@@ -140,11 +143,11 @@ function LogIn() {
                   disabled = {!email || password.length<8}
                  onClick={handleSubmit}
                   type="button" className=" btn mt-10">
-                  Log in</button>
+          {languageChange?translate.login.eng:translate.login.tg }</button>
         
              
       </form>
-      <p className='text-sm -mt-2'> New to TooDoo? <span className='text-[#3AB0FF]'><Link to='/register'>Register</Link></span></p>
+      <p className='text-sm -mt-2'> {languageChange ? translate.new.eng : translate.new.tg} <span className='text-[#3AB0FF]'><Link to='/register'>{languageChange?translate.register.eng:translate.register.tg }</Link></span></p>
        {
         loading?<div className='mt-10 z-50'><LoadingSpiner/></div>:''
       }

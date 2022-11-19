@@ -5,7 +5,10 @@
 @layer components{
     body{
     
-    font-family: 'SF Pro Display'
+     
+    
+    font-family: 'SF Pro Display', 'sans-serif'
+  
   }
     .inputBox{
         @apply w-64 h-9 px-4 py-2 bg-[#F9F2ED] rounded-md lg:w-72 focus:border-[#FFB562] focus:outline-none focus:ring-1 focus:ring-[#FFB562]

@@ -77,5 +77,262 @@ const translate =
         "tg": "ኮድ ልኣኽ",
         "eng":"Send code"
     },
+    "addTask": {
+        "tg": "ሓድሽ ዕማም ወስኽ",
+        "eng":"Add a new task"
+    },
+    "addSubask": {
+        "tg": "ንኡስ ዕማም ወስኽ",
+        "eng":"Add a subtask."
+    },
+    "saveTask": {
+        "tg": "ዕማም መዝግብ",
+        "eng":"Save Task."
+    },
+    "addSubtasks": {
+        "tg": "ንኡስ ዕማም",
+        "eng":"Add subtask"
+    },
+    "submit": {
+        "tg": "አረክብ",
+        "eng":"Submit"
+    },
+    "enterCode": {
+        "tg": "ኣብ ታሕቲ ኮድ ኣእትዉ",
+        "eng":"Enter code below "
+    },
+    "didNotGet": {
+        "tg": "ኮድ ኣይተርኸበን?",
+        "eng":"Didn't get code?  "
+    },
+    "resend": {
+        "tg": "ዳግማይ ልኣኽ",
+        "eng":"Resend "
+    },
+    "creatNewpassword": {
+        "tg": "ሓድሽ ምልክት ቃል ፍጠር",
+        "eng":"Create new password "
+    },
+    "newPassword": {
+        "tg": "ሓድሽ ምልክት ቃል",
+        "eng":"New password "
+    },
+    "firstTask": {
+        "tg": "ናይ መጀመርታ ዕማምካ ብምፍጣር ጀምር",
+        "eng":"Get started by creating your very first task "
+    },
+    "taskTitle": {
+        "tg": "ኣርእስቲ ዕማም",
+        "eng":"Task title "
+    },
+    "dateAndTime": {
+        "tg": "ዕለትን ሰዓትን ",
+        "eng":"Date & time "
+    },
+    "duration": {
+        "tg": "ጻንሒት",
+        "eng":"Duration "
+    },
+    "reminder": {
+        "tg": "መዘኻኸሪ",
+        "eng":"Reminder"
+    },
+    "category": {
+        "tg": "ምደባ",
+        "eng":"Category "
+    },
+    "priority": {
+        "tg": "ቀዳምነት",
+        "eng":"Priority"
+    },
+    "subtitle": {
+        "tg": "ንኡስ ዕማም ኣርእስቲ",
+        "eng":"Subtask title "
+    },
+    "note": {
+        "tg": "መግለፂ",
+        "eng":"Note "
+    },
+    "noteplace": {
+        "tg": "ንኣብነት: እዚ ድማ ዝኾነ ይኹን ምድንጓይ ንኸይፍጠር ብትኽክል ክስራሕ ዘለዎ ልዑል ቀዳምነት ዝወሃቦ ዕማም እዩ።",
+        "eng":"eg. This is a high priority task that needs to be done right to avoid any delays"
+    },
+    "taskTitlePlace": {
+        "tg": "ንኣብነት፡ ኣቀራርባ ዕዳጋ ምውዳእ",
+        "eng":"eg. Finish  market presentation "
+    },
+    "dateAndTimePlace": {
+        "tg": "ንኣብነት፡ ሰዓት 10፡00 ;20/10/2022  ",
+        "eng":"eg. 10:00AM;20/10/2022  "
+    },
+    "durationPlace": {
+        "tg": "ንኣብነት: 2 ሰዓት",
+        "eng":"eg. 2hrs "
+    },
+    "reminderPlace": {
+        "tg": "ንኣብነት:30 ደቓይቕ",
+        "eng":"eg.30 mins"
+    },
+    "categoryplace": {
+        "tg": "ንኣብነት ስራሕ",
+        "eng":"eg. Work"
+    },
+    "priorityplace": {
+        "tg": "ንኣብነት 1-ኣዝዩ ትሑት",
+        "eng":"eg.1-very low"
+    },
+    "durationData": {
+        "tg": ["15 ደቒቕ", "30 ደቒቕ", "1 ሰዓት", "2 ሰዓት","6 ሰዓት", "12 ሰዓት"],
+        "eng":["15 mins", "30 mins", "1 hrs", "2 hrs", "6 hrs", "12 hrs"]
+    },
+    "reminderData": {
+        "tg":["15 ደቒቕ","30 ደቒቕ", "1 ሰዓት", "2 ሰዓት"],
+        "eng":["15 mins", "30 mins", "1 hrs", "2 hrs"]
+    },
+    "categoryData": {
+        "tg": ["ካልኦት", "ስድራቤት", "ስራሕ", "ትምህርቲ","ዕዳጋ"],
+        "eng":["Others", "Family", "Work", "Education","Shopping"]
+    },
+    "priorityData": {
+        "tg": ["1-ኣዝዩ ትሑት","2-ትሑት","3-ማእከላይ", "4-ልዑል","5-ኣዝዩ ልዑል"],
+        "eng":["1-very low", "2-low", "3-midium", "4-high","5-very high"]
+    },
+    "sureSubtask": {
+        "tg": "ነዚ ንኡስ ዕማም ክትስርዞ ከም እትደሊ ርግጸኛ ዲኻ?",
+        "eng":"Are you sure you want to cancel this subtask"
+    },
+    "sureDeletAccount": {
+        "tg": "ርግጸኛ ዲኻ ኣካውንትካ ክትድምስስ ከም እትደሊ?",
+        "eng":"Are you sure you want to delete your account?"
+    },
+    "yes": {
+        "tg": "እወ",
+        "eng":"Yes"
+    }
+    ,
+    "no": {
+        "tg": "አይኮንን",
+        "eng":"No"
+    }
+    ,
+    "updateTask": {
+        "tg": "አማሃይሽ",
+        "eng":"Update task"
+    },
+    "updateSubask": {
+        "tg": "ንኡስ ዕማም አማሃይሽ",
+        "eng":"Update subtask"
+    },
+    "viewdetail": {
+        "tg": "ዝርዝር ርአ",
+        "eng":"Veiw detail"
+    },
+    "apply": {
+        "tg": "ኣተግብር",
+        "eng":"Apply"
+    },
+    "filter": {
+        "tg": "ኣተግብር",
+        "eng":"Filter"
+    },
+    "categories": {
+        "tg": "ምድባት",
+        "eng":"Categories"
+    },
+    "priorities": {
+        "tg": "ቀዳምነታት",
+        "eng":"Priorities"
+    },
+    "statuses": {
+        "tg": "ኩነታት",
+        "eng":"Statuses"
+    },
+    "sort": {
+        "tg": "ምስራዕ",
+        "eng":"Sort"
+    },
+    "low": {
+        "tg": "1(ብጣዕሚ ትሑት)",
+        "eng":"1(very low)"
+    },
+    "high": {
+        "tg": "5(ብጣዕሚ ልዑል)",
+        "eng":"5(very high)"
+    },
+    "searchHere": {
+        "tg": "ዝርዝርካ ድለዮ",
+        "eng":"search your list"
+    },
+    "notifications": {
+        "tg": "መፍለጢታት",
+        "eng":"Notifications"
+    },
+    "myaccount": {
+        "tg": "ኣካውንት",
+        "eng":"My Account"
+    },
+    "profile": {
+        "tg": "መግለፂ",
+        "eng":"Profile"
+    },
+    "languge": {
+        "tg": "ቋንቋ",
+        "eng":"Language"
+    },
+    "theme": {
+        "tg": "ጭብጢ",
+        "eng":"Theme"
+    },
+    "privacy": {
+        "tg": "ፖሊሲ ውልቃዊ ሓበሬታ",
+        "eng":"Privacy policy"
+    },
+    "terms": {
+        "tg": "ውዕል ኣጠቓቕማ",
+        "eng":"Terms of use"
+    },
+    "signout": {
+        "tg": "ውጻእ",
+        "eng":"Sign out"
+    },
+    "name": {
+        "tg": "ምሉእ ስም",
+        "eng":"Full name"
+    },
+    "phone": {
+        "tg": "ቁጽሪ ተሌፎን",
+        "eng":"Phone number"
+    },
+    "gender": {
+        "tg": "ፆታ",
+        "eng":"Gender"
+    },
+    "dob": {
+        "tg": "DoB",
+        "eng":"DoB"
+    },
+    "auto": {
+        "tg": "DoB",
+        "eng":"DoB"
+    },
+    "dark": {
+        "tg": "ፀልማት",
+        "eng":"Dark"
+    },
+    "light": {
+        "tg": "ብርሃን",
+        "eng":"Light"
+    },
+    "pleasnot": {
+        "tg": "በጃኹም ኣስተውዕል ድሕሪ ምድምሳስ ኣካውንትኩም፡ ዳታኹም ክትረኽቡ ከምዘይትኽእሉ ኢኹም።",
+        "eng":"please note that after deleting your account, you'l not be able to acces your data"
+    },
+    "sureSignout": {
+        "tg": "ርግጸኛ ዲኻ ክትወጽእ ከም እትደሊ?",
+        "eng":"Are you sure you want sign out?"
+    },
+    
+
+    
 }
 export default translate

@@ -6,7 +6,7 @@ function SearchIcon() {
       xmlns="http://www.w3.org/2000/svg" width="35.665"
       height="35.665"
       viewBox="0 0 35.665 35.665"
-      className='w-12 h-8 text-center'
+      className='w-12 h-8 text-center -mt-1'
     >
   <g id="Icon_feather-search" data-name="Icon feather-search" transform="translate(-3 -3)">
     <path id="Path_12" data-name="Path 12" d="M32.984,18.742A14.242,14.242,0,1,1,18.742,4.5,14.242,14.242,0,0,1,32.984,18.742Z" transform="translate(0 0)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>

@@ -8,7 +8,7 @@ const NotificationIcone = () => {
               width="34.196"
               height="42.612"
               viewBox="0 0 34.196 42.612"
-              className='w-8 h-8 text-white text-2xl'
+              className='w-8 h-8 text-white text-2xl -mt-1'
           >
   <g id="Icon_ionic-ios-notifications-outline" data-name="Icon ionic-ios-notifications-outline" transform="translate(-6.499 -3.68)">
     <path id="Path_27" data-name="Path 27" d="M22.919,28.336a1.32,1.32,0,0,0-1.295,1.04,2.555,2.555,0,0,1-.51,1.111,1.927,1.927,0,0,1-1.641.6,1.959,1.959,0,0,1-1.641-.6,2.555,2.555,0,0,1-.51-1.111,1.32,1.32,0,0,0-1.295-1.04h0a1.329,1.329,0,0,0-1.295,1.621,4.555,4.555,0,0,0,4.74,3.782,4.546,4.546,0,0,0,4.74-3.782,1.334,1.334,0,0,0-1.295-1.621Z" transform="translate(4.094 12.304)" fill="#fff" stroke="#fff" strokeWidth="0.5"/>

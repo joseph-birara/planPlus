@@ -5,7 +5,12 @@ module.exports = withMT( {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-       extend: {},
+    extend: {
+          fontFamily: {
+       
+        'sf-pro-display':['SF Pro Display', 'sans-serif']
+      }
+       },
   },
   plugins: [
     require('@tailwindcss/line-clamp'),

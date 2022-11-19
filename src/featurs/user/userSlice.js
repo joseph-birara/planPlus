@@ -26,7 +26,8 @@ const initialState = {
     RequestMessageForRegister: '',
     emailRejected: '',
     codeRejected: '',
-    profileInfo:'',
+    profileInfo: '',
+    deleting:''
 }
 
 const UserSlice = createSlice({
@@ -154,18 +155,19 @@ const UserSlice = createSlice({
             state.error = payload
         },
          [DeleteUserAccount.pending]:(state) =>{
-            state.loading = true;
+            state.deleting= "loading";
             state.error = null
             console.log("deleting loading ....");
         },
         [DeleteUserAccount.fulfilled]:(state,{payload}) =>{
-            
+            state.deleting="done"
             
             console.log("delete account accepted");
             
         },
         [DeleteUserAccount.rejected]:(state,{payload}) =>{
             console.log("rejected");
+            state.deleting="rejected"
         },
          [GetProfileInfo.pending]:(state)=>{
             state.loading = true;

@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUsers } from '../user/userSlice'
 import { ChangePassword, GetProfileInfo, UpdateProfile } from '../user/UserActions'
 
+import moment from 'moment/moment.js'
+
 const ProfilePage = () => {
   const dispatch = useDispatch()
   const [editName, seteditName] = useState(false)
@@ -38,14 +40,14 @@ const ProfilePage = () => {
         phoneNumber: profileInfo?profileInfo.phoneNumber:'',
         email: profileInfo?profileInfo.email:'',
         gender: profileInfo?profileInfo.gender:'',
-    DoB: profileInfo ? profileInfo.DoB : '',
+    DoB: profileInfo ?new Date(profileInfo.DoB).toISOString().split('T')[0] : '',
         img:profileInfo ? profileInfo.img:'',
         password: '',
         confirmPassword:''
         
 
   })
-  // console.log(state,"state in profile");
+   console.log(state,"state in profile");
     const handleChange = (e) => {
    setstate({...state,[e.target.name]:e.target.value})
     }
@@ -203,8 +205,8 @@ const ProfilePage = () => {
               
                <input
                 name='DoB'
-                value={state.DoB ? new Date(state.DoB).toString().slice(4, 21):"DoB"}
-                type='datetime-local'
+                value={state.DoB ? state.DoB:"DoB"}
+                type='Date'
               onChange={handleChange}
               className='bigInputBox w-[120px] lg:w-[136px] pl-2'
                 placeholder='DoB'
@@ -224,13 +226,13 @@ const ProfilePage = () => {
           <input
                 
                   required
-                  value={state.password}
+                  value={''}
                  onChange={handleChange}
                   type={showAndHide ===false? "password":"text"}
                   name="password"
                   id="password"
                   placeholder=" Password "
-            className="inputBox"
+                 className="inputBox"
             
             
           />
@@ -244,7 +246,7 @@ const ProfilePage = () => {
           <input
                 
                   required
-                  value={state.confirmPassword}
+                  value={''}
                  onChange={handleChange}
                   type={showAndHide ===false? "password":"text"}
                   name="confirmPassword"

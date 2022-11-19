@@ -188,7 +188,7 @@ function HomePage() {
                         // onClick={() => setlogedIn(!logedIn)}
                             className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
                             <Link to='/notify'>
-                                 <NotificationIcone/>
+                                 <NotificationIcone />
                             </Link>
                         
                 
