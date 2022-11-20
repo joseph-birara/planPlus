@@ -62,21 +62,32 @@ const SortCard = () => {
     </div>
 
           </div> 
-           <div className='flex flex-col items-center text-start ml-10'>
-              <div className='flex flex-col gap-4 w-80  mt-5 items-center text-start mb-10'>
-                  <table className='w-72'>
+           <div className='flex flex-col items-center text-start -ml-16 lg:-ml-44'>
+              <div className='flex flex-col gap-4 w-80  mt-5 items-center text-start mb-10 -ml-[100px] md:-ml-0 lg:-ml-0'>
+                  <table className={`${languageChange?'w-[150px]':'w-52'}`}>
             <tr className='mb-5'>
-              <td className='text-xl font-bold mb-5'>Priorities</td>
+              <td className='text-2xl font-bold mb-5'>{
+                languageChange?translate.priorities.eng:translate.priorities.tg
+         }</td>
                       </tr>
                       <tr className=''>
                           <td className=''>
-                <FilterCheckBox atribute={`1(very low)`} checkUncheck={checkUncheck } tureFalse={fromLower} />
+                <FilterCheckBox atribute={
+                languageChange?translate.low.eng:translate.low.tg
+         } checkUncheck={checkUncheck } tureFalse={fromLower} />
                               
                               
-                          </td>
-                          <td className='flex justify-start mt-4 text-sm gap-2'>
-                              <BsArrowRightShort className='-ml-[165px] text-xl ' />
-                             <span className=' text-base -mt-[1px]'>5(very high)</span>  
+              </td>
+              <dt>
+ <BsArrowRightShort className='mt-[18px] text-xl ' />
+              </dt>
+                          <td className='absolute -mt-[24px] left-[50%] lg:left-[50%] text-lg'>
+                <span className='' >
+                     
+                             {
+                languageChange?translate.high.eng:translate.high.tg
+         }
+                </span>       
                               
                           </td>
                           <td className='mt-5'>
@@ -85,15 +96,20 @@ const SortCard = () => {
             </tr>
             <tr className=''>
                           <td className=''>
-                <FilterCheckBox atribute={`5(very high)`} checkUncheck={checkUncheckForFromHigher} tureFalse={ fromhigher} />
+                <FilterCheckBox atribute={
+                languageChange?translate.high.eng:translate.high.tg
+         } checkUncheck={checkUncheckForFromHigher} tureFalse={ fromhigher} />
                               
                               
                           </td>
-                          <td className='flex justify-start mt-4 text-sm gap-2 '>
-                              <BsArrowRightShort className='-ml-[165px] text-xl' />
-                             <span className='text-base -mt-[1px]'>1(very low)</span>  
+                          <dt>
+ <BsArrowRightShort className='mt-4  text-xl ' />
+              </dt>
+                             <td className='absolute -mt-[24px] left-[50%] lg:left-[50%] text-lg '>{
+                languageChange?translate.low.eng:translate.low.tg
+         }</td>  
                               
-                          </td>
+                         
                           <td className='mt-5'>
                              
                           </td>

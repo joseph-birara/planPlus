@@ -17,7 +17,7 @@ const FilterCheckBox = (props) => {
 
       </div>
           
-          <div className=' text-base'>
+          <div className=' text-lg ml-[2px]'>
               {props.atribute}
           </div> 
     </div>

@@ -24,7 +24,7 @@ function Register() {
   const [showAndHide, setshowAndHide] = useState(false);
   const [agrement, setagrement] = useState(false);
   const dispatch = useDispatch();
-  const { loading,RequestMessageForRegister} = useSelector(selectCurrentUsers);
+  const { loading,RequestMessageForRegister,userInfo} = useSelector(selectCurrentUsers);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -36,12 +36,15 @@ function Register() {
   const result = async () => {
     const resultAction = await dispatch(RegisterUser({ password, email }))
     const promiseResult = unwrapResult(resultAction)
-    if (promiseResult.email === email) {
-      navigate('/')
+    if (userInfo === email) {
+      navigate('/login')
     }
 
-    console.log(promiseResult.email)
- }
+    
+  }
+  if (userInfo === email) {
+      navigate('/')
+    }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {

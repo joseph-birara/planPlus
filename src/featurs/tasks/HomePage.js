@@ -81,7 +81,7 @@ function HomePage() {
         
 
        
-       dispatch(GetAllTasks({ userToken }))
+       //dispatch(GetAllTasks({ userToken }))
         //pushAndSubscribe({userToken:userToken})
       
             
@@ -134,44 +134,14 @@ function HomePage() {
     }
     
     return (
-      <div className=' mt-5 lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
-      <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-20 items-start'>
+      <div className=' m-0 mt-4  lg:ml-10 lg:mr-12 overflow-hidden'>
+      <div className='m-0 flex justify-between mr-12 sm:mr-5 lg:ml-[120px] lg:mr-20 items-start lg:mt-5'>
                 <div className='md:ml-10'>
-                    {showSearch?<form className='flex flex-row'>
-                        <div className='relative'>
-                            <input
-                 
-                  required
-                  value={search}
-                   type='search'
-                  name="email"
-                  id="email"
-                  placeholder={languageChange?translate.searchHere.eng:translate.searchHere.tg}
-                            className="inputBox mt-5 rounded-[42px] w-[250px] lg:w-[350px] h-[37px] ml-10 lg:ml-80 pl-11"
-                            onChange={(e)=>setsearch(e.target.value)}
-                  
-                            />
-                            <div className='absolute top-[3px]'>
-                            <SmallSearchIcon  />
-                        </div> 
-
-                        </div>
-                        <div
-                            onClick={() => {
-                                setsearch('')
-                                setshowSearch(false)
-                            }}
-                            className='text-[#F87474] mt-6 ml-2 text-xl lg:ml-5 hover:cursor-pointer'>
-                             {
-                    languageChange?translate.cancel.eng:translate.cancel.tg
-               }
-                        </div>
-                        
-                    </form>:''}
+                   
              {!showSearch?       
               <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>:''}
           </div>
-          <div className='flex  -mr-3 gap-3 m-10 lg:ml-28 sm:items-center lg:w-80 mt-8 '>
+          <div className='flex  -mr-3 gap-3 m-10 lg:ml-28 sm:items-center lg:w-80 mt-6 '>
              
                     {!showSearch?<div
                         
@@ -188,7 +158,7 @@ function HomePage() {
                         className=' iconbg'>
                 <SearchIcon/>
                     </div>:''}
-                    <div className='flex flex-col gap-1 -mb-10'>
+                    <div className='flex flex-col gap-1 -mb-[57px]'>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
                             className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
@@ -200,7 +170,7 @@ function HomePage() {
                         </div>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
+                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-[7px] pt-[14px]'>
                             <Link to='/account'  >
                                 <AccountIcon />
                             </Link>  
@@ -214,12 +184,47 @@ function HomePage() {
           </div>
           
             </div>
-            <div className='text-center text-3xl font-black -mt-12 ml-0'>
+             {showSearch ?
+                <form className='absolute top-[14px] left-[7%] md:left-[15%] lg:left-[20%] lg:top-[20px]'>
+                    <div className='flex '>
+ <div className='relative'>
+                            <input
+                 
+                  required
+                  value={search}
+                   type='search'
+                  name="email"
+                  id="email"
+                  placeholder={languageChange?translate.searchHere.eng:translate.searchHere.tg}
+                            className="inputBox mt-5 rounded-[42px] w-[250px] lg:w-[390px] h-[50px] ml-10 lg:ml-80 pl-11 "
+                            onChange={(e)=>setsearch(e.target.value)}
+                  
+                            />
+                            <div className='absolute top-[8px] '>
+                            <SmallSearchIcon  />
+                        </div> 
+
+                        </div>
+                        <div
+                            onClick={() => {
+                                setsearch('')
+                                setshowSearch(false)
+                            }}
+                            className='text-[#F87474] mt-6 ml-2 text-xl lg:ml-6 hover:cursor-pointer lg:text-2xl '>
+                             {
+                    languageChange?translate.cancel.eng:translate.cancel.tg
+               }
+                        </div>
+                    </div>
+                       
+                        
+                    </form>:''}
+            <div className='text-center text-3xl font-black  ml-0'>
                 {
                     languageChange?translate.yourTodo.eng:translate.yourTodo.tg
                }
             </div>
-            <div className='flex justify-center text-center content-center mt-4'>
+            <div className='flex justify-center text-center content-center mt-9'>
                 <div className='flex  flex-col m-12 mt-3 items-center gap-2 '>
                     
                     

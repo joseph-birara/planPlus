@@ -36,7 +36,7 @@ import DeleteAccount from './featurs/acconts/DeleteAccount';
 import SignOutPage from './featurs/acconts/SignOutPage';
 import Editask from './featurs/tasks/Editask';
 import EditSubTask from './featurs/subTasks/EditSubTask';
-import DropDown from './featurs/components/DropDown';
+
 
 
  
@@ -95,21 +95,21 @@ function App () {
           <Route path="/addtask" element={userToken?<AddTask />:<LogIn/>} />
           <Route path="/addsubtask" element={userToken ? <AddSubTask /> : <LogIn />} />
           <Route path='*' element={<PageNotFound />} />
-          <Route path='/viewtask' element={<ViewDetail />} />
-          <Route path='/filter' element={<FilterCard />} />
-          <Route path='/sort' element={<SortCard />} />
-          <Route path='/notify' element={<NotificationPage />} />
-          <Route path='/account' element={<Account />} />
-          <Route path='/theme' element={<Themes />} />
-          <Route path='/language' element={<LanguagePage />} />
-          <Route path='/policy' element={<PrivacyPolicyPage />} />
-          <Route path='/profile' element={<ProfilePage />} />
-          <Route path='/terms' element={<TermsOfUsePage />} />
-          <Route path='/deleteAccount' element={<DeleteAccount />} />
+          <Route path='/viewtask' element={userToken?<ViewDetail />:<LogIn/>} />
+          <Route path='/filter' element={userToken?<FilterCard />:<LogIn/>} />
+          <Route path='/sort' element={userToken?<SortCard />:<LogIn/>} />
+          <Route path='/notify' element={userToken?<NotificationPage />:<LogIn/>} />
+          <Route path='/account' element={userToken?<Account />:<LogIn/>} />
+          <Route path='/theme' element={userToken?<Themes />:<LogIn/>} />
+          <Route path='/language' element={userToken?<LanguagePage />:<LogIn/>} />
+          <Route path='/policy' element={userToken?<PrivacyPolicyPage />:<LogIn/>} />
+          <Route path='/profile' element={userToken?<ProfilePage />:<LogIn/>} />
+          <Route path='/terms' element={userToken?<TermsOfUsePage />:<LogIn/>} />
+          <Route path='/deleteAccount' element={userToken?<DeleteAccount />:<LogIn/>} />
           <Route path='/logout' element={<SignOutPage />} />
-          <Route path='/editTask' element={<Editask />} />
-          <Route path='/editSubtask' element={<EditSubTask />} />
-          <Route path='/drop' element={<DropDown />} />
+          <Route path='/editTask' element={userToken?<Editask />:<LogIn/>} />
+          <Route path='/editSubtask' element={userToken?<EditSubTask />:<LogIn/>} />
+          
           
           
 

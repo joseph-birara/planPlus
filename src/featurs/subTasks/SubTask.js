@@ -95,7 +95,7 @@ function SubTask(props) {
                             <div className='titelAndDescription'>
               <p className='text-start mr-1'>
                 
-                                    <span className='font-semibold text-xl'  >
+                                    <span className='font-semibold text-base lg:text-lg opacity-75'  >
                                           {
                     props.subTask.title 
                   }
@@ -133,7 +133,7 @@ function SubTask(props) {
                         </div>
                   <div className='duration mt-1 lg:mt-0'>
                             {
-                                props.subTask.duration
+                                 languageChange ? props.subTask.duration :translate.durationData.tg[ translate.durationData.eng.indexOf(props.subTask.duration)]
                       }
                         </div>
                     <div className='mt-1  text-xl'>

@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom'
 import note from '../../Assets/IconCollection/note.svg'
 import translate from '../../Assets/translationLanguga'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
+import Home from '../../Assets/AcountIcons/Home'
 
 
 
@@ -49,7 +50,7 @@ const Account = () => {
         confirm ? <ConfirmationMessage handleYes={handleYes} setWarning={setWarning} item={languageChange?translate.sureSignout.eng:translate.sureSignout.tg} pathProp={'login' } />:''
       }
       <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 '>
-                <div className='md:ml-10'>
+                <div className='mt-4 ml-0 lg:ml-10'>
                     
                    
               <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>
@@ -59,18 +60,18 @@ const Account = () => {
                     <div className='flex flex-col gap-1 mt-11'>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-            className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-1 w-[45px] h-[45px]'>
+            className='  iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
             <Link to='/'>
-              <img src={homeImage}  alt='home' className='text-white text-xl text-center -mt-1 px-2'/>
+             <Home/>
             </Link>
                         
                 
                         </div>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-            className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-1 text-sm w- w-[45px] h-[45px] '>
+            className='  iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-[7px] pt-[12px] '>
             <Link to='/notify'>
-              <img className='-mt-1 px-2' src={note} alt='note'/>
+              <NotificationIcone />
 
             </Link>
            
@@ -85,7 +86,7 @@ const Account = () => {
           </div>
           
           </div>
-         <div className='text-center text-2xl font-black -mt-12 -ml-32 lg:-ml-0'>
+         <div className='text-center text-2xl font-black -mt-12 -ml-80 md:-ml-0 lg:-ml-0'>
                {languageChange?translate.myaccount.eng:translate.myaccount.tg}
             </div>
             <div className='flex justify-center text-center content-center mt-4'>
@@ -103,7 +104,7 @@ const Account = () => {
             </div>
 
       </div>
-       <table className='text-center font-semibold -mt-12  text-xs flex flex-col justify-center'>
+       <table className='text-center font-semibold  text-xs flex flex-col justify-center'>
         
         <tr>
          
@@ -113,7 +114,7 @@ const Account = () => {
         </tr>
         <tr className='mt-2'>
          
- <span>
+ <span className='text-gray-800 ml-0 lg:-ml-2'>
 version 0.0.1
         </span>
           
@@ -121,8 +122,8 @@ version 0.0.1
         </tr>
        
         <span className='flex gap-2 mt-2'>
-          <img className='w-3 h-3 text-center ml-[39%] md:ml-[44%] lg:ml-[47%] ' src={copyRight} alt='copy' ></img>
-          <span className='-mt-[2px]'>2022 TooDoo</span>
+          <img className='text-gray-800 w-3 h-3 text-center ml-[39%] md:ml-[44%] lg:ml-[47%] ' src={copyRight} alt='copy' ></img>
+          <span className='-mt-[2px] text-gray-800'>2022 TooDoo</span>
           
         </span>
             </table>

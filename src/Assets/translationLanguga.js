@@ -95,7 +95,7 @@ const translate =
     },
     "saveTask": {
         "tg": "ዕማም መዝግብ",
-        "eng":"Save Task."
+        "eng":"Save Task"
     },
     "addSubtasks": {
         "tg": "ንኡስ ዕማም",
@@ -238,7 +238,7 @@ const translate =
         "eng":"Update task"
     },
     "updateSubask": {
-        "tg": "ንኡስ ዕማም አማሃይሽ",
+        "tg": "ዕማም አማሃይሽ",
         "eng":"Update subtask"
     },
     "viewdetail": {
@@ -250,7 +250,7 @@ const translate =
         "eng":"Apply"
     },
     "filter": {
-        "tg": "ኣተግብር",
+        "tg": "ምረፅ",
         "eng":"Filter"
     },
     "categories": {
@@ -354,15 +354,15 @@ const translate =
         "eng":"Are you sure you want sign out?"
     },
     "cancelTask": {
-        "tg": "ሰርዝ ዕማም",
+        "tg": "ሰርዝ",
         "eng":"cancel task"
     },
     "deleteTask": {
-        "tg": "ዕማም ደምስስ",
+        "tg": "ደምስስ",
         "eng":"delete task"
     },
     "editTask": {
-        "tg": "ዕማም ኣርትዕ",
+        "tg": "ኣርትዕ",
         "eng":"edit task"
     },
     "edit": {
@@ -379,7 +379,7 @@ const translate =
     },
     "leaveEmty": {
         "tg": "ምልክት ቃልካ ክትቅይር እንተዘይደሊኻ ነቲ ናይ ምልክት ቃል ቦታ ባዶ ግደፎ",
-        "eng":"Leave the password field empty if you don't want to change your passwo"
+        "eng":"Leave the password field empty if you don't want to change your password"
     },
     "genderData": {
         "tg": ["ተባ","ኣነ"],
@@ -407,7 +407,7 @@ const translate =
         "eng":"In progress"
         },
         "canceled": {
-        "tg":"ተሰሪዙ" ,
+        "tg":"ዝተሰረዙ" ,
         "eng":"Canceled"
         },
         "done": {
@@ -445,6 +445,22 @@ const translate =
     "404": {
         "tg":"404 ገጽ ኣይተረኽበን። ",
         "eng":"404 page not found" 
+    },
+    "noNotifications": {
+        "tg":"ዝኾነ መተሓሳሰቢ ኣይተረኽበን። ",
+        "eng":"no notification found" 
+    },
+    "sureCancelTask": {
+        "tg":"ነዚ ዕማም ክትስርዞ ከም እትደሊ ርግጸኛ ዲኻ? ",
+        "eng":"Are you sure you want cancel this task?" 
+    },
+    "sureSubtaskEditCancel": {
+        "tg":"ነቲ ለውጢ ክትድርብዮ ከም እትደሊ ርግጸኛ ዲኻ? ",
+        "eng":"Are you sure you want discard the changes?" 
+    },
+    "sureMaintaskEdit": {
+        "tg":"ነቲ ለውጢ ክትድርብዮ ከም እትደሊ ርግጸኛ ዲኻ? ",
+        "eng":"Are you sure you want discard the changes?" 
     },
     
 

@@ -52,7 +52,7 @@ const DeleteAccount = () => {
 
       </div>
        {
-        showWarning?<DeleteAccountConfirm setWarning ={setshowWarning} item ={'Are you sure you want to delet your account?'} handleYes={handleDelete}/>:''
+        showWarning?<DeleteAccountConfirm setWarning ={setshowWarning} item ={languageChange?translate.sureDeletAccount.eng:translate.sureDeletAccount.tg} handleYes={handleDelete}/>:''
       }
       <div className='text-start mt-5 w-[360px] ml-[30%] lg:ml-[40%] mb-10'>
         {languageChange?translate.pleasnot.eng:translate.pleasnot.tg}

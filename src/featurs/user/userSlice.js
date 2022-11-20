@@ -27,7 +27,8 @@ const initialState = {
     emailRejected: '',
     codeRejected: '',
     profileInfo: '',
-    deleting:''
+    deleting: '',
+    profileLoding:false,
 }
 
 const UserSlice = createSlice({
@@ -170,7 +171,7 @@ const UserSlice = createSlice({
             state.deleting="rejected"
         },
          [GetProfileInfo.pending]:(state)=>{
-            state.loading = true;
+            state.profileLoding = true;
              console.log("from get profile  slice loading");
     
         },
@@ -178,34 +179,34 @@ const UserSlice = createSlice({
             
             state.profileInfo=payload.data
             
-            state.loading = false;
+            state.profileLoding = false;
             
             console.log("from profile slice accepted,=",payload.data);
             
                 
         },
         [GetProfileInfo.rejected]:(state,{payload})=>{
-            state.loading = false            
+            state.profileLoding = false            
             console.log("from profile info rejected");
            
     
         },
         [UpdateProfile.pending]:(state)=>{
-            state.loading = true;
+            state.profileLoding = true;
              console.log("from get profile  slice loading");
     
         },
         [UpdateProfile.fulfilled]:(state,{payload})=>{           
             
             
-            state.loading = false;
+            state.profileLoding = false;
             
             console.log("from profile slice accepted");
             
                 
         },
         [UpdateProfile.rejected]:(state,{payload})=>{
-            state.loading = false            
+            state.profileLoding = false            
             console.log("from profile info rejected");
            
     

@@ -23,7 +23,7 @@
         @apply bg-[#F9F2ED] rounded-[15px] h-[50px] p-1 w-[50px] text-center pt-3 px-0 justify-center text-lg
     }
     .homeLogo{
-        @apply  m-8 ml-1 lg:ml-1 h-12 
+        @apply  m-7 ml-5 sm:ml-0 lg:ml-1 h-12 
     }
     .addTask{
         @apply text-white text-center bg-[#3AB0FF] rounded-full w-14 h-14 fixed mb-0 bottom-4 right-7 lg:right-36 lg:bottom-12 inline-flex items-center justify-center

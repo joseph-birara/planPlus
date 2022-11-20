@@ -3,22 +3,28 @@ import Moment from 'react-moment'
 import { Link, useLocation } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
-import { selectCurrentTasks } from '../tasks/TaskSlice';
+import {
+  selectCurrentTasks,
+  tempTaskPopulate,
+  tempTaskNull,
+} from '../tasks/TaskSlice';
 import translate from '../../Assets/translationLanguga';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 function ViewDetail() {
-  const {languageChange} = useSelector(selectCurrentTasks)
-    const location = useLocation() 
-    
-  const [detail, setdetail] = useState(location.state.detail)
+  const dispatch=useDispatch()
   
-    useEffect(() => {
-      
-      setdetail(location.state.detail)
-     
-      console.log(location.state.detail,"location insid");
-      console.log(detail,"real state");
-    }, [])
+  const {languageChange,tempTask} = useSelector(selectCurrentTasks)
+  const location = useLocation() 
+  console.log(location);
+  
+    
+  const [task, settask] = useState(location.state?location.state.detail:tempTask)
+  if (location.state) {
+    dispatch(tempTaskPopulate(location.state.detail))
+  }
+  
+    
+  
     
   return (
     
@@ -38,7 +44,7 @@ function ViewDetail() {
         <div className='text-[#F87474] mr-6'>
            
             <Link to='/editTask' state={{
-              detail: detail,
+              detail: task,
               url:'/viewtask'
             }}>
               {
@@ -52,14 +58,14 @@ function ViewDetail() {
 
       </div>
       
-     {detail?
+     {task?
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.title.eng:translate.title.tg }</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.taskTitle.eng:translate.taskTitle.tg }</label>
             <div className='bigInputBox'>            
               {
-detail.title
+task.title
               }
 
             </div>
@@ -75,7 +81,7 @@ detail.title
                           className="bigInputBox">
                           {
                                <Moment format={`${'h'}:mm${"hh">=12?'P':"A"},DD/MM/YYYY`} >
-                                    { detail.dateTime}
+                                    { task.dateTime}
                                     
 
                                 </Moment>
@@ -96,7 +102,7 @@ detail.title
         >
           
                               {
-                                  detail.duration
+                                 languageChange?task.duration:translate.durationData.tg[translate.durationData.eng.indexOf(task.duration)] 
           }
           
 
@@ -113,7 +119,7 @@ detail.title
               
           
                               {
-                                  detail.reminder
+                               languageChange?task.reminder:translate.reminderData.tg[translate.reminderData.eng.indexOf(task.reminder)]
          }
         </div>
             </div>
@@ -131,7 +137,7 @@ detail.title
               >
           
                               {
-                                  detail.category
+                                  languageChange?task.category:translate.categoryData.tg[translate.categoryData.eng.indexOf(task.category)]
           }
         </div>
 
@@ -146,7 +152,7 @@ detail.title
           
 
                               {
-                                  detail.priority
+                                 languageChange?translate.priorityData.eng[task.priority-1]:translate.priorityData.tg[task.priority-1]
           }
         </div>
         
@@ -163,15 +169,15 @@ detail.title
           
         
                           {
-                              detail.note
+                             task.note
         }
 
           </div>
            </div>
                   {
-                      detail.subTask && detail.subTask.length>0?<div>
+                     task.subTask && task.subTask.length>0?<div>
                           <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.subtasks.eng:translate.subtasks.tg }</label>
-                          {detail.subTask.map((sub,index) =><SubTaskInsideAddTask subTask={sub } index={index+1} />)
+                          {task.subTask.map((sub,index) =><SubTaskInsideAddTask subTask={sub } index={index+1} />)
                           }
           </div>:''
          }

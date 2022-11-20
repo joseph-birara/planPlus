@@ -89,7 +89,7 @@ const {languageChange} = useSelector(selectCurrentTasks)
                         className='doneUndone'>
                         {props.task.status==='Done'?
                             <div
-                                className='absolute ml-3 mt-2'>
+                                className='absolute ml-[14px] mt-3 lg:ml-[16px]lg:mt-[16px]'>
                             <DoneUndone/>
                             </div>:''
                         }
@@ -115,7 +115,7 @@ const {languageChange} = useSelector(selectCurrentTasks)
                         </div> 
                         <div
                             
-                            className='taskBody'>
+                            className='taskBody pt-3'>
                             <Link to='/viewtask' state={{
                                 detail:props.task
                             }}>
@@ -162,8 +162,8 @@ const {languageChange} = useSelector(selectCurrentTasks)
         </div>
 
                 
-              <div className='starTime text-center  ml-9 lg:ml-14 -mt-11'>
-                        <div className='star text-sm lg:text-lg'>
+              <div className={`starTime text-center  ml-9 lg:ml-14 -mt-11 ${props.task.subTask && props.task.subTask.length>0?'':'-mb-0 lg:-mb-[6px]'}`}>
+                        <div className='star text-xs md:text-base lg:text-lg'>
                             {
                                 stars.map((item, index) => 
                                     props.task.priority>index?<AiFillStar key={index}/>:<AiOutlineStar key={index}/>
@@ -177,7 +177,8 @@ const {languageChange} = useSelector(selectCurrentTasks)
                         </div>
                   <div className='duration text-base'>
                             {
-                                props.task.duration
+                            languageChange ? props.task.duration :translate.durationData.tg[ translate.durationData.eng.indexOf(props.task.duration)]
+                            
                       }
                         </div>
                         <div className='mt-[2px] text-xl'>
@@ -203,7 +204,7 @@ const {languageChange} = useSelector(selectCurrentTasks)
                         </div>
                   <div className='category  text-center mb-2 text-sm lg:text-base'>
                             {
-                                props.task.category
+                                 languageChange ? props.task.category :translate.categoryData.tg[ translate.categoryData.eng.indexOf(props.task.category)]
                       }
                   </div>
               </div>

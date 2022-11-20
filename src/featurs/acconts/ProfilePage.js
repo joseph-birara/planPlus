@@ -15,13 +15,18 @@ import moment from 'moment/moment.js'
 import translate from '../../Assets/translationLanguga'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
 import DropDown from '../components/DropDown'
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
 
 const ProfilePage = () => {
   const {languageChange} = useSelector(selectCurrentTasks)
   const dispatch = useDispatch()
   const [editName, seteditName] = useState(false)
   const [editPhone, seteditPhone] = useState(false)
-  const {userToken,profileInfo} = useSelector(selectCurrentUsers)
+  const { userToken, profileInfo } = useSelector(selectCurrentUsers)
+  const [reminderSwitch,setReminderSwich] = useState(false)
+  const swichTataRemider = () => {
+    setReminderSwich(!reminderSwitch)
+  }
   useEffect(() => {
    dispatch(GetProfileInfo({userToken}))
 
@@ -79,29 +84,30 @@ const ProfilePage = () => {
   }
   
   const gender_duration_Updater = (someValue) => {
-    setstate({...state,dender:someValue})
+    setstate({...state,gender:someValue})
   }
-  const { tata, setTata } = useState(false)
+  const { genderTata, setGenderTata } = useState(false)
   const setTataFunc = () => {
-    setTata(!tata)
+    setGenderTata(!genderTata)
   }
+  const {profileLoding} = useSelector(selectCurrentUsers)
   return (
-      <div className='  '>
+      <div className=' '>
           <div className='flex flex-col items-center text-xl font-black'>
-        <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
+        <div className='bg-[#F9F2ED] flex  w-full h-12 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
     <Link to='/account'><LeftArraw /> 
     </Link>
         </div> 
-        <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
+        <div className='text-center text-xl  justify-center mt-2 mr-6 lg:mr-10'>
             {
               languageChange?translate.profile.eng:translate.profile.tg
          }
         </div>
           <div
             onClick={submitHandler}
-            className='text-[#3AB0FF] mr-6 text-lg hover:cursor-pointer'>
+            className='text-[#3AB0FF] mr-6 text-xl hover:cursor-pointer'>
          { languageChange?translate.save.eng:translate.save.tg}
 
         </div>
@@ -109,15 +115,15 @@ const ProfilePage = () => {
     </div>
 
           </div> 
-          <div className='text-2xl font-black   flex flex-col justify-center ml-[41%] lg:ml-[47%]'>
-              <div className='bg-[#F9F2ED] w-[65px] h-[70px] rounded-xl mt-5 text-center '>
-                  <img className={` ${state.img?'w-full h-full rounded-xl':'mt-2'} `} src={state.img?state.img:accountIcon} alt='log'/>
+          <div className='text-2xl font-black   flex flex-col justify-center ml-[38%] lg:ml-[46%]'>
+              <div className={`bg-[#F9F2ED] w-[110px] h-[110px] rounded-3xl mt-5 text-center ${!state.img?'rounded-3xl':''}`}>
+                  <img className={` ${state.img?'w-full h-full rounded-xl':'mt-6 ml-[12px] rounded-[30px]'} `} src={state.img?state.img:accountIcon} alt='log'/>
              </div>
                   
-               <label className='bg-[#3AB0FF] w-[80px] h-7 rounded-[4px] text-sm flex text-white gap-2 text-center p-1 items-center mt-4 -ml-2' htmlFor="upload-photo"><AiOutlineUpload className='text-white text-lg'/>  { languageChange?translate.upload.eng:translate.upload.tg}
+               <label className='bg-[#3AB0FF] w-[110px] h-9 rounded-[6px] text-lg flex text-white gap-2 text-center p-1 items-center mt-4 -ml-[1px] lg:-ml-0' htmlFor="upload-photo"><AiOutlineUpload className='text-white text-2xl -mt-1'/>  { languageChange?translate.upload.eng:translate.upload.tg}
  </label>
         <input
-          filename={image} 
+          filename={image}  
           onChange={e => setImage(e.target.files[0])} 
           type="file" 
           accept="image/*"
@@ -137,9 +143,9 @@ const ProfilePage = () => {
                   type='text'
                   name="fullName"
                   id="fullName"
-                  placeholder=  { languageChange?translate.fullName.eng:translate.fullName.tg}
+                  placeholder=  { languageChange?translate.name.eng:translate.name.tg}
 
-                          className="inputBox"
+                          className="inputBox w-80 h-10 rounde-[10px]"
                           
             
             
@@ -161,7 +167,7 @@ const ProfilePage = () => {
                   id="phoneNumber"
                   placeholder=  { languageChange?translate.phone.eng:translate.phone.tg}
 
-                          className="inputBox"
+                          className="inputBox w-80 h-10 rounde-[10px]"
                           
             
             
@@ -183,24 +189,25 @@ const ProfilePage = () => {
                           id="email"
                           disabled
                   placeholder="email"
-            className="inputBox bg-[#C9B6A9] bg-opacity-50"
+            className="inputBox bg-[#C9B6A9] bg-opacity-50 w-80 h-10 rounde-[10px]"
             
             
           />
           
          </div>
                   <div className='flex justify-between gap-5 '>
-            <div>
+            <div className=''>
              
               <DropDown
           
          
                 place={ languageChange?translate.gender.eng:translate.gender.tg}
-                swichTata={ setTataFunc}
-                tata={tata}
+                swichTata={swichTataRemider}
+                tata={reminderSwitch}
                 realValue={state.gender}
                 setValuesOfSelect={gender_duration_Updater}
-                data={languageChange?translate.genderData.eng:translate.genderData.tg}
+                data={languageChange ? translate.genderData.eng : translate.genderData.tg}
+                
                
         />
           
@@ -215,7 +222,7 @@ const ProfilePage = () => {
                 value={state.DoB ? state.DoB:"DoB"}
                 type='Date'
               onChange={handleChange}
-              className='bigInputBox w-[120px] lg:w-[136px] pl-2'
+              className='bigInputBox w-[150px] lg:w-[150px] pl- h-10 rounded-[10px]'
                 placeholder='DoB'
               >
                 
@@ -240,7 +247,7 @@ const ProfilePage = () => {
                   id="password"
                   placeholder=  { languageChange?translate.password.eng:translate.password.tg}
 
-                 className="inputBox"
+                 className="inputBox w-80 h-10 rounde-[10px]"
             
             
           />
@@ -261,7 +268,7 @@ const ProfilePage = () => {
                   id="password"
                   placeholder=  { languageChange?translate.cpassword.eng:translate.cpassword.tg}
 
-            className="inputBox"
+            className="inputBox w-80 h-10 rounde-[10px]"
             
             
           />
@@ -271,12 +278,15 @@ const ProfilePage = () => {
           }>
 
                       </div></div>
-                  <div className='text-xs ml-4 lg:ml-2'>
+                  <div className='text-xs w-80 ml-[2px] '>
                      { languageChange?translate.leaveEmty.eng:translate.leaveEmty.tg}
                   </div>
                   
               </form>
-          </div>
+      </div>
+      {
+        profileLoding?<div className='mt-10 z-50'><LoadingSpiner/></div>:''
+      }
     </div>
   )
 }

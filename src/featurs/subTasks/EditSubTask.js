@@ -8,9 +8,10 @@ import { GetAllTasks, UpdateSubTaskData } from '../tasks/TaskActions'
 import { selectCurrentTasks } from '../tasks/TaskSlice'
 import { selectCurrentUsers } from '../user/userSlice'
 import translate from '../../Assets/translationLanguga';
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
 
 function EditSubTask() {
-  const {languageChange} = useSelector(selectCurrentTasks)
+  const {languageChange,creatingTaskLoading} = useSelector(selectCurrentTasks)
   const location = useLocation()
   const [task, settask] = useState(location.state.detail)
     const dispatch = useDispatch()
@@ -18,17 +19,17 @@ function EditSubTask() {
   const {subTaskEdited} =useSelector(selectCurrentTasks)
   const [showWarning,setshowWarning]=useState(false)
   const userref = useRef();
-  const [falseInput,setfalseInput]=useState('')
+  const [falseInput,setfalseInput]=useState(false)
     
     const [state, setState] = useState({
         
-        duration:task.duration,
-        priority:task.priority,
+        duration:languageChange?task.duration:translate.durationData.tg[translate.durationData.eng.indexOf(task.duration)] ,
+        priority:languageChange?translate.priorityData.eng[task.priority-1]:translate.priorityData.tg[task.priority-1],
        dateTime: new Date(new Date(task.dateTime).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19),
       status: task.status,
       note:task.note,
       title: task.title,
-      reminder:task.reminder
+      reminder:languageChange?task.reminder:translate.reminderData.tg[translate.reminderData.eng.indexOf(task.reminder)] ,
         
         
         
@@ -51,26 +52,46 @@ function EditSubTask() {
     setswichersFortaskEdit({...swichersFortaskEdit,taskReminder:!swichersFortaskEdit.taskReminder})
   }
   const state_duration_Updater=(someValue) => {
-                 setState({...state,duration:someValue})
+    setState({ ...state, duration: someValue })
+    setfalseInput(true)
+
+    
   }
   const state_priority_Updater=(someValue) => {
-                 setState({...state,priority:someValue})
+    setState({ ...state, priority: someValue })
+    setfalseInput(true)
   }
   
   const state_reminder_Updater=(someValue) => {
-                 setState({...state,reminder:someValue})
+    setState({ ...state, reminder: someValue })
+    setfalseInput(true)
                 }
   
 
   const { title, note, dateTime, duration, priority, reminder,status } = state
   const handleChange = (e) => {
-    setState({...state,[e.target.name]:e.target.value})
+    setState({ ...state, [e.target.name]: e.target.value })
+    setfalseInput(true)
   }
   const handleSubmit = async() => {
-    await dispatch(UpdateSubTaskData({  _id: task._id, title, note, dateTime, duration,  priority:priority[0], reminder, status, userToken } )) 
+    await dispatch(UpdateSubTaskData(
+      {
+        _id: task._id,
+        title, note,
+        dateTime,
+        duration: duration ?!languageChange?translate.durationData.eng[ translate.durationData.tg.indexOf(duration)]:duration : "30 mins",
+        priority: priority ? !languageChange?translate.priorityData.eng[ translate.priorityData.tg.indexOf(priority)][0]:priority[0] : 1,
+        reminder:reminder ?!languageChange?translate.reminderData.eng[ translate.reminderData.tg.indexOf(reminder)]: reminder : '30 mins',
+        status,
+        userToken
+      })) 
     .then(()=>dispatch(GetAllTasks({ userToken })))
       
   }
+  console.log(state,"state");
+  console.log(task, "task");
+  
+
   /// for confirmation
   const handleSubYes = () => {
     //
@@ -102,12 +123,15 @@ function EditSubTask() {
   useEffect(() => {
         userref.current.focus();
   }, [])
-  const setWarning =()=>setshowWarning(!showWarning)
+  const setWarning = () => setshowWarning(!showWarning)
+  if (creatingTaskLoading) {
+    return(< LoadingSpiner/>)
+  }
    if(task._id) 
   {return (
     <div className=''>
       {
-        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={'Are you sure you want to cancel this subtask?'} handleYes={handleSubYes} pathProp={''} />:''
+        showWarning?<ConfirmationMessage setWarning ={setWarning} item ={languageChange?translate.sureMaintaskEdit.eng:translate.sureMaintaskEdit.tg} handleYes={handleSubYes} pathProp={''} />:''
       }
       <div className='flex flex-col items-center text-xl font-black'>
         <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
@@ -123,7 +147,7 @@ function EditSubTask() {
         </div>
           <div
             onClick={()=>setshowWarning(!showWarning)}
-            className='text-[#F87474] mr-6'>
+            className='text-[#F87474] mr-6 hover:cursor-pointer'>
          {
                     languageChange?translate.cancel.eng:translate.cancel.tg
                }
@@ -272,9 +296,9 @@ function EditSubTask() {
           
                   // onClick={this.onSubmitSignin}
                   
-                   disabled = {falseInput || !state.dateTime  || !state.duration || !state.priority || !state.reminder || !state.title}
+                   disabled = {!falseInput || !state.dateTime  || !state.title}
                  onClick={handleSubmit}
-                  type="button" className=" btn">
+                  type="button" className=" btn w-40 h-11">
                { languageChange?translate.updateSubask.eng:translate.updateSubask.tg}</button>
         </span>
        
@@ -289,11 +313,11 @@ function EditSubTask() {
         </div>:''
       } */}
        
-        {
+        {/* {
         falseInput ? <div className='errorMessag'>
          { falseInput}
         </div>:''
-      }
+      } */}
       
     </div>
   )}

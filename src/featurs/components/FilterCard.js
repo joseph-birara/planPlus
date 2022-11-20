@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import FilterCheckBox from './FilterCheckBox'
@@ -59,9 +59,48 @@ function FilterCard() {
     
    }
   
-  const filterSender = (xyz) => {
-  setendResult(xyz)
-  }
+  useEffect(() => {
+    if (all) {
+      setendResult("")
+    }
+    if (Family) {
+      setendResult("Family")
+    }
+    if (Education) {
+      setendResult("Education")
+    }
+    if (Shopping) {
+      setendResult("Shopping")
+    }
+    if (Work) {
+      setendResult("Work")
+    }
+    
+  }, [all, Family, Education, Shopping, Work])
+  useEffect(() => {
+    if (allStatuses) {
+      setEndStatus("")
+    }
+    if (done) {
+      setEndStatus("Done")
+    }
+    if (upcoming) {
+      setEndStatus("Upcoming")
+    }
+    if (inProgress) {
+      setEndStatus("In progress")
+    }
+    if (overdue) {
+      setEndStatus("Overdue")
+    }
+    if (canceled) {
+      setEndStatus("Canceled")
+    }
+  
+    
+  }, [canceled,done,inProgress,upcoming,allStatuses,overdue])
+  
+  
   
   
 
@@ -111,7 +150,7 @@ function FilterCard() {
             <tr>
               <td
                 onClick={() => {
-                  filterSender("")
+                  
                   checkUncheckForAll()
                 }}>
                 <FilterCheckBox
@@ -123,8 +162,12 @@ function FilterCard() {
               <td
                 onClick={() => {
                   
-                  filterSender("Education")
+                  
                   seteducation(!Education)
+                  setshoping(false)
+                  setall(false)
+                  setfamily(false)
+                  setwork(false)
                 }}
               >
                 <FilterCheckBox
@@ -137,8 +180,13 @@ function FilterCard() {
             <tr>
               <td
                 onClick={() => {
-                  filterSender("Work")
+                  
                   setwork(!Work)
+                  seteducation(false)
+                  setshoping(false)
+                  setall(false)
+                  setfamily(false)
+                  
                 }}
               >
                 <FilterCheckBox
@@ -149,8 +197,13 @@ function FilterCard() {
               </td>
               <td
                 onClick={() => {
-                  filterSender("Shopping")
+                  
                   setshoping(!Shopping)
+                  seteducation(false)
+                 
+                  setall(false)
+                  setfamily(false)
+                  setwork(false)
                 }}
               >
                 <FilterCheckBox
@@ -163,8 +216,12 @@ function FilterCard() {
             <tr>
               <td
                 onClick={() => {
-                  filterSender("Family")
+                  
                   setfamily(!Family)
+                  seteducation(false)
+                  setshoping(false)
+                  setall(false)                  
+                  setwork(false)
                 }}
               >
                 <FilterCheckBox
@@ -238,6 +295,11 @@ function FilterCard() {
                 onClick={() => {
                   setEndStatus("")
                   setAllStatuses(!allStatuses)
+                  setOverdue(false)
+                  setDone(false)
+                  setCanceld(false)
+                  setUpcoming(false)
+                  setInProgress(false)
                 }}
               >
                 <FilterCheckBox
@@ -250,8 +312,14 @@ function FilterCard() {
               </td>
               <td
                 onClick={() => {
-                  setEndStatus("Overdue")
+                 
                   setOverdue(!overdue)
+                  setAllStatuses(false)
+                  
+                  setDone(false)
+                  setCanceld(false)
+                  setUpcoming(false)
+                  setInProgress(false)
                 }}
               >
                 <FilterCheckBox
@@ -264,8 +332,15 @@ function FilterCard() {
             <tr>
               <td
                 onClick={() => {
-                  setEndStatus("Upcoming")
+                  
                   setUpcoming(!upcoming)
+                  setOverdue(false)
+                  setAllStatuses(false)
+                  
+                  setDone(false)
+                  setCanceld(false)
+                  
+                  setInProgress(false)
                 }}
               >
                 <FilterCheckBox
@@ -276,12 +351,19 @@ function FilterCard() {
               </td>
               <td
                 onClick={() => {
-                  setEndStatus("Canceled")
+                  
                   setCanceld(!canceled)
+                  setOverdue(false)
+                  setAllStatuses(false)
+                  
+                  setDone(false)
+                  
+                  setUpcoming(false)
+                  setInProgress(false)
                 }}
               ><FilterCheckBox
                 atribute={
-                    languageChange?translate.cancel.eng:translate.cancel.tg
+                    languageChange?translate.statusData.canceled.eng:translate.statusData.canceled.tg
                }
                   checkUncheck={checkUncheck}
                    tureFalse={canceled}
@@ -291,8 +373,15 @@ function FilterCard() {
             <tr>
               <td
                 onClick={() => {
-                  setEndStatus("In progress")
+                 
                   setInProgress(!inProgress)
+                  setOverdue(false)
+                  setAllStatuses(false)
+                  
+                  setDone(false)
+                  setCanceld(false)
+                  setUpcoming(false)
+                  
                 }}
               >
                 <FilterCheckBox
@@ -303,8 +392,14 @@ function FilterCard() {
               </td>
               <td
                 onClick={() => {
-                  setEndStatus("Done")
+                  
                   setDone(!done)
+                  setOverdue(false)
+                  setAllStatuses(false)                 
+                 
+                  setCanceld(false)
+                  setUpcoming(false)
+                  setInProgress(false)
                 }}
               >
                 <FilterCheckBox

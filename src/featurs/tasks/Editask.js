@@ -9,11 +9,13 @@ import SubTaskInsideAddTask from '../subTasks/SubTaskInsideAddTask'
 import DropDown from '../components/DropDown'
 
 import translate from '../../Assets/translationLanguga';
+import ConfirmationMessage from '../components/ConfirmationMessage'
+import LoadingSpiner from '../../Assets/IconCollection/LoadingSpiner'
 
 
 
 function Editask() { 
-  const {languageChange} = useSelector(selectCurrentTasks)
+  const {languageChange,creatingTaskLoading} = useSelector(selectCurrentTasks)
   const location = useLocation()
   const [task, settask] = useState(location.state.detail)
   
@@ -31,14 +33,14 @@ function Editask() {
     
     
     const [state, setState] = useState({
-        category: task.category,
-        duration:task.duration,
-        priority:task.priority,
+        category:languageChange?task.category:translate.categoryData.tg[translate.categoryData.eng.indexOf(task.category)],
+        duration:languageChange?task.duration:translate.durationData.tg[translate.durationData.eng.indexOf(task.duration)] ,
+        priority:languageChange?translate.priorityData.eng[task.priority-1]:translate.priorityData.tg[task.priority-1],
        dateTime: new Date(new Date(task.dateTime).getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19)  ,                           
       status: task.status,
       note:task.note,
       title: task.title,
-      reminder:task.reminder
+      reminder:languageChange?task.reminder:translate.reminderData.tg[translate.reminderData.eng.indexOf(task.reminder)]
         
         
         
@@ -129,7 +131,18 @@ function Editask() {
     
   }
   const handleSubmit = async() => {
-    await dispatch(UpdateData({ _id: task._id, title, note, dateTime, duration, category, priority:priority[0], reminder, status, userToken }))
+    await dispatch(UpdateData(
+      {
+        _id: task._id,
+        title, note,
+        dateTime,
+        duration:duration?!languageChange?translate.durationData.eng[ translate.durationData.tg.indexOf(duration)]:duration : "30 mins",
+        category:category?!languageChange?translate.categoryData.eng[ translate.categoryData.tg.indexOf(category)]:category : 'Others',
+        priority:priority ? !languageChange?translate.priorityData.eng[ translate.priorityData.tg.indexOf(priority)][0]:priority[0] : 1,
+        reminder: reminder ?!languageChange?translate.reminderData.eng[ translate.reminderData.tg.indexOf(reminder)]: reminder : '30 mins',
+        status,
+        userToken
+      }))
       .then(() => {
         dispatch(GetAllTasks({ userToken }))
         modify()
@@ -139,16 +152,36 @@ function Editask() {
       console.log(task._id);
       
   }
+  //warning handlers
+  const [showWarning, setshowWarning] = useState(false)
+  
+  const setWarning = () => setshowWarning(!showWarning)
+  const handleTaskYes = () => {
+    setshowWarning(!showWarning)
     
+  }
+  console.log(location.state.detail, "from edit");
+   if (creatingTaskLoading) {
+    return(< LoadingSpiner/>)
+  }
    if(task._id) 
   {return (
     
-    <div className=''>
+     <div className=''>
+       {
+         showWarning ?
+           <ConfirmationMessage
+             setWarning={setWarning}
+             item={languageChange ? translate.sureMaintaskEdit.eng : translate.sureMaintaskEdit.tg}
+             handleYes={handleTaskYes}
+             data={location.state.detail}
+             pathProp={location.state.url.slice(1)} /> : ''
+      }
       <div className='flex flex-col items-center text-xl font-black'>
         <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
           
-    <Link to='/'><LeftArraw /> 
+    <Link to={location.state.url}><LeftArraw /> 
     </Link>
         </div> 
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
@@ -156,12 +189,14 @@ function Editask() {
                languageChange?translate.updateTask.eng:translate.updateTask.tg
          }
         </div>
-           <div className='text-[#F87474] mr-6'>
-             <Link to={location.state.url}>
+           <div
+             onClick={()=>setWarning()}
+             className='text-[#F87474] mr-6 hover:cursor-pointer'>
+            
                 {
                     languageChange?translate.cancel.eng:translate.cancel.tg
                }
-             </Link>
+            
          
 
         </div>
@@ -176,7 +211,7 @@ function Editask() {
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
           <div>
-            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.title.eng:translate.title.tg }</label>
+            <label className='flex items-start text-start  font-bold mb-1' >{ languageChange?translate.taskTitle.eng:translate.taskTitle.tg }</label>
             <div className='relative'>
               <input
                  maxLength={32}
@@ -312,7 +347,7 @@ function Editask() {
 
           </div>
            </div>
-           {task.subTask ?<div>
+           {task.subTask &&task.subTask.length>0?<div>
             <label className='flex items-start text-start  font-bold mb-1' >{languageChange?translate.subtasks.eng:translate.subtasks.tg }</label>
             {task.subTask.map((sub,index)=><SubTaskInsideAddTask subTask={sub } index={index+1} />)}
           </div>:''}
@@ -332,9 +367,9 @@ function Editask() {
           
                   // onClick={this.onSubmitSignin}
                   
-                   disabled = {nochange}
+                   disabled = {nochange || !state.title ||!state.dateTime}
                  onClick={handleSubmit}
-                  type="button" className=" btn">
+                  type="button" className=" btn w-36 h-11">
                   {languageChange?translate.updateTask.eng:translate.updateTask.tg }</button>
              </Link>
         
@@ -351,11 +386,11 @@ function Editask() {
         </div>:''
       } */}
        
-        {
+        {/* {
         falseInput ? <div className='errorMessag'>
          { falseInput}
         </div>:''
-      }
+      } */}
       
     
     </div>

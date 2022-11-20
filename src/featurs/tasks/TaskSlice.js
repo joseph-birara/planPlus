@@ -28,6 +28,10 @@ const initialState = {
     subTaskEdited: '',
     notifications: '',
     languageChange: true,
+    profileLoding: false,
+    tempTask: '',
+    taskDraft: '',
+    creatingTaskLoading:false,
     
     
     
@@ -56,9 +60,29 @@ const TasksSlice = createSlice({
 
             // }
         },
-        languageChangeFunction: (state) => {
-            state.languageChange = !state.languageChange
-            console.log("being called");
+        languageChangeToEnglish: (state) => {
+            state.languageChange = true
+            
+        },
+         languageChangeToTigrigna: (state) => {
+            state.languageChange = false
+            
+         },
+         taskDraftPopulate: (state,data) => {
+            state.taskDraft = data
+            
+        },
+         taskDraftNull: (state) => {
+            state.taskDraft = ''
+            
+        },
+         tempTaskPopulate: (state,data) => {
+            state.tempTask = data.payload
+            
+         },
+          tempTaskNull: (state,data) => {
+            state.tempTask = ''
+            
         }
 
 
@@ -140,23 +164,21 @@ const TasksSlice = createSlice({
     
         },
         [CreateTask.pending]:(state)=>{
-            state.loading = true;
-            state.taskeCreated=''
+            
+            state.taskeCreated = ''
+            state.creatingTaskLoading=true
     
         },
         [CreateTask.fulfilled]:(state,{payload})=>{
             state.tasks = payload;
             state.taskeCreated="task crated successfully"
-            state.loading = false;
-            state.success = true;
-            console.log("from tasks slice");
-            console.log(payload)
+            state.creatingTaskLoading=false
+            
             
         },
         [CreateTask.rejected]:(state,{payload})=>{
-            state.loading = false;
-            state.error = payload;
-            console.log(payload);
+           state.creatingTaskLoading=false
+            
             state.taskeCreated="adding task rejected try agin"
     
         },
@@ -210,7 +232,7 @@ const TasksSlice = createSlice({
         },
         //UpdateData  of a task by id to get information to be edited
         [UpdateData.pending]:(state)=>{
-            state.loading = true;
+             state.creatingTaskLoading=true
             console.log("UpdateData loading from tasks slice loading");
             state.taskEdited=''
     
@@ -218,20 +240,14 @@ const TasksSlice = createSlice({
         [UpdateData.fulfilled]:(state,{payload})=>{
             
             
+            state.creatingTaskLoading=false
             
-            state.loading = false;
-            state.success = true;
-            console.log("UpdateData from tasks slice accepted");
-            console.log(payload.data)
             state.taskEdited="task edited successfully"
             
                 
         },
         [UpdateData.rejected]:(state,{payload})=>{
-            state.loading = false;
-            state.error = payload;
-            console.log("UpdateData from tasks slice rejected");
-            console.log(payload);
+             state.creatingTaskLoading=false            
             state.taskEdited="task editing rejected"
     
         },
@@ -319,5 +335,18 @@ const TasksSlice = createSlice({
 
 
 export const selectCurrentTasks = state => state.Task
-export const {empity,taskEditMessage,subTaskEditMessage,subTaskcreateMessage,sortingBypriority,languageChangeFunction} =TasksSlice.actions
+export const {
+    empity,
+    taskEditMessage,
+    subTaskEditMessage,
+    subTaskcreateMessage,
+    sortingBypriority,
+    languageChangeToTigrigna,
+    languageChangeToEnglish,
+    taskDraftNull,
+    taskDraftPopulate,
+    tempTaskPopulate,
+    tempTaskNull,
+
+} = TasksSlice.actions
 export default TasksSlice.reducer

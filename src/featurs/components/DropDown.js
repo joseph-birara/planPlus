@@ -15,10 +15,10 @@ const DropDown = (props) => {
                 //swichs the dropwon up and down
                 //tata is just true false value to swich 
                 onClick={()=>props.swichTata()}
-                className={`w-[150px] h-10 bg-[#F9F2ED] rounded-lg  p-2 ${props.tata ? 'rounded-b-none border-b-[1px] border-[#8f8686]' : ''}`}>
+                className={`w-[150px] ${props.h !==undefined?`h-${props.h}`:'h-10 p-4'} h-10 bg-[#F9F2ED] rounded-lg  p-2 ${props.tata ? 'rounded-b-none border-b-[1px] border-[#8f8686]' : ''}`}>
                 <span
                     //place holder and real value
-                    className={`${props.realValue ? 'text-base opacity-100' : 'text-sm opacity-70'}`}>
+                    className={`${props.realValue ? 'text-base opacity-100' : 'text-sm text-gray-600'}`}>
                     {props.realValue?props.realValue:props.place}
                     
                 </span>
