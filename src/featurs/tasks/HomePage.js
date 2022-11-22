@@ -81,7 +81,7 @@ function HomePage() {
         
 
        
-       //dispatch(GetAllTasks({ userToken }))
+       dispatch(GetAllTasks({ userToken }))
         //pushAndSubscribe({userToken:userToken})
       
             
@@ -134,14 +134,14 @@ function HomePage() {
     }
     
     return (
-      <div className=' m-0 mt-4  lg:ml-10 lg:mr-12 overflow-hidden'>
-      <div className='m-0 flex justify-between mr-12 sm:mr-5 lg:ml-[120px] lg:mr-20 items-start lg:mt-5'>
-                <div className='md:ml-10'>
+      <div className=' w-screen  mt-4 overflow-x-hidden h-screen'>
+      <div className='m-0 flex justify-between mr-2 md:mr-12 lg:ml-[120px] lg:mr-20 items-start lg:mt-5'>
+                <div className='-ml-3 md:ml-4 lg:ml-10'>
                    
              {!showSearch?       
               <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>:''}
           </div>
-          <div className='flex  -mr-3 gap-3 m-10 lg:ml-28 sm:items-center lg:w-80 mt-6 '>
+          <div className='flex gap-3 m-10  sm:items-center lg:w-80 mt-6 '>
              
                     {!showSearch?<div
                         
@@ -158,10 +158,10 @@ function HomePage() {
                         className=' iconbg'>
                 <SearchIcon/>
                     </div>:''}
-                    <div className='flex flex-col gap-1 -mb-[57px]'>
+                    <div className={`flex flex-col gap-1 -mb-[57px] ${showSearch?'ml-[135px] md:ml-[150px lg:ml-[150px]':''} `}>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-                            className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-2'>
+                            className=' iconbg bg-[#F87474] ml-4 lg:ml-14 text-center md:ml-8 px-[5px]  md:px-2 lg:px-2'>
                             <Link to='/notify'>
                                  <NotificationIcone />
                             </Link>
@@ -170,7 +170,7 @@ function HomePage() {
                         </div>
                         <div
                         // onClick={() => setlogedIn(!logedIn)}
-                        className=' iconbg bg-[#F87474] sm:ml-4 lg:ml-14 text-center md:ml-8 px-[7px] pt-[14px]'>
+                        className=' iconbg bg-[#F87474] ml-4 lg:ml-14 text-center md:ml-8 px-[4px] pt-[13px] md:px-[7px]'>
                             <Link to='/account'  >
                                 <AccountIcon />
                             </Link>  
@@ -185,7 +185,7 @@ function HomePage() {
           
             </div>
              {showSearch ?
-                <form className='absolute top-[14px] left-[7%] md:left-[15%] lg:left-[20%] lg:top-[20px]'>
+                <form className='absolute top-[14px] left-[0%] md:left-[15%] lg:left-[20%] lg:top-[20px]'>
                     <div className='flex '>
  <div className='relative'>
                             <input
@@ -196,11 +196,11 @@ function HomePage() {
                   name="email"
                   id="email"
                   placeholder={languageChange?translate.searchHere.eng:translate.searchHere.tg}
-                            className="inputBox mt-5 rounded-[42px] w-[250px] lg:w-[390px] h-[50px] ml-10 lg:ml-80 pl-11 "
+                            className="inputBox mt-5 rounded-[42px] w-[230px] lg:w-[390px] h-[45px] mg:h-[50px] lg:h-[50px] ml-1 md:ml-10 lg:ml-80 pl-[51px] text-lg placeholder:text-xl placeholder:font-thin placeholder:text-[#575757]"
                             onChange={(e)=>setsearch(e.target.value)}
                   
                             />
-                            <div className='absolute top-[8px] '>
+                            <div className='absolute top-[6px] md:top-[7px] lg:top-[8px] '>
                             <SmallSearchIcon  />
                         </div> 
 
@@ -219,7 +219,7 @@ function HomePage() {
                        
                         
                     </form>:''}
-            <div className='text-center text-3xl font-black  ml-0'>
+            <div className='text-center text-3xl font-black  -ml-56 md:-ml-14 lg:-ml-14'>
                 {
                     languageChange?translate.yourTodo.eng:translate.yourTodo.tg
                }
@@ -241,7 +241,7 @@ function HomePage() {
               }
           </div>:  <div>
                                 <HomePageImage />
-                    <div className='text-center w-56 font-thin text-xl -ml-10 text-gray-500'>
+                    <div className='text-center w-56 font-thin text-xl -ml-14 text-gray-500'>
                                 {
                                     languageChange?translate.firstTask.eng:translate.firstTask.tg
                }

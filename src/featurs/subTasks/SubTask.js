@@ -74,7 +74,7 @@ function SubTask(props) {
     return (
       
       
-        <div className='task ml-11 lg:ml-[70px] border-t-[5px] border-[#F9F2ED] lg:h-28 border-t-opacity-100 -mt-1'>
+        <div className='task ml-11 lg:ml-[70px] border-t-[5px] border-t-[#f7ebe4] lg:h-28 border-t-opacity-80 -mt-1'>
             <div className='flex  justify-between'>
                 <div className='flex justify-start'>
                      <div
@@ -90,7 +90,7 @@ function SubTask(props) {
 
              </div>
           </div>
-                    <div className='-ml-4'>
+                    <div className='-ml-2 pt-2'>
                         <div className='flex justify-between '>
                             <div className='titelAndDescription'>
               <p className='text-start mr-1'>

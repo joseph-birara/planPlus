@@ -13,8 +13,8 @@ const NotificationCard = (props) => {
   return (
       <div>
            
-      <div className='bigInputBox h-[60px] flex border-[1px] border-[#C9B6A980] p-0 w-80 lg:w-[410px] rounded-[10px]'>
-              <div className='h-[60px] p-2 w-20  border-r-[1px] rounded-l-[10px] border-r-[#C9B6A980] bg-[#C9B6A9] m-0 bg-opacity-25 text-center '>
+      <div className='bigInputBox h-[65px] flex border-[1px] border-[#C9B6A980] p-0 lg:w-[410px] rounded-[14px] w-[395px] items-center '>
+              <div className='h-[65px] p-2 w-28  border-r-[1px] rounded-l-[14px] border-r-[#C9B6A980] bg-[#C9B6A9] m-0 bg-opacity-25 text-center flex flex-col items-center gap-2'>
                   <div onClick={() => {
                       setcheck(!check)
                       dispatch(DeleteNotification({_id:props._id,userToken })).then(()=> dispatch(GetAllNotifications({userToken} )).then(()=>setcheck(false))
@@ -23,17 +23,17 @@ const NotificationCard = (props) => {
                   }}>
                        <div
                       
-                      className={`border-[#C9B6A9] border-[1px]  w-5 h-5 ml-4 rounded-[3px] bg-[#FBF8F6]`}
+                      className={`border-[#C9B6A9] border-[1px]  w-5 h-5 ml-7 rounded-[3px] bg-[#FBF8F6] mb-2 `}
                   >
                       
                   </div>
-                      {check ? <div className='bg-[#C9B6A9] pt-[0px] w-5 h-5 -mt-7 ml-4 rounded-[3px '>
+                      {check ? <div className='bg-[#C9B6A9] pt-[0px] w-5 h-5 -mt-7 ml-7 rounded-[3px '>
                           <div className=''>
                               <NotificationCheckBox />
                           </div>
                       </div> : null}
-                      <span className={`${props.status==='Upcoming'? 'text-[#3AB0FF]':''} ${props.status==='Overdue'? 'text-[#F87474]':''} `}>
-                           {props.status}
+                      <span className={`-mb-2 ${props.status==='Upcoming'? 'text-[#3AB0FF] -mb-2 ':''} ${props.status==='Overdue'? 'text-[#F87474]':''} `}>
+                           {props.status.toUpperCase() }
                           
              </span>
                   </div>

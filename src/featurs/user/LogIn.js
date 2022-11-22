@@ -2,7 +2,7 @@ import React, { useState,useEffect,useRef } from 'react';
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 
 import { useDispatch, useSelector } from "react-redux";
-import {selectCurrentUsers} from './userSlice';
+import {logInMessageNull, selectCurrentUsers} from './userSlice';
 import {Login} from './UserActions';
 import { Link, useNavigate, } from 'react-router-dom';
 
@@ -75,7 +75,11 @@ function LogIn() {
     if (RequestMessageForLogIn) {
       setError(RequestMessageForLogIn)
     }
-  },[RequestMessageForLogIn])
+  }, [RequestMessageForLogIn])
+  const inputBoxClickHandler = () => {
+    setError('')
+    dispatch(logInMessageNull())
+  }
   
   return (
     <div className='flex flex-col m-12 items-center gap-1 mt-20'>
@@ -110,7 +114,7 @@ function LogIn() {
                   id="email"
                    placeholder={languageChange?translate.email.eng:translate.email.tg}
           className="inputBox"
-          onClick={(e) =>setError('')}
+          onClick={() =>inputBoxClickHandler()}
         />
          <div className='relative'> 
           <input
@@ -123,7 +127,7 @@ function LogIn() {
                   id="password"
                   placeholder={languageChange?translate.password.eng:translate.password.tg}
             className="inputBox"
-            onClick={(e) =>setError('')}
+            onClick={() =>inputBoxClickHandler()}
             
           />
           <div onClick={() => 

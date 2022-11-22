@@ -31,7 +31,7 @@ const NotificationPage = () => {
    return (
       <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
       <div className='flex justify-between mr-10 sm:mr-5 lg:ml-20 lg:mr-24 '>
-                <div className='md:ml-10'>
+                <div className='mt-7 md:ml-10'>
                     
                    
               <img className='homeLogo' src={TooDoo_logo} alt = 'logo'/>
@@ -65,7 +65,7 @@ const NotificationPage = () => {
           </div>
           
             </div>
-            <div className='text-center text-2xl font-black -mt-12 -ml-32 lg:-ml-0'>
+            <div className='text-center text-xl font-black -mt-18 -ml-32 md:-ml-0 lg:-ml-0'>
          {
            languageChange?translate.notifications.eng:translate.notifications.tg
                 }

@@ -30,7 +30,7 @@ const DeleteAccount = () => {
     
   }
   return (
-    <div>
+    <div className='w-screen overflow-hidden'>
       <div className='flex flex-col items-center text-xl font-black'>
         <div className='bg-[#F9F2ED] flex  w-full h-11 justify-between items-center p-2 '>
         <div className='ml-6 mt-2 '>
@@ -54,10 +54,10 @@ const DeleteAccount = () => {
        {
         showWarning?<DeleteAccountConfirm setWarning ={setshowWarning} item ={languageChange?translate.sureDeletAccount.eng:translate.sureDeletAccount.tg} handleYes={handleDelete}/>:''
       }
-      <div className='text-start mt-5 w-[360px] ml-[30%] lg:ml-[40%] mb-10'>
+      <div className='text-start mt-5 w-[360px] ml-[10%] md:ml-[30%] lg:ml-[40%] mb-10'>
         {languageChange?translate.pleasnot.eng:translate.pleasnot.tg}
       </div>
-      <div className='relative ml-[30%] lg:ml-[40%]'>
+      <div className='relative ml-[10%] md:ml-[30%] lg:ml-[40%]'>
             <textarea
                  maxLength={128}
                   required

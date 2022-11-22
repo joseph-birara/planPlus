@@ -2,7 +2,7 @@ import React, { useState,useEffect,useRef } from 'react';
 import TooDoo_logo from '../../TooDoo Logo/TooDoo_logo.png'
 
 import { useDispatch, useSelector } from "react-redux";
-import {selectCurrentUsers} from './userSlice';
+import {registerMessageNull, selectCurrentUsers} from './userSlice';
 import {RegisterUser} from './UserActions';
 import { Link, useNavigate, } from 'react-router-dom';
 import Icons from '../../Assets/IconCollection/Icons';
@@ -78,15 +78,22 @@ function Register() {
     if (RequestMessageForRegister) {
       setError(RequestMessageForRegister)
     }
-  },[RequestMessageForRegister])
+  }, [RequestMessageForRegister])
+  const inputBoxClickHandler = () => {
+    setError('')
+    dispatch(registerMessageNull())
+  }
 
   return (
-    <div className='flex flex-col m-16 items-center gap-2'>
+    <div className='w-screen overflow-hidden'>
+
+    
+    <div className='flex flex-col m-16 mt-8 md:mt-12 lg:mt-16 items-center gap-2'>
           <img  src={TooDoo_logo} alt='logo' className='m-10 h-12' />
           <h1 className='text-center text-3xl font-black'>
               TooDoo
           </h1>
-          <h3 className='mt-12 text-2xl  font-medium'>
+          <h3 className='mt-8 md:mt-10 lg:mt-12 text-xl  font-medium'>
              {languageChange?translate.createAccount.eng:translate.createAccount.tg}
       </h3>
       {
@@ -109,7 +116,7 @@ function Register() {
                   id="email"
                   placeholder={languageChange?translate.email.eng:translate.email.tg}
           className="inputBox"
-          onClick={(e) =>setError('')}
+          onClick={() =>inputBoxClickHandler()}
         />
         <div className='relative'> 
           <input
@@ -122,7 +129,7 @@ function Register() {
                   id="password"
                   placeholder={languageChange?translate.password.eng:translate.password.tg}
             className="inputBox"
-            onClick={(e) =>setError('')}
+            onClick={() =>inputBoxClickHandler()}
             
           />
           <div onClick={() => {
@@ -145,7 +152,7 @@ function Register() {
                   id="password"
                   placeholder={languageChange?translate.cpassword.eng:translate.cpassword.tg}
           className="inputBox"
-          onClick={(e) =>setError('')}
+          onClick={() =>inputBoxClickHandler()}
                   />
         <div
           className='w-64 lg:w-72 flex mt-1'>
@@ -158,20 +165,28 @@ function Register() {
             
           <div
             onClick={()=>setagrement(!agrement)}
-            className='w-12 h-7 lg:w-10 rounded bg-[#F9F2ED]'>
+            className='w-10 h-6 lg:w-10 rounded bg-[#F9F2ED]'>
             
           </div>
           <div
             className='ml-3 text-xs text-left'>
-            By sigining up, you agree to our 
+            {
+              languageChange?translate.policyAgreement.by.eng:translate.policyAgreement.by.tg
+            } 
             <span
               className='text-[#3AB0FF]'>
-              <Link to='/register'> Privacy    Policy 
-              </Link>
-            </span> and 
+              {
+              languageChange?translate.policyAgreement.policy.eng:translate.policyAgreement.policy.tg
+            } 
+              
+            </span> {
+              languageChange?translate.policyAgreement.and.eng:translate.policyAgreement.and.tg
+            }  
             <span
               className='text-[#3AB0FF]'>
-              <Link to='/register'> Terms of Service </Link>
+               {
+              languageChange?translate.policyAgreement.terms.eng:translate.policyAgreement.terms.tg
+            } {!languageChange?<span className='text-black'>{translate.policyAgreement.last.tg} </span>:''}
             </span>
           </div>
         </div>
@@ -189,7 +204,7 @@ function Register() {
        {
         loading?<div className='mt-10 z-50'><LoadingSpiner/></div>:''
       }
-      </div>
+      </div></div>
   )
 }
 

@@ -155,10 +155,10 @@ const {languageChange} = useSelector(selectCurrentTasks)
                  <div className=''>
           
            {
-              edit?<div className='relative'>
-                            <EditDeleteCancel  deleteHandler={deleteHandler } task={props.task } cancelHandler={handleTaskCancelAndDone} editHandler ={editHandler} parent={true} />
+              edit?<div className='relative'><div className=''>
+                            <EditDeleteCancel  deleteHandler={deleteHandler } task={props.task } cancelHandler={handleTaskCancelAndDone} editHandler ={editHandler} parent={true}  />
               
-                    </div> : ''}
+                    </div> </div>: ''}
         </div>
 
                 

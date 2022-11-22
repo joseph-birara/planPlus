@@ -26,10 +26,10 @@ function AddTask() {
   const {languageChange} = useSelector(selectCurrentTasks)
    const [taskDateTime,setTaskDateTime]=useState('')
     const [state, setState] = useState({
-       dateTime:taskDraft.payload?new Date(taskDraft.payload.dateTime): taskDateTime,
+       dateTime:taskDraft.payload && taskDraft.payload.dateTime? new Date(taskDraft.payload.dateTime): taskDateTime,
        status: 'Upcoming',
-       note: taskDraft.payload?taskDraft.payload.note:'',
-      title:taskDraft.payload?taskDraft.payload.title:'',           
+       note: taskDraft.payload &&taskDraft.payload.note ?taskDraft.payload.note:'',
+      title:taskDraft.payload && taskDraft.payload.title?taskDraft.payload.title:'',           
     })
   //task duration handlers
   //duration swich swichs true and false
@@ -39,13 +39,13 @@ function AddTask() {
   const swichTataDuration = () => {
     setDurationSwich(!durationSwitch)
   }
-  const [taskDuration, setTaskDuration] = useState(taskDraft.payload?taskDraft.payload.duration:'')
+  const [taskDuration, setTaskDuration] = useState(taskDraft.payload &&taskDraft.payload.duration?taskDraft.payload.duration:'')
   const setValuesOfSelectDuration = (someData) => {
     setTaskDuration(someData)
     
   }
   //categories handlers 
-  const [taskCategory, setTaskCategory] = useState(taskDraft.payload?taskDraft.payload.category:'')
+  const [taskCategory, setTaskCategory] = useState(taskDraft.payload &&taskDraft.payload.category?taskDraft.payload.category:'')
   const setValuesOfSelectCategory = (someData) => {
     setTaskCategory(someData)    
   }
@@ -55,7 +55,7 @@ function AddTask() {
   }
   
   //reminder handlers
-  const [taskReminder, setTaskReminder] = useState(taskDraft.payload?taskDraft.payload.reminder:'')
+  const [taskReminder, setTaskReminder] = useState(taskDraft.payload &&taskDraft.payload.reminder?taskDraft.payload.reminder:'')
   const setValuesOfSelectReminder = (someData) => {
     setTaskReminder(someData)    
   }
@@ -64,7 +64,7 @@ function AddTask() {
     setReminderSwich(!reminderSwitch)
   }
   //priority dropdown handlers
-  const [taskPriority, setTaskPriority] = useState(taskDraft.payload?taskDraft.payload.priority:'')
+  const [taskPriority, setTaskPriority] = useState(taskDraft.payload &&taskDraft.payload.priority?taskDraft.payload.priority:'')
   const setValuesOfSelectPriority = (someData) => {
    setTaskPriority(someData)    
   }
@@ -117,7 +117,7 @@ function AddTask() {
    })
   // sub task state handlers 
   
-  const [subtask, setsubtask] = useState(taskDraft.payload?taskDraft.payload.subs:[])
+  const [subtask, setsubtask] = useState(taskDraft.payload && taskDraft.payload.subs?taskDraft.payload.subs:[])
   
   const handleSubChange = (e) => {
     setsubState({ ...subState, [e.target.name]: e.target.value })
@@ -149,6 +149,9 @@ function AddTask() {
       title: '',
     reminder:'',
     })
+    setSubtaskTaskDuration('')
+    setsubTaskPriority('')
+    setsubTaskReminder('')
   }
   //change subtask
   const subtaskAdder = () => {
@@ -162,6 +165,10 @@ function AddTask() {
       title: '',
     reminder:'',
     })
+    setSubtaskTaskDuration('')
+    setsubTaskPriority('')
+    setsubTaskReminder('')
+    
   }
   //make the error or succes massage empity
   useEffect(() => {
@@ -177,7 +184,7 @@ function AddTask() {
     seterrOrSuc(true)
     navigate('/')
     console.log("inside timeout");
-    }, 3000);
+    }, 2000);
   const modify = () => {
     seterrOrSuc(!errOrSuc)
     timeSter()
@@ -218,6 +225,7 @@ function AddTask() {
     
     
   }
+  const now =new Date()
   //saving draft 
   const saveDraft = () => {
     dispatch(taskDraftPopulate(mainTaskDraft))
@@ -343,8 +351,10 @@ function AddTask() {
                  placeholderText={ languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg}
                 
                 minDate={new Date(state.dateTime)}
+                
                 showYearDropdown
-            scrollableYearDropdown
+                scrollableYearDropdown
+                timeIntervals={5}
             showTimeSelect={true}
             dropdownMode={'select'}
             controls={['calendar']}
@@ -511,7 +521,7 @@ function AddTask() {
       </div>
       
       {
-        taskeCreated?<div className='errorMessag' >{taskeCreated}</div>:''
+        taskeCreated?<div className={`errorMessag  ${taskeCreated==="task crated successfully"?'text-green-600':''}`} >{taskeCreated}</div>:''
       }
       <div className='flex flex-col items-center text-start'>
         <form className='flex flex-col gap-4 w-72 m-10 mt-5 items-center '>
@@ -557,10 +567,12 @@ function AddTask() {
           id="dateTime"
           
                  placeholderText={ languageChange?translate.dateAndTimePlace.eng:translate.dateAndTimePlace.tg}
-                
                 minDate={new Date()}
+               
                 showYearDropdown
-            scrollableYearDropdown
+                scrollableYearDropdown
+                timeIntervals={5}
+               
             showTimeSelect={true}
             // dropdownMode={'select'}
             // controls={['calendar']}
@@ -687,14 +699,14 @@ function AddTask() {
         
         
       
-          <span className='flex gap-6 justify-between'>
+          <span className='flex gap-4 justify-between'>
              <button
           
                    onClick={()=>setshowSubTask(!showSubTask)}
                   
                   
                   disabled = {falseInput || !state.dateTime ||  !state.title}
-                  type="button" className=" subtaskBtn ">
+                  type="button" className=" subtaskBtn h-10 ">
               {languageChange ? translate.addSubtasks.eng:translate.addSubtasks.tg}</button>
         <button
           
@@ -702,7 +714,7 @@ function AddTask() {
                   
                    disabled = {falseInput || !state.dateTime  || !state.title}
                  onClick={handleSubmit}
-                  type="button" className=" btn">
+                  type="button" className=" btn h-10">
               {languageChange?translate.saveTask.eng:translate.saveTask.tg }</button>
         </span>
        

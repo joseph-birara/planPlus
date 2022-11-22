@@ -65,7 +65,7 @@ function InsertEmail() {
 }
     return (
         <div>
-            <div className='bg-[#F9F2ED] flex justify-between w-full h-10'>
+            <div className='bg-[#F9F2ED] flex justify-between w-full h-11'>
         <div className='ml-6 mt-2 '>
           
     <Link to='/login'><LeftArraw />
@@ -84,7 +84,7 @@ function InsertEmail() {
              {languageChange ? translate.forget.eng : translate.forget.tg}
           </h3>
           <p className='m-3 w-60 text-center'>
-              {languageChange ? translate.resetCode:translate.resetCode.tg}
+              {languageChange ? translate.resetCode.eng:translate.resetCode.tg}
           </p>
           <form className="m-1 flex flex-col gap-4 text-center items-center">
         

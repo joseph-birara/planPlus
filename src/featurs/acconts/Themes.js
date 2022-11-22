@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import LeftArraw from '../../Assets/IconCollection/LeftArraw'
 import LangugeCheckBox from '../components/LangugeCheckBox'
@@ -10,6 +10,26 @@ import { useSelector } from 'react-redux'
 
 
 function Themes() {
+  const [dark, setDark] = useState(false)
+  const [light, setLight] = useState(false)
+  const [auto, setAuto] = useState(true)
+  const makeItDark = () => {
+    setDark(true)
+    setLight(false)
+    setAuto(false)
+  }
+  const makeItLight = () => {
+    setDark(false)
+    setLight(true)
+    setAuto(false)
+  
+  }
+  const makeItAuto = () => {
+    setDark(false)
+    setLight(false)
+    setAuto(true)
+  
+}
   const {languageChange} = useSelector(selectCurrentTasks)
   return (
     <div>
@@ -23,8 +43,12 @@ function Themes() {
         <div className='text-center text-lg  justify-center mt-2 mr-6 lg:mr-10'>
        { languageChange?translate.theme.eng:translate.theme.tg}
         </div>
-        <div className='text-[#3AB0FF] mr-6 text-lg'>
-         { languageChange?translate.save.eng:translate.save.tg}
+          <div className='text-[#3AB0FF] mr-6 text-lg hover:cursor-pointer'>
+            <Link to='/account'>
+               { languageChange?translate.save.eng:translate.save.tg}
+
+            </Link>
+        
 
         </div>
         
@@ -35,12 +59,14 @@ function Themes() {
         <div className='flex flex-col gap-4 w-72  mt-5 items-center text-start mb-10'>
           <table>
             <tr>
-              <td><div className='relative'>
+              <td><div
+                onClick={()=>makeItAuto()}
+                className='relative'>
                 <LangugeCheckBox atribute={"Auto"} />
-                <div >
-                  <img  className='h-6 w-6 absolute top-1 left-1 -mt-1 text-center ' src={newIcon} alt='log'/>
+                {auto?<div >
+                  <img  className='h-5 w-7 absolute top-1 left-1 -mt-1 text-center ' src={newIcon} alt='log'/>
 
-                </div>
+                </div>:''}
                 
 
               </div>
@@ -54,24 +80,28 @@ function Themes() {
             </tr>
             <tr>
               <td>
-                <div className='relative'>
+                <div
+                  onClick={()=>makeItLight()}
+                  className='relative'>
                   <LangugeCheckBox atribute={"Light"} />
-                  {/* {<div >
-                  <img  className='h-6 w-6 absolute top-1 left-1 -mt-1 text-center ' src={newIcon} alt='log'/>
+                  {light?<div >
+                  <img  className='h-5 w-7 absolute top-1 left-1 -mt-1 text-center ' src={newIcon} alt='log'/>
 
-                </div>} */}
+                </div>:''}
                 </div>
                 
               </td>
             </tr>
             <tr>
-              <td><div className='relative'>
+              <td><div
+                onClick={()=>makeItDark()}
+                className='relative'>
                 <LangugeCheckBox atribute={"Dark"} />
-                <div >
-                  <img  className='h-6 w-6 absolute top-1 left-1 -mt-1 text-center ' src={newIcon} alt='log'/>
+                {dark?<div >
+                  <img  className='h-5 w-7 absolute top-1 left-1 -mt-1 text-center ' src={newIcon} alt='log'/>
 
-                </div>
-                
+                </div>:''
+                }
 
               </div>
                 

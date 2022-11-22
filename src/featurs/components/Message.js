@@ -8,9 +8,9 @@ import { selectCurrentTasks } from '../tasks/TaskSlice'
 function Message(props) {
   const {languageChange} = useSelector(selectCurrentTasks)
   return (
-    <div className=' absolute w-[400px] h-28  bg-[#FFFFFF] opacity-100 text-center mr-7 z-50 bottom-0 left-[1%] md:left[25%] lg:left-[37%] '>
+    <div className='w-full absolute md:w-[400px] lg:w-[400px] h-28  bg-[#FFFFFF] opacity-100 text-center mr-7 z-50 bottom-0 left-[1%] md:left[25%] lg:left-[39%] '>
               <Warning />
-              <p className='-mt-6 ml-1'> {props.item}</p>
+              <p className='-mt-6 -ml-12 md:-ml-0 lg:-ml-0'> {props.item}</p>
               <div className='-mr-72 mt-4'>
         <span
           onClick={()=>props.handleYes()}

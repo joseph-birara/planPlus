@@ -31,7 +31,9 @@ const initialState = {
     profileLoding: false,
     tempTask: '',
     taskDraft: '',
-    creatingTaskLoading:false,
+    creatingTaskLoading: false,
+    createSubtaskLoading: false,
+    subtaskDraft:''
     
     
     
@@ -83,7 +85,15 @@ const TasksSlice = createSlice({
           tempTaskNull: (state,data) => {
             state.tempTask = ''
             
-        }
+          },
+          subtaskDraftPopulate: (state,data) => {
+            state.subtaskDraft = data.payload
+            
+         },
+         subtaskDraftNull: (state,data) => {
+            state.subtaskDraft = ''
+            
+        },
 
 
     },
@@ -303,7 +313,7 @@ const TasksSlice = createSlice({
 
         // create subtask
         [CreateSubTask.pending]:(state)=>{
-            state.loading = true;
+            state.createSubtaskLoading = true;
             console.log("crating subtask.....");
             state.subTaskAdded = ''
     
@@ -311,7 +321,7 @@ const TasksSlice = createSlice({
         [CreateSubTask.fulfilled]:(state,{payload})=>{
             state.tasks = payload;
             
-            state.loading = false;
+            state.createSubtaskLoading = false;
             state.success = true;
             console.log("from subtasks slice created successfully");
             console.log(payload)
@@ -319,8 +329,8 @@ const TasksSlice = createSlice({
                 
         },
         [CreateSubTask.rejected]:(state,{payload})=>{
-            state.loading = false;
-            state.error = payload;
+            state.createSubtaskLoading = false;
+            
             console.log(payload);
             console.log("from subtasks slice rejected");
             state.subTaskAdded="sub task rejected"
@@ -347,6 +357,8 @@ export const {
     taskDraftPopulate,
     tempTaskPopulate,
     tempTaskNull,
+    subtaskDraftPopulate,
+    subtaskDraftNull,
 
 } = TasksSlice.actions
 export default TasksSlice.reducer

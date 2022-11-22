@@ -45,7 +45,7 @@ const Account = () => {
     setconfirm(!confirm)
   }
   return (
-    <div className='  lg:mt-1  lg:ml-10 lg:mr-12 overflow-hidden'>
+    <div className='w-screen overflow-x-hidden'>
       {
         confirm ? <ConfirmationMessage handleYes={handleYes} setWarning={setWarning} item={languageChange?translate.sureSignout.eng:translate.sureSignout.tg} pathProp={'login' } />:''
       }
@@ -86,7 +86,7 @@ const Account = () => {
           </div>
           
           </div>
-         <div className='text-center text-2xl font-black -mt-12 -ml-80 md:-ml-0 lg:-ml-0'>
+         <div className='text-center text-2xl font-black -mt-12 -ml-72 md:-ml-0 lg:-ml-0'>
                {languageChange?translate.myaccount.eng:translate.myaccount.tg}
             </div>
             <div className='flex justify-center text-center content-center mt-4'>

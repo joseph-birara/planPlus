@@ -43,6 +43,12 @@ const UserSlice = createSlice({
         },
         logeOutAndNullToken: (state) => {
             state.userToken=''
+        },
+        logInMessageNull: (state) => {
+            state.RequestMessageForLogIn=''
+        },
+        registerMessageNull: (state) => {
+            state.RequestMessageForRegister=''
         }
 
     },
@@ -55,42 +61,36 @@ const UserSlice = createSlice({
         [RegisterUser.fulfilled]:(state,{payload})=>{
             state.userInfo=payload.data.email;
             state.userToken=payload.data.Token
-            state.loading = false;
-            state.success = true;
+            state.loading = false;            
             state.RequestMessageForRegister=''
-            console.log("registration succes",state.userInfo,state.success);
+            
                 
         },
         [RegisterUser.rejected]:(state,{payload})=>{
             state.loading = false;
-            state.RequestMessageForRegister = "Email is already taken"
-            console.log(state.RequestMessageForRegister,"payload.err");
-            console.log(payload);
+            state.RequestMessageForRegister = "Email is already taken"       
             
     
         },
         //login user
         [Login.pending]:(state) =>{
             state.loading = true;
-            state.error = null
-            console.log("log in loading ....");
+           console.log("log in loading ....");
         },
         [Login.fulfilled]:(state,{payload}) =>{
             
             
             state.userInfo=payload.data.email;
-            state.userToken=payload.data.Token
-            console.log(payload,'py');
+            state.userToken=payload.data.Token            
             state.loading = false;
-            state.RequestMessageForLogIn =''
-            state.success = true //registered
+            state.RequestMessageForLogIn =''            
             console.log("token from login slice =", state.userToken);
             
         },
         [Login.rejected]:(state,{payload}) =>{
             state.loading = false;
             state.RequestMessageForLogIn = payload
-            console.log(state.RequestMessageForRegister,payload);
+            console.log(state.RequestMessageForRegister,payload,"lo");
             
         },
         //email for reset user password
@@ -242,5 +242,5 @@ const UserSlice = createSlice({
 })
 
 export const selectCurrentUsers = (state) => state.User;
-export const {emailRejectedReset,codeRejectedReset,logeOutAndNullToken} =UserSlice.actions
+export const {emailRejectedReset,codeRejectedReset,logeOutAndNullToken, registerMessageNull, logInMessageNull} =UserSlice.actions
 export default UserSlice.reducer;

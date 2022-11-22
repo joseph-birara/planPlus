@@ -9,7 +9,7 @@ const DeleteAccountConfirm = (props) => {
   return (
       <div>
           <div className=' absolute bg-[#000000] w-screen h-screen bg-opacity-50 z-40 top-0 bottom-0 overflow-hidden'>
-      <div className=' absolute w-[400px] h-28  bg-[#FFFFFF] opacity-100 text-center mr-7 z-50 bottom-0 left-[1%] md:left[25%] lg:left-[39%] '>
+      <div className='w-full absolute md:w-[400px] lg:w-[400px] h-28  bg-[#FFFFFF] opacity-100 text-center mr-7 z-50 bottom-0 left-[1%] md:left[25%] lg:left-[39%] '>
               <Warning />
               <p className='-mt-6 ml-1'> {props.item}</p>
               <div className='-mr-72 mt-4'>

@@ -279,7 +279,7 @@ const translate =
     },
     "searchHere": {
         "tg": "ዝርዝርካ ድለዮ",
-        "eng":"search your list"
+        "eng":"Search your list"
     },
     "notifications": {
         "tg": "መፍለጢታት",
@@ -355,15 +355,15 @@ const translate =
     },
     "cancelTask": {
         "tg": "ሰርዝ",
-        "eng":"cancel task"
+        "eng":"Cancel task"
     },
     "deleteTask": {
         "tg": "ደምስስ",
-        "eng":"delete task"
+        "eng":"Delete task"
     },
     "editTask": {
         "tg": "ኣርትዕ",
-        "eng":"edit task"
+        "eng":"Edit task"
     },
     "edit": {
         "tg": "አዕርይ",
@@ -462,6 +462,32 @@ const translate =
         "tg":"ነቲ ለውጢ ክትድርብዮ ከም እትደሊ ርግጸኛ ዲኻ? ",
         "eng":"Are you sure you want discard the changes?" 
     },
+    "policyAgreement": {
+       "by": {
+        "tg":"ብምምዝጋብካ፡ ",
+        "eng":"By signing up, you agree to our" 
+        }, 
+        "policy": {
+        "tg":"ንፖሊሲ ብሕታዊነትና",
+        "eng":" Privacy Policy" 
+        }, 
+        "terms": {
+        "tg":"ውዕላት ኣገልግሎትና",
+        "eng":" Terms of Service" 
+        }, 
+        "and": {
+        "tg":"ን",
+        "eng":" and" 
+        }, 
+        "last": {
+        "tg":"ትሰማማዕ",
+        "eng":"ትሰማማዕ" 
+    }, 
+    },
+     "homeAddSubtask": {
+        "tg":"ንኡስ ዕማም",
+        "eng":"Add subtask" 
+    }, 
     
 
     
