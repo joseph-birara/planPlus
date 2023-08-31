@@ -26,5 +26,5 @@ A comprehensive task management application built using React, Tailwind CSS, and
 
 ## Live Demo
 
-Check out the live demo of the Task Manager web App [here](https://mytoodoo.netlify.app/).
+Check out the live demo of the Task Manager web App [here](https://plan-plus.netlify.app/).
 
