@@ -1,4 +1,4 @@
 
 
-const constants = 'https://too-doo-task.herokuapp.com/api/TooDoo'
+const constants = 'https://toodootask.onrender.com'
 export default constants
